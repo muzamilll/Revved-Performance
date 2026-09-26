@@ -9,10 +9,12 @@ import { locations } from "../data/locations";
 import { about } from "../data/about";
 import { trust, tunedBrands } from "../data/trust";
 import { reviews } from "../data/reviews";
+import { getSiteUrl } from "../lib/seo";
 
 import { BadgeCheck } from "lucide-react";
 import { Container, Section, SectionHeading } from "../components/layout/layout-primitives";
 import { Reveal } from "../components/ui/Reveal";
+import { ServiceAreaMap } from "../components/home/ServiceAreaMap";
 import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/ui-primitives";
 import { Img } from "../components/ui/Img";
@@ -43,7 +45,7 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "AutomotiveBusiness",
     "name": site.name,
-    "url": process.env.NEXT_PUBLIC_SITE_URL || 'https://www.revvedautomotive.co.uk',
+    "url": getSiteUrl(),
     "telephone": process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "447999200655",
     "areaServed": locations.map(l => l.name).join(', ')
   };
@@ -363,57 +365,24 @@ export default function Home() {
       {locations && locations.length > 0 && (
         <Section id="locations" className="border-b border-thin bg-background">
           <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
-              <Reveal>
+            <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-end mb-10 md:mb-14">
+              <div>
                 <p className="text-accent text-sm font-bold uppercase tracking-[0.2em] mb-4">Areas we cover</p>
-                <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-white uppercase tracking-tight mb-8 leading-none">
+                <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-white uppercase tracking-tight leading-none">
                   East London, Essex<br/><span className="text-silver">& Surrounding Areas.</span>
                 </h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-4 text-sm text-silver uppercase tracking-wider font-medium">
-                  {locations.map(loc => (
-                    <span key={loc.slug} className="border-b border-thin/30 pb-2">{loc.name}</span>
-                  ))}
-                  <span className="border-b border-thin/30 pb-2 text-accent">And more...</span>
-                </div>
-              </Reveal>
-              
-              <div className="relative h-72 md:h-[450px] w-full border border-thin rounded-2xl overflow-hidden bg-surface/30 group">
-                 <div className="absolute inset-0 bg-noise opacity-40 mix-blend-overlay"></div>
-                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-accent/10 via-background to-background"></div>
-                 
-                 {/* Geographic Nodes */}
-                 <div className="absolute inset-0 p-8 flex flex-col justify-between">
-                   <div className="flex justify-between w-full opacity-60">
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-silver rounded-full"></div>
-                        <span className="text-[10px] uppercase tracking-widest text-silver font-bold">Harlow</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-silver rounded-full"></div>
-                        <span className="text-[10px] uppercase tracking-widest text-silver font-bold">Chelmsford</span>
-                      </div>
-                   </div>
-                   
-                   <div className="flex justify-center w-full relative left-10">
-                      <div className="flex items-center gap-3">
-                        <div className="w-4 h-4 bg-accent rounded-full glow-plum animate-pulse border-2 border-background"></div>
-                        <span className="text-xs uppercase tracking-widest text-white font-bold bg-background/80 px-2 py-1 rounded border border-thin backdrop-blur-sm">Romford Base</span>
-                      </div>
-                   </div>
-
-                   <div className="flex justify-between w-full relative top-4 opacity-70">
-                      <div className="flex items-center gap-2 relative -left-4">
-                        <div className="w-2 h-2 bg-silver rounded-full"></div>
-                        <span className="text-[10px] uppercase tracking-widest text-silver font-bold">Stratford</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-silver rounded-full"></div>
-                        <span className="text-[10px] uppercase tracking-widest text-silver font-bold">Basildon</span>
-                      </div>
-                   </div>
-                 </div>
               </div>
-            </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-4 text-sm text-silver uppercase tracking-wider font-medium">
+                {locations.map(loc => (
+                  <span key={loc.slug} className="border-b border-thin/30 pb-2">{loc.name}</span>
+                ))}
+                <span className="border-b border-thin/30 pb-2 text-accent">And more...</span>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <ServiceAreaMap />
+            </Reveal>
           </Container>
         </Section>
       )}

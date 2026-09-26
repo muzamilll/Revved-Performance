@@ -38,24 +38,24 @@ export function Header() {
       <div className="max-w-[1440px] mx-auto px-6 md:px-8 lg:px-12 h-20 flex items-center justify-between">
         <Logo />
 
-        <nav className="hidden md:flex flex-1 items-center justify-center gap-8">
+        <nav className="hidden lg:flex flex-1 items-center justify-center gap-6 xl:gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.label}
               href={link.href}
-              className="text-sm font-medium uppercase tracking-wider text-muted hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
+              className="whitespace-nowrap text-sm font-medium uppercase tracking-wider text-muted hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
             >
               {link.label}
             </Link>
           ))}
         </nav>
         
-        <div className="hidden md:flex items-center">
+        <div className="hidden lg:flex items-center">
           <WhatsAppButton label="Get a quote" className="uppercase tracking-wider font-bold" />
         </div>
 
         <button
-          className="md:hidden p-2 text-muted hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
+          className="lg:hidden p-2 text-muted hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
           onClick={() => setMobileMenuOpen(true)}
           aria-label="Open menu"
         >

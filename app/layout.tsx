@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
 import { site } from "../data/site";
+import { getSiteUrl } from "../lib/seo";
 import { Header } from "../components/layout/Header";
 import { Footer } from "../components/layout/Footer";
 import { PersistentCTA } from "../components/layout/PersistentCTA";
@@ -19,7 +20,7 @@ const oswald = Oswald({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.revvedautomotive.co.uk'),
+  metadataBase: new URL(getSiteUrl()),
   title: {
     template: `%s | ${site.name}`,
     default: site.homeTitle,

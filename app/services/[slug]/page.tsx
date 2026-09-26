@@ -5,6 +5,7 @@ import { offers } from "../../../data/offers";
 import { home } from "../../../data/home";
 import { getVisibleOffers } from "../../../lib/offers";
 import { getPhoneUrl } from "../../../lib/whatsapp";
+import { absoluteUrl, getSiteUrl } from "../../../lib/seo";
 import { site } from "../../../data/site";
 import { Container, Section, SectionHeading } from "../../../components/layout/layout-primitives";
 import { PriceTag, Badge } from "../../../components/ui/ui-primitives";
@@ -36,7 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       follow: true,
     },
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.revvedautomotive.co.uk'}/services/${service.slug}`
+      canonical: absoluteUrl(`/services/${service.slug}`)
     }
   };
 }
@@ -59,7 +60,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       "@type": "AutomotiveBusiness",
       "name": site.name,
       "telephone": process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "447999200655",
-      "url": process.env.NEXT_PUBLIC_SITE_URL || 'https://www.revvedautomotive.co.uk'
+      "url": getSiteUrl()
     },
     "areaServed": site.baseTown,
     "description": service.seoDescription || service.shortDescription || undefined,

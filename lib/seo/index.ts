@@ -1,7 +1,13 @@
 import { Service, Offer } from "../../types";
 
+// Explicit env var wins; otherwise use Vercel's production domain (set automatically
+// on Vercel builds, and switches to the custom domain once one is attached).
 export function getSiteUrl(): string {
-  return process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const url =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL && `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`) ||
+    "https://www.revvedautomotive.co.uk";
+  return url.replace(/\/+$/, "");
 }
 
 export function absoluteUrl(path: string): string {
