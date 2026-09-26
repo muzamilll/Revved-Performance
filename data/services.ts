@@ -1,0 +1,142 @@
+import { Service } from "../types";
+
+export const services: Service[] = [
+  {
+    slug: "stage-1-remap",
+    name: "Stage 1 Performance Remap",
+    category: "ecu-remapping",
+    status: "active",
+    indexable: false,
+    price: { amount: 250, from: true },
+    priceOptions: [
+      { label: "OBD", amount: 250 },
+      { label: "Bench", amount: 350 }
+    ],
+    shortDescription: "Want more power and sharper response?",
+    plainEnglish: null,
+    technicalDetail: null,
+    includedItems: [
+      "Vehicle health check",
+      "Pre-remap DynoDrive test",
+      "ECU calibration",
+      "Post-remap DynoDrive test",
+      "Before/after comparison"
+    ],
+    faqs: [],
+    seoTitle: null,
+    seoDescription: null,
+    whatsappMessage: null
+  },
+  {
+    slug: "stage-2-remap",
+    name: "Stage 2 Remap",
+    category: "ecu-remapping",
+    status: "active",
+    indexable: false,
+    price: { amount: 300, from: true },
+    priceOptions: undefined,
+    shortDescription: null,
+    plainEnglish: null,
+    technicalDetail: null,
+    includedItems: [
+      "Vehicle health check",
+      "Pre-remap DynoDrive test",
+      "ECU calibration",
+      "Post-remap DynoDrive test",
+      "Before/after comparison"
+    ],
+    faqs: [],
+    seoTitle: null,
+    seoDescription: null,
+    whatsappMessage: null
+  },
+  {
+    slug: "dsg-gearbox-remap",
+    name: "DSG / Gearbox Remap",
+    category: "ecu-remapping",
+    status: "active",
+    indexable: false,
+    price: { amount: 150, from: false },
+    priceOptions: undefined,
+    shortDescription: null,
+    plainEnglish: null,
+    technicalDetail: null,
+    includedItems: null,
+    faqs: [],
+    seoTitle: null,
+    seoDescription: null,
+    whatsappMessage: null
+  },
+  {
+    slug: "remap-add-ons",
+    name: "Remap Add-Ons",
+    category: "ecu-remapping",
+    status: "active",
+    indexable: false,
+    price: { amount: 50, from: false },
+    priceOptions: undefined,
+    shortDescription: "50 pounds per add-on",
+    plainEnglish: null,
+    technicalDetail: null,
+    includedItems: [
+      "Pops & bangs / burble tune",
+      "Speed limiter removal",
+      "Launch control"
+    ],
+    faqs: [],
+    seoTitle: null,
+    seoDescription: null,
+    whatsappMessage: null
+  },
+  {
+    slug: "vehicle-diagnostics",
+    name: "Full Vehicle Health Check",
+    category: "diagnostics",
+    status: "active",
+    indexable: false,
+    price: { amount: 75, from: false },
+    priceOptions: undefined,
+    shortDescription: null,
+    plainEnglish: null,
+    technicalDetail: null,
+    includedItems: null,
+    faqs: [],
+    seoTitle: null,
+    seoDescription: null,
+    whatsappMessage: null
+  },
+  {
+    slug: "pre-purchase-inspection",
+    name: "Pre-Purchase Inspection",
+    category: "diagnostics",
+    status: "active",
+    indexable: false,
+    price: { amount: 99, from: false },
+    priceOptions: undefined,
+    shortDescription: null,
+    plainEnglish: null,
+    technicalDetail: null,
+    includedItems: null,
+    faqs: [],
+    seoTitle: null,
+    seoDescription: null,
+    whatsappMessage: null
+  },
+  {
+    slug: "pre-mot-check",
+    name: "Pre-MOT Diagnostic Check",
+    category: "diagnostics",
+    status: "active",
+    indexable: false,
+    price: { amount: 65, from: false },
+    priceOptions: undefined,
+    shortDescription: null,
+    plainEnglish: null,
+    technicalDetail: null,
+    includedItems: null,
+    faqs: [],
+    seoTitle: null,
+    seoDescription: null,
+    whatsappMessage: null
+  }
+];

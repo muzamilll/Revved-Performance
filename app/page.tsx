@@ -1,69 +1,444 @@
-import Image from "next/image";
+import { Metadata } from "next";
+import Link from "next/link";
+import { site } from "../data/site";
+import { home } from "../data/home";
+import { services } from "../data/services";
+import { offers } from "../data/offers";
+import { problems } from "../data/problems";
+import { locations } from "../data/locations";
+import { about } from "../data/about";
+import { trust, tunedBrands } from "../data/trust";
+import { reviews } from "../data/reviews";
+
+import { BadgeCheck } from "lucide-react";
+import { Container, Section, SectionHeading } from "../components/layout/layout-primitives";
+import { Reveal } from "../components/ui/Reveal";
+import { Button } from "../components/ui/Button";
+import { Card } from "../components/ui/ui-primitives";
+import { Img } from "../components/ui/Img";
+import { WhatsAppButton } from "../components/ui/WhatsAppButton";
+import { VehicleLookup } from "../components/home/VehicleLookup";
+import { ProblemSelector } from "../components/home/ProblemSelector";
+import { ServiceCard } from "../components/home/ServiceCard";
+import { getVisibleOffers, getOfferSavings } from "../lib/offers";
+
+export const metadata: Metadata = {
+  title: {
+    absolute: site.homeTitle,
+  },
+  description: site.homeDescription,
+};
 
 export default function Home() {
+  const activeServices = services.filter(s => s.status === "active");
+  const visibleOffers = getVisibleOffers(offers, services);
+  const featuredOffer = visibleOffers.find(o => o.featured);
+  
+  const ecuServices = activeServices.filter(s => s.category === "ecu-remapping");
+  const diagServices = activeServices.filter(s => s.category === "diagnostics");
+  const verifiedTrust = tunedBrands.filter(t => t.verified);
+  const dealerBadge = trust.find(t => t.id === "top-gear-tuning-agent");
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AutomotiveBusiness",
+    "name": site.name,
+    "url": process.env.NEXT_PUBLIC_SITE_URL || 'https://www.revvedautomotive.co.uk',
+    "telephone": process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "447999200655",
+    "areaServed": locations.map(l => l.name).join(', ')
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      
+      {/* 1. Cinematic Hero */}
+      <Section className="relative flex flex-col justify-center pt-24 pb-12 md:pt-32 md:pb-24 lg:min-h-[80vh]" overlay>
+        {/* Placeholder for the cinematic car background */}
+        <div className="absolute inset-0 z-0 bg-[url('https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=2500&auto=format&fit=crop')] bg-cover bg-center opacity-40"></div>
+        <div className="absolute inset-0 bg-gradient-cinematic z-0"></div>
+
+        <Container className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center flex-1">
+          <div>
+            {dealerBadge && (
+              <div className="mb-4 flex items-center gap-2">
+                 <BadgeCheck className="w-5 h-5 text-accent flex-shrink-0" />
+                 <span className="text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-silver">
+                   {dealerBadge.label}
+                 </span>
+              </div>
+            )}
+            
+            <h1 className="text-6xl md:text-7xl lg:text-[100px] font-heading font-extrabold text-white mb-4 leading-[0.9] uppercase tracking-tighter text-glow-accent">
+              <span className="block text-gradient-accent">Mobile</span>
+              <span className="block text-accent">Mechanic</span>
+              <span className="block">Services</span>
+            </h1>
+            
+            <p className="text-lg md:text-2xl text-silver mb-8 font-medium">
+              Servicing. Repairs. Diagnostics. ECU Remapping.<br/>
+              At home, at work or roadside.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 items-center w-full">
+              <Button href="#check-my-car" className="w-full sm:w-auto text-base md:text-lg h-14 px-8 uppercase tracking-wider font-bold" variant="primary">
+                Get a Quote &rarr;
+              </Button>
+              <Button href="#services" className="w-full sm:w-auto text-base md:text-lg h-14 px-8 uppercase tracking-wider" variant="secondary">
+                View Services
+              </Button>
+            </div>
+          </div>
+          
+          <div className="hidden lg:flex justify-end items-center opacity-20">
+             <div className="font-heading text-[150px] leading-none text-right uppercase font-bold tracking-tighter" style={{ writingMode: 'vertical-rl' }}>
+               Drive Better
+             </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/* 2. Horizontal Special Offer Banner */}
+      {featuredOffer && (
+        <div className="w-full bg-gradient-accent border-b border-thin glow-plum relative overflow-hidden">
+          <div className="absolute inset-0 bg-noise opacity-20 pointer-events-none"></div>
+          <Container className="relative z-10 py-6 md:py-8">
+            <Reveal>
+              <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                
+                {/* Left: Eyebrow + Title + Pricing */}
+                <div className="w-full lg:w-auto">
+                  <div className="text-xs font-bold uppercase tracking-widest text-white/80 mb-2">Limited-Time Offer</div>
+                  <div className="flex flex-col md:flex-row md:items-end gap-2 md:gap-6">
+                    <h2 className="text-3xl md:text-5xl font-heading font-extrabold text-white uppercase tracking-tight leading-none">
+                      {featuredOffer.title}
+                    </h2>
+                    
+                    <div className="flex items-center gap-4 mt-2 md:mt-0 opacity-90">
+                       {featuredOffer.price && (
+                         <div className="text-2xl md:text-3xl font-bold text-white leading-none">
+                           £{featuredOffer.price.amount}
+                         </div>
+                       )}
+                       {getOfferSavings(featuredOffer, services) && (
+                         <div className="text-sm font-bold text-white bg-white/20 px-2 py-1 rounded-sm uppercase tracking-wider leading-none">
+                           Save £{getOfferSavings(featuredOffer, services)}
+                         </div>
+                       )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right: CTA */}
+                <div className="w-full lg:w-auto flex flex-col items-start lg:items-end gap-2">
+                   <Button href={`/offers/${featuredOffer.slug}`} className="bg-white text-brand-plum hover:bg-silver font-bold uppercase tracking-widest w-full lg:w-auto h-12 md:h-14 md:px-8">
+                     Claim This Offer &rarr;
+                   </Button>
+                   <p className="text-[10px] text-white/70 uppercase tracking-widest pl-1 lg:pl-0">Vehicle eligibility applies.</p>
+                </div>
+
+              </div>
+            </Reveal>
+          </Container>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+      )}
+
+      {/* 3. Trust Strip */}
+      {verifiedTrust.length > 0 && (
+        <div className="w-full bg-background border-b border-thin py-6 md:py-8 overflow-hidden">
+          <Container>
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-12">
+               <span className="text-xs font-bold text-muted uppercase tracking-[0.2em] whitespace-nowrap">
+                 We tune vehicles from
+               </span>
+               <div className="flex-1 w-full overflow-x-auto no-scrollbar mask-edges">
+                 <div className="flex items-center justify-start lg:justify-center gap-8 md:gap-12 min-w-max opacity-60 grayscale hover:grayscale-0 transition-all">
+                    {verifiedTrust.map(t => (
+                      <div key={t.id} className="h-6 md:h-8 relative w-20 flex-shrink-0 flex items-center justify-center">
+                        {t.logoSrc ? (
+                          <Img src={t.logoSrc} alt={t.alt || t.label} fill className="object-contain" />
+                        ) : (
+                          <span className="text-xs md:text-sm font-bold uppercase tracking-widest text-silver">{t.label}</span>
+                        )}
+                      </div>
+                    ))}
+                 </div>
+               </div>
+               <span className="hidden lg:block text-xs font-bold text-muted uppercase tracking-[0.2em] whitespace-nowrap">
+                 And many more
+               </span>
+            </div>
+          </Container>
+        </div>
+      )}
+
+      {/* 4. Services (Premium Grid) */}
+      <Section id="services" className="bg-background relative">
+        <Container>
+          <Reveal>
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-thin pb-6 gap-4">
+              <div>
+                <p className="text-accent text-sm font-bold uppercase tracking-[0.2em] mb-2">Our Services</p>
+                <h2 className="text-3xl md:text-5xl font-heading font-extrabold text-white uppercase tracking-tight">
+                  Professional<br/><span className="text-accent">Automotive Care.</span>
+                </h2>
+              </div>
+              <Link href="/services" className="text-accent font-bold uppercase tracking-wider text-sm hover:text-white transition-colors">
+                View All Services &rarr;
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[...ecuServices, ...diagServices].slice(0, 5).map((service, idx) => (
+                <ServiceCard key={service.slug} service={service} index={idx + 1} />
+              ))}
+            </div>
+          </Reveal>
+        </Container>
+      </Section>
+
+      {/* 5. Split-Screen Vehicle Lookup */}
+      <Section id="check-my-car" className="p-0 border-y border-thin">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          {/* Left: Cinematic Background */}
+          <div className="hidden lg:block relative min-h-[500px] bg-surface">
+             <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=1500&auto=format&fit=crop')] bg-cover bg-center opacity-60 grayscale hover:grayscale-0 transition-all duration-700"></div>
+             <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background"></div>
+          </div>
+
+          {/* Right: The Lookup Form */}
+          <div className="bg-background py-20 px-6 lg:px-20 flex flex-col justify-center">
+            <Reveal>
+              <p className="text-accent text-sm font-bold uppercase tracking-[0.2em] mb-2">Check Compatibility</p>
+              <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-white uppercase tracking-tight mb-4">
+                What can we do<br/>for your car?
+              </h2>
+              <p className="text-silver mb-8 text-lg">
+                Enter your vehicle registration and we&apos;ll check what services are available for your specific engine.
+              </p>
+              
+              <div className="max-w-md">
+                <VehicleLookup />
+              </div>
+              
+              <div className="mt-8 pt-8 border-t border-thin flex flex-col gap-4">
+                <p className="text-sm text-silver">
+                  Not sure? No problem. <strong className="text-white">Prefer WhatsApp?</strong> Send us your registration and we&apos;ll check it for you.
+                </p>
+                <WhatsAppButton variant="secondary" className="w-full sm:w-auto self-start uppercase tracking-wider font-bold text-xs" label="Chat on WhatsApp" />
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </Section>
+
+      {/* 6. Problem Selector */}
+      <Section className="bg-surface/20 border-b border-thin">
+        <Container>
+          <Reveal>
+             <SectionHeading 
+              eyebrow="Diagnostics" 
+              title="What is happening with your car?" 
+              intro="Select the issue you're facing and we'll recommend the right diagnostic approach." 
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            <div className="max-w-4xl">
+              <ProblemSelector problems={problems} services={services} />
+            </div>
+          </Reveal>
+        </Container>
+      </Section>
+
+      {/* 7. New to tuning / Glossary */}
+      {home.newToTuning && (home.newToTuning.explainer || (home.newToTuning.glossary && home.newToTuning.glossary.length > 0)) && (
+        <Section className="border-b border-thin bg-background">
+          <Container>
+            <Reveal>
+              <div className="max-w-4xl">
+                {home.newToTuning.explainer && (
+                  <div className="mb-12">
+                    <h2 className="text-3xl font-heading font-bold text-white mb-6 uppercase tracking-tight">New to tuning?</h2>
+                    <div className="prose prose-invert prose-lg max-w-none text-silver">
+                      {home.newToTuning.explainer.split('\n').map((p, i) => p.trim() && <p key={i}>{p}</p>)}
+                    </div>
+                  </div>
+                )}
+                
+                {home.newToTuning.glossary && home.newToTuning.glossary.length > 0 && (
+                  <div>
+                    <h3 className="text-sm font-bold text-accent mb-6 uppercase tracking-[0.2em]">Plain English Glossary</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                      {home.newToTuning.glossary.map((item, i) => (
+                        <div key={i} className="pb-4 border-b border-thin/50">
+                          <strong className="text-white block mb-1 uppercase tracking-wider text-sm">{item.term}</strong>
+                          <span className="text-sm text-silver">{item.definition}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </Reveal>
+          </Container>
+        </Section>
+      )}
+
+      {/* 8. About (Cinematic) */}
+      {about && (
+        <Section id="about" className="border-b border-thin text-center" backgroundImage="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2000&auto=format&fit=crop" overlay>
+          <Container className="py-12">
+            <Reveal>
+              <div className="max-w-3xl mx-auto">
+                <p className="text-accent text-sm font-bold uppercase tracking-[0.2em] mb-4">About Revved Automotive</p>
+                <h2 className="text-4xl md:text-6xl font-heading font-extrabold text-white mb-8 uppercase tracking-tighter text-glow-accent">
+                  Passion drives<br/>everything we do.
+                </h2>
+                <div className="prose prose-invert text-silver mx-auto mb-12 text-lg">
+                  {about.body.split('\n').map((p, i) => p.trim() && <p key={i}>{p}</p>)}
+                </div>
+                
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-white/10 pt-12">
+                  {home.whyRevved.map((item, i) => (
+                    <div key={i} className="text-center">
+                      <div className="w-10 h-10 mx-auto rounded-full bg-accent/20 flex items-center justify-center text-accent mb-3 border border-accent/30">
+                        ✓
+                      </div>
+                      <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-1">{item.title}</h4>
+                      <p className="text-[10px] text-silver uppercase">{item.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+          </Container>
+        </Section>
+      )}
+
+      {/* 9. Reviews */}
+      {reviews && reviews.length > 0 && (
+        <Section className="border-b border-thin bg-surface/20">
+          <Container>
+            <Reveal>
+              <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-thin pb-6 gap-4">
+                <div>
+                  <p className="text-accent text-sm font-bold uppercase tracking-[0.2em] mb-2">What our customers say</p>
+                  <h2 className="text-3xl md:text-5xl font-heading font-extrabold text-white uppercase tracking-tight">
+                    Real Drivers.<br/><span className="text-silver">Real Results.</span>
+                  </h2>
+                </div>
+                <div className="flex items-center gap-4 bg-surface px-4 py-2 rounded-full border border-thin">
+                   <span className="text-sm font-bold text-white">4.9 out of 5</span>
+                   <div className="flex text-accent">★★★★★</div>
+                   <span className="text-xs text-muted uppercase tracking-wider">{reviews.length}+ reviews</span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {reviews.map(review => (
+                  <Card key={review.id} className="bg-background border-thin p-8 hover:border-accent/50 transition-colors">
+                    <p className="text-silver mb-8 text-sm leading-relaxed min-h-[80px]">&ldquo;{review.text}&rdquo;</p>
+                    <div className="flex justify-between items-center text-sm border-t border-thin/50 pt-4 mt-auto">
+                      <div className="flex flex-col">
+                        <div className="flex text-accent mb-1 text-xs">
+                          {Array.from({ length: 5 }).map((_, i) => (
+                            <span key={i} className={i < review.rating ? "opacity-100" : "opacity-30"}>★</span>
+                          ))}
+                        </div>
+                        <strong className="text-white uppercase tracking-wider text-xs">{review.author}</strong>
+                        <span className="text-[10px] text-muted uppercase tracking-widest mt-1">Verified Customer</span>
+                      </div>
+                      <span className="text-[10px] text-muted uppercase tracking-widest px-2 py-1 bg-surface rounded-sm">{review.source}</span>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            </Reveal>
+          </Container>
+        </Section>
+      )}
+
+      {/* 10. Map / Service Areas */}
+      {locations && locations.length > 0 && (
+        <Section id="locations" className="border-b border-thin bg-background">
+          <Container>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+              <Reveal>
+                <p className="text-accent text-sm font-bold uppercase tracking-[0.2em] mb-4">Areas we cover</p>
+                <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-white uppercase tracking-tight mb-8 leading-none">
+                  East London, Essex<br/><span className="text-silver">& Surrounding Areas.</span>
+                </h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-4 text-sm text-silver uppercase tracking-wider font-medium">
+                  {locations.map(loc => (
+                    <span key={loc.slug} className="border-b border-thin/30 pb-2">{loc.name}</span>
+                  ))}
+                  <span className="border-b border-thin/30 pb-2 text-accent">And more...</span>
+                </div>
+              </Reveal>
+              
+              <div className="relative h-72 md:h-[450px] w-full border border-thin rounded-2xl overflow-hidden bg-surface/30 group">
+                 <div className="absolute inset-0 bg-noise opacity-40 mix-blend-overlay"></div>
+                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-accent/10 via-background to-background"></div>
+                 
+                 {/* Geographic Nodes */}
+                 <div className="absolute inset-0 p-8 flex flex-col justify-between">
+                   <div className="flex justify-between w-full opacity-60">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-silver rounded-full"></div>
+                        <span className="text-[10px] uppercase tracking-widest text-silver font-bold">Harlow</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-silver rounded-full"></div>
+                        <span className="text-[10px] uppercase tracking-widest text-silver font-bold">Chelmsford</span>
+                      </div>
+                   </div>
+                   
+                   <div className="flex justify-center w-full relative left-10">
+                      <div className="flex items-center gap-3">
+                        <div className="w-4 h-4 bg-accent rounded-full glow-plum animate-pulse border-2 border-background"></div>
+                        <span className="text-xs uppercase tracking-widest text-white font-bold bg-background/80 px-2 py-1 rounded border border-thin backdrop-blur-sm">Romford Base</span>
+                      </div>
+                   </div>
+
+                   <div className="flex justify-between w-full relative top-4 opacity-70">
+                      <div className="flex items-center gap-2 relative -left-4">
+                        <div className="w-2 h-2 bg-silver rounded-full"></div>
+                        <span className="text-[10px] uppercase tracking-widest text-silver font-bold">Stratford</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-silver rounded-full"></div>
+                        <span className="text-[10px] uppercase tracking-widest text-silver font-bold">Basildon</span>
+                      </div>
+                   </div>
+                 </div>
+              </div>
+            </div>
+          </Container>
+        </Section>
+      )}
+
+      {/* 11. Final CTA */}
+      <Section className="border-b border-thin relative overflow-hidden py-32" backgroundImage="https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=2500&auto=format&fit=crop" overlay>
+        <Container>
+          <Reveal>
+            <div className="max-w-2xl mx-auto text-center">
+              <h2 className="text-4xl md:text-6xl font-heading font-extrabold text-white mb-6 uppercase tracking-tighter text-glow-accent">
+                Ready to rev it up?
+              </h2>
+              <p className="text-sm md:text-lg text-silver mb-12 uppercase tracking-widest font-bold">
+                Tell us what you drive. We&apos;ll take it from there.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Button href="#check-my-car" variant="primary" className="w-full sm:w-auto text-lg h-14 px-8 uppercase tracking-wider font-bold">
+                  Get a Quote &rarr;
+                </Button>
+                <WhatsAppButton className="w-full sm:w-auto text-lg h-14 px-8 uppercase tracking-wider font-bold" variant="secondary" label="Chat on WhatsApp" />
+              </div>
+            </div>
+          </Reveal>
+        </Container>
+      </Section>
+    </>
   );
 }
