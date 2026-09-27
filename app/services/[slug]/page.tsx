@@ -16,6 +16,7 @@ import { OfferCard } from "../../../components/home/OfferCard";
 import { Accordion } from "../../../components/ui/Accordion";
 import { TrackView } from "../../../components/analytics/TrackView";
 import { Breadcrumbs } from "../../../components/ui/Breadcrumbs";
+import { EmissionsDisclaimer } from "../../../components/services/EmissionsDisclaimer";
 
 export async function generateStaticParams() {
   return services
@@ -150,6 +151,9 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 </li>
               ))}
             </ul>
+            {service.emissionsRelated && (
+              <EmissionsDisclaimer text={site.deleteServiceDisclaimer} className="mt-6 text-xs" />
+            )}
           </Container>
         </Section>
       )}

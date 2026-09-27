@@ -13,6 +13,7 @@ export type Service = {
   plainEnglish: string | null;      // for beginners
   technicalDetail: string | null;   // for enthusiasts, shown on demand
   includedItems: string[] | null;
+  emissionsRelated?: boolean;       // shows site.deleteServiceDisclaimer and an "Enquiry only" badge
   faqs: { question: string; answer: string }[];
   seoTitle: string | null;
   seoDescription: string | null;

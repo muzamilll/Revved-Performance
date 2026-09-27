@@ -3,21 +3,41 @@ import { Service } from "../types";
 export const services: Service[] = [
   {
     slug: "stage-1-remap",
-    name: "Stage 1 Performance Remap",
+    name: "Stage 1 Remap (OBD)",
     category: "ecu-remapping",
     status: "active",
     indexable: false,
     price: { amount: 250, from: true },
     launchPrice: 200,
-    priceOptions: [
-      { label: "OBD", amount: 250, launchPrice: 200 },
-      { label: "Bench", amount: 350, launchPrice: 300 }
-    ],
-    shortDescription: "Want more power and sharper response?",
+    priceOptions: undefined,
+    shortDescription: "More power and sharper response, tuned through your car's diagnostic (OBD) port. No parts removed.",
     plainEnglish: null,
     technicalDetail: null,
     includedItems: [
       "Vehicle health check",
+      "ECU calibration",
+      "Before/after comparison"
+    ],
+    faqs: [],
+    seoTitle: null,
+    seoDescription: null,
+    whatsappMessage: null
+  },
+  {
+    slug: "stage-1-remap-bench",
+    name: "Stage 1 Remap (Bench)",
+    category: "ecu-remapping",
+    status: "active",
+    indexable: false,
+    price: { amount: 350, from: true },
+    launchPrice: 300,
+    priceOptions: undefined,
+    shortDescription: "For ECUs that can't be tuned through the OBD port. We take the ECU out and program it directly on the bench.",
+    plainEnglish: null,
+    technicalDetail: null,
+    includedItems: [
+      "Vehicle health check",
+      "ECU removed, read and written on the bench",
       "ECU calibration",
       "Before/after comparison"
     ],
@@ -35,12 +55,13 @@ export const services: Service[] = [
     price: { amount: 300, from: true },
     launchPrice: 250,
     priceOptions: undefined,
-    shortDescription: null,
+    shortDescription: "For cars with supporting hardware upgrades. Stage 2 needs the ECU unlocked on the bench first, and that's included.",
     plainEnglish: null,
     technicalDetail: null,
     includedItems: [
       "Vehicle health check",
-      "ECU calibration",
+      "ECU bench unlock",
+      "ECU calibration for your hardware",
       "Before/after comparison"
     ],
     faqs: [],
@@ -57,10 +78,14 @@ export const services: Service[] = [
     price: { amount: 150, from: false },
     launchPrice: 125,
     priceOptions: undefined,
-    shortDescription: null,
+    shortDescription: "Faster, firmer shifts and gearbox torque limits raised to match your engine remap.",
     plainEnglish: null,
     technicalDetail: null,
-    includedItems: null,
+    includedItems: [
+      "Vehicle health check",
+      "Gearbox (TCU) read and original file backed up",
+      "TCU calibration: shift speed, shift points and torque limits"
+    ],
     faqs: [],
     seoTitle: null,
     seoDescription: null,
@@ -87,6 +112,29 @@ export const services: Service[] = [
     seoTitle: null,
     seoDescription: null,
     whatsappMessage: null
+  },
+  {
+    slug: "emissions-add-ons",
+    name: "Emissions Add-Ons (Off-Road Use)",
+    category: "ecu-remapping",
+    status: "active",
+    indexable: false,
+    price: null,
+    launchPrice: null,
+    priceOptions: undefined,
+    shortDescription: "Enquiry only. We confirm suitability and legality for your vehicle before agreeing any work.",
+    plainEnglish: null,
+    technicalDetail: null,
+    includedItems: [
+      "AdBlue delete",
+      "DPF delete",
+      "EGR delete"
+    ],
+    emissionsRelated: true,
+    faqs: [],
+    seoTitle: null,
+    seoDescription: null,
+    whatsappMessage: "Hi Revved, I'd like to enquire about emissions add-ons for my car."
   },
   {
     slug: "vehicle-diagnostics",

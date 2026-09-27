@@ -3,7 +3,7 @@ import { services } from "../../data/services";
 import { offers } from "../../data/offers";
 import { getVisibleOffers } from "../../lib/offers";
 import { Container, Section, SectionHeading } from "../../components/layout/layout-primitives";
-import { ServiceCard } from "../../components/home/ServiceCard";
+import { ServiceGroups } from "../../components/services/ServiceGroups";
 import { OfferCard } from "../../components/home/OfferCard";
 import { WhatsAppButton } from "../../components/ui/WhatsAppButton";
 import { getPhoneUrl } from "../../lib/whatsapp";
@@ -16,11 +16,7 @@ export const metadata: Metadata = {
 };
 
 export default function ServicesPage() {
-  const activeServices = services.filter(s => s.status === "active");
   const visibleOffers = getVisibleOffers(offers, services);
-  
-  const ecuServices = activeServices.filter(s => s.category === "ecu-remapping");
-  const diagServices = activeServices.filter(s => s.category === "diagnostics");
 
   return (
     <>
@@ -43,19 +39,7 @@ export default function ServicesPage() {
       <Section className="bg-surface/20 border-b border-thin">
         <Container>
           <Reveal>
-            <SectionHeading eyebrow="Performance" title="ECU Remapping & Tuning" />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-              {ecuServices.map(service => (
-                <ServiceCard key={service.slug} service={service} />
-              ))}
-            </div>
-
-            <SectionHeading eyebrow="Checks" title="Advanced Diagnostics" />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {diagServices.map(service => (
-                <ServiceCard key={service.slug} service={service} />
-              ))}
-            </div>
+            <ServiceGroups services={services} />
           </Reveal>
         </Container>
       </Section>

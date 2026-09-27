@@ -2,13 +2,15 @@
 
 import * as React from "react";
 import { Service } from "../../types";
-import { Card } from "../ui/ui-primitives";
+import { Card, Badge } from "../ui/ui-primitives";
 import { ServicePrice } from "../ui/ServicePrice";
 import { Modal } from "../ui/Modal";
 import { WhatsAppButton } from "../ui/WhatsAppButton";
 import { Button } from "../ui/Button";
 import Link from "next/link";
 import { trackEvent } from "../../lib/analytics";
+import { site } from "../../data/site";
+import { EmissionsDisclaimer } from "../services/EmissionsDisclaimer";
 
 interface ServiceCardProps {
   service: Service;
@@ -35,6 +37,9 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
             </div>
           )}
           
+          {service.emissionsRelated && (
+            <Badge className="self-start mb-3">Enquiry only</Badge>
+          )}
           <h3 className="text-xl font-heading font-extrabold text-white mb-2 uppercase tracking-wide group-hover:text-accent transition-colors">{service.name}</h3>
           
           <p className="text-muted text-sm mb-6 flex-1">
@@ -50,6 +55,10 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
                 </li>
               ))}
             </ul>
+          )}
+
+          {service.emissionsRelated && (
+            <EmissionsDisclaimer text={site.deleteServiceDisclaimer} className="-mt-4 mb-8" />
           )}
 
           <div className="flex flex-col gap-4 mt-auto pt-6 border-t border-white/5 relative z-10">
@@ -76,6 +85,9 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
                 </li>
               ))}
             </ul>
+            {service.emissionsRelated && (
+              <EmissionsDisclaimer text={site.deleteServiceDisclaimer} className="mt-4" />
+            )}
           </div>
         )}
 

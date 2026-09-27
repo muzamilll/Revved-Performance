@@ -21,7 +21,7 @@ import { Img } from "../components/ui/Img";
 import { WhatsAppButton } from "../components/ui/WhatsAppButton";
 import { VehicleLookup } from "../components/home/VehicleLookup";
 import { ProblemSelector } from "../components/home/ProblemSelector";
-import { ServiceCard } from "../components/home/ServiceCard";
+import { ServiceGroups } from "../components/services/ServiceGroups";
 import { LaunchSignup } from "../components/home/LaunchSignup";
 import { LaunchSlots, isLaunchOfferRunning } from "../components/ui/ServicePrice";
 import { launchOffer } from "../data/launch-offer";
@@ -35,12 +35,9 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const activeServices = services.filter(s => s.status === "active");
   const visibleOffers = getVisibleOffers(offers, services);
   const featuredOffer = visibleOffers.find(o => o.featured);
-  
-  const ecuServices = activeServices.filter(s => s.category === "ecu-remapping");
-  const diagServices = activeServices.filter(s => s.category === "diagnostics");
+
   const verifiedTrust = tunedBrands.filter(t => t.verified);
   const dealerBadge = trust.find(t => t.id === "top-gear-tuning-agent");
   // Sign-up only renders when Brevo is configured and the launch offer is running.
@@ -127,6 +124,7 @@ export default function Home() {
                     <div className="flex items-center gap-4 mt-2 md:mt-0 opacity-90">
                        {featuredOffer.price && (
                          <div className="text-2xl md:text-3xl font-bold text-white leading-none">
+                           {featuredOffer.price.from && <span className="text-sm uppercase tracking-widest mr-2 opacity-80">From</span>}
                            £{featuredOffer.price.amount}
                          </div>
                        )}
@@ -198,11 +196,7 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[...ecuServices, ...diagServices].slice(0, 5).map((service, idx) => (
-                <ServiceCard key={service.slug} service={service} index={idx + 1} />
-              ))}
-            </div>
+            <ServiceGroups services={services} />
           </Reveal>
         </Container>
       </Section>
