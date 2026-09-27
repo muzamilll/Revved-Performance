@@ -34,7 +34,7 @@ export function Header() {
   }, [pathname]);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-thin bg-background/80 backdrop-blur-md">
+    <header className="sticky top-0 z-40 w-full border-b border-border bg-background/80 backdrop-blur-md">
       <div className="max-w-[1440px] mx-auto px-6 md:px-8 lg:px-12 h-20 flex items-center justify-between">
         <Logo />
 
@@ -72,7 +72,7 @@ export function Header() {
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="fixed inset-0 z-50 bg-background flex flex-col"
           >
-            <div className="h-20 px-6 flex items-center justify-between border-b border-thin">
+            <div className="h-20 px-6 flex items-center justify-between border-b border-border">
               <Logo onClick={() => setMobileMenuOpen(false)} />
               <button
                 className="p-2 text-muted hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"

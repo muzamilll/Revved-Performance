@@ -21,7 +21,7 @@ export function PersistentCTA() {
   return (
     <>
       {/* Mobile Fixed Bottom Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-md border-t border-thin px-4 py-3 pb-[max(env(safe-area-inset-bottom),0.75rem)] transition-transform duration-300 transform translate-y-0 shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.5)]">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-md border-t border-border px-4 py-3 pb-[max(env(safe-area-inset-bottom),0.75rem)] transition-transform duration-300 transform translate-y-0 shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.5)]">
         <a
           href={buildWhatsAppUrl()}
           onClick={handleClick}

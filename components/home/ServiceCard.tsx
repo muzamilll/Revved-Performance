@@ -91,7 +91,7 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
           </div>
         )}
 
-        <div className="flex items-center justify-between mb-8 pb-6 border-b border-thin">
+        <div className="flex items-center justify-between mb-8 pb-6 border-b border-border">
           <ServicePrice service={service} />
         </div>
 

@@ -76,7 +76,7 @@ export const services: Service[] = [
     status: "active",
     indexable: false,
     price: { amount: 150, from: false },
-    launchPrice: 125,
+    launchPrice: null,
     priceOptions: undefined,
     shortDescription: "Faster, firmer shifts and gearbox torque limits raised to match your engine remap.",
     plainEnglish: null,

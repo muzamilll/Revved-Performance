@@ -50,7 +50,7 @@ export const offers: Offer[] = [
       "Vehicle health check",
       "Before/after comparison"
     ],
-    price: { amount: 339, from: true },
+    price: { amount: 325, from: true },
     discount: null,
     startDate: null,
     endDate: null,

@@ -36,7 +36,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="border-t border-thin bg-surface mt-auto">
+    <footer className="border-t border-border bg-surface mt-auto">
       <div className="max-w-[1440px] mx-auto px-6 md:px-8 lg:px-12 py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div>

@@ -18,7 +18,7 @@ export default function OffersPage() {
 
   return (
     <>
-      <Section className="pt-8 pb-16 md:pt-16 md:pb-24 border-b border-thin">
+      <Section className="pt-8 pb-16 md:pt-16 md:pb-24 border-b border-border">
         <Container>
           <Reveal>
             <Breadcrumbs items={[{ label: "Offers", href: "/offers" }]} />
@@ -34,7 +34,7 @@ export default function OffersPage() {
         </Container>
       </Section>
 
-      <Section className="bg-surface/20 border-b border-thin pb-24">
+      <Section className="bg-surface/20 border-b border-border pb-24">
         <Container>
           <Reveal>
             {visibleOffers.length > 0 ? (

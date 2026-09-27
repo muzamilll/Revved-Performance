@@ -107,7 +107,7 @@ export default function Home() {
 
       {/* 2. Horizontal Special Offer Banner */}
       {featuredOffer && (
-        <div className="w-full bg-gradient-accent border-b border-thin glow-plum relative overflow-hidden">
+        <div className="w-full bg-gradient-accent border-b border-border glow-plum relative overflow-hidden">
           <div className="absolute inset-0 bg-noise opacity-20 pointer-events-none"></div>
           <Container className="relative z-10 py-6 md:py-8">
             <Reveal>
@@ -227,7 +227,7 @@ export default function Home() {
 
       {/* Launch offer email sign-up */}
       {showLaunchSignup && (
-        <Section id="launch-offer" className="border-t border-thin bg-surface/20">
+        <Section id="launch-offer" className="border-t border-border bg-surface/20">
           <Container>
             <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-center">
               <div>
@@ -247,7 +247,7 @@ export default function Home() {
       )}
 
       {/* 5. Split-Screen Vehicle Lookup */}
-      <Section id="check-my-car" className="p-0 border-y border-thin">
+      <Section id="check-my-car" className="p-0 border-y border-border">
         <div className="grid grid-cols-1 lg:grid-cols-2">
           {/* Left: Cinematic Background */}
           <div className="hidden lg:block relative min-h-[500px] bg-surface">
@@ -270,7 +270,7 @@ export default function Home() {
                 <VehicleLookup />
               </div>
               
-              <div className="mt-8 pt-8 border-t border-thin flex flex-col gap-4">
+              <div className="mt-8 pt-8 border-t border-border flex flex-col gap-4">
                 <p className="text-sm text-silver">
                   Not sure? No problem. <strong className="text-white">Prefer WhatsApp?</strong> Send us your registration and we&apos;ll check it for you.
                 </p>
@@ -282,7 +282,7 @@ export default function Home() {
       </Section>
 
       {/* 6. Problem Selector */}
-      <Section className="bg-surface/20 border-b border-thin">
+      <Section className="bg-surface/20 border-b border-border">
         <Container>
           <Reveal>
              <SectionHeading 
@@ -299,7 +299,7 @@ export default function Home() {
 
       {/* 7. New to tuning / Glossary */}
       {home.newToTuning && (home.newToTuning.explainer || (home.newToTuning.glossary && home.newToTuning.glossary.length > 0)) && (
-        <Section className="border-b border-thin bg-background">
+        <Section className="border-b border-border bg-background">
           <Container>
             <Reveal>
               <div className="max-w-4xl">
@@ -333,7 +333,7 @@ export default function Home() {
 
       {/* 8. About (Cinematic) */}
       {about && (
-        <Section id="about" className="border-b border-thin text-center" backgroundImage="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2000&auto=format&fit=crop" overlay>
+        <Section id="about" className="border-b border-border text-center" backgroundImage="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2000&auto=format&fit=crop" overlay>
           <Container className="py-12">
             <Reveal>
               <div className="max-w-3xl mx-auto">
@@ -364,7 +364,7 @@ export default function Home() {
 
       {/* 9. Reviews */}
       {reviews && reviews.length > 0 && (
-        <Section className="border-b border-thin bg-surface/20">
+        <Section className="border-b border-border bg-surface/20">
           <Container>
             <Reveal>
               <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-border pb-6 gap-4">
@@ -407,7 +407,7 @@ export default function Home() {
 
       {/* 10. Map / Service Areas */}
       {locations && locations.length > 0 && (
-        <Section id="locations" className="border-b border-thin bg-background">
+        <Section id="locations" className="border-b border-border bg-background">
           <Container>
             <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-end mb-10 md:mb-14">
               <div>
@@ -432,7 +432,7 @@ export default function Home() {
       )}
 
       {/* 11. Final CTA */}
-      <Section className="border-b border-thin relative overflow-hidden py-32" backgroundImage="https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=2500&auto=format&fit=crop" overlay>
+      <Section className="border-b border-border relative overflow-hidden py-32" backgroundImage="https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=2500&auto=format&fit=crop" overlay>
         <Container>
           <Reveal>
             <div className="max-w-2xl mx-auto text-center">

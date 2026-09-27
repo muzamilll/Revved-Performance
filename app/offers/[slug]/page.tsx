@@ -52,7 +52,7 @@ export default async function OfferPage({ params }: { params: Promise<{ slug: st
       <TrackView event="offer_view" properties={{ offer: offer.slug }} />
 
       {/* 1. Mobile First Hero */}
-      <Section className="pt-6 pb-12 border-b border-thin relative overflow-hidden bg-surface/10">
+      <Section className="pt-6 pb-12 border-b border-border relative overflow-hidden bg-surface/10">
         <div className="absolute top-0 right-0 w-64 h-64 bg-accent opacity-10 blur-[100px] rounded-full pointer-events-none"></div>
 
         <Container className="relative z-10 max-w-3xl">
@@ -106,7 +106,7 @@ export default async function OfferPage({ params }: { params: Promise<{ slug: st
       </Section>
 
       {/* 2. What's Included */}
-      <Section className="py-16 border-b border-thin bg-surface/20">
+      <Section className="py-16 border-b border-border bg-surface/20">
         <Container className="max-w-4xl">
           <h2 className="text-2xl font-heading font-bold text-white mb-8 uppercase">What&apos;s included in this offer</h2>
           
@@ -148,7 +148,7 @@ export default async function OfferPage({ params }: { params: Promise<{ slug: st
       </Section>
 
       {/* 3. Is my car suitable? */}
-      <Section className="py-16 border-b border-thin glow-plum bg-surface/10">
+      <Section className="py-16 border-b border-border glow-plum bg-surface/10">
         <Container className="max-w-3xl text-center">
           <h2 className="text-2xl font-heading font-bold text-white mb-4 uppercase">Check availability</h2>
           <p className="text-silver mb-8">Enter your registration to check if this offer applies to your vehicle.</p>
@@ -158,7 +158,7 @@ export default async function OfferPage({ params }: { params: Promise<{ slug: st
 
       {/* 4. Terms */}
       {offer.terms && (
-        <Section className="py-12 border-b border-thin bg-surface/30">
+        <Section className="py-12 border-b border-border bg-surface/30">
           <Container className="max-w-3xl">
             <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Terms & Conditions</h3>
             <div className="prose prose-sm prose-invert text-muted">

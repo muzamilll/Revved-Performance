@@ -26,7 +26,7 @@ export const Accordion = React.forwardRef<HTMLDetailsElement, AccordionProps>(
       <details
         ref={ref}
         onToggle={handleToggle}
-        className={cn("group border-b border-thin overflow-hidden marker:hidden", className)}
+        className={cn("group border-b border-border overflow-hidden marker:hidden", className)}
         {...props}
       >
         <summary className="flex items-center justify-between py-4 cursor-pointer list-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm text-lg font-medium">

@@ -57,7 +57,7 @@ export function ProblemSelector({ problems, services }: ProblemSelectorProps) {
                 <p className="text-muted mb-6">
                   {recommendedService.shortDescription || "We can diagnose and resolve this issue."}
                 </p>
-                <div className="flex items-center justify-between mb-6 pb-6 border-b border-thin">
+                <div className="flex items-center justify-between mb-6 pb-6 border-b border-border">
                   <ServicePrice service={recommendedService} />
                 </div>
                 <div className="flex flex-col gap-4">

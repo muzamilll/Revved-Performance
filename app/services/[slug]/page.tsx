@@ -86,7 +86,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       />
 
       {/* 1. Mobile First Hero: Title, Plain English, Price, WhatsApp button (no scroll) */}
-      <Section className="pt-6 pb-12 border-b border-thin relative overflow-hidden bg-surface/10">
+      <Section className="pt-6 pb-12 border-b border-border relative overflow-hidden bg-surface/10">
         <div className="absolute inset-0 z-0 opacity-5 pointer-events-none flex items-center justify-center">
           <svg viewBox="0 0 1000 300" className="w-full min-w-[1000px] h-auto stroke-accent fill-none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0,250 C200,250 300,220 400,180 C500,140 600,100 750,80 C850,66 950,50 1000,20" strokeWidth="3" strokeLinecap="round" />
@@ -138,7 +138,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
       {/* 3. What's Included */}
       {service.includedItems && service.includedItems.length > 0 && (
-        <Section className="py-12 border-b border-thin bg-surface/30">
+        <Section className="py-12 border-b border-border bg-surface/30">
           <Container className="max-w-3xl">
             <h2 className="text-2xl font-heading font-bold text-white mb-6 uppercase">What&apos;s included</h2>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -160,7 +160,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
       {/* 4. Live Offers */}
       {relatedOffers.length > 0 && (
-        <Section className="py-12 border-b border-thin">
+        <Section className="py-12 border-b border-border">
           <Container className="max-w-4xl">
              <SectionHeading eyebrow="Savings" title="Available Offers & Bundles" />
              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -173,7 +173,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       )}
 
       {/* 5. Is my car suitable? */}
-      <Section className="py-16 border-b border-thin glow-plum bg-surface/10">
+      <Section className="py-16 border-b border-border glow-plum bg-surface/10">
         <Container className="max-w-3xl text-center">
           <h2 className="text-2xl font-heading font-bold text-white mb-4 uppercase">Is my car suitable?</h2>
           <p className="text-silver mb-8">Enter your registration to check if we can perform this service on your specific engine.</p>
@@ -183,7 +183,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
       {/* 6. Technical Detail (Accordion) */}
       {service.technicalDetail && (
-        <Section className="py-12 border-b border-thin">
+        <Section className="py-12 border-b border-border">
           <Container className="max-w-3xl">
             <Accordion title="Technical Details (For Enthusiasts)" className="border-t" trackingEvent="service_details_open">
                <div className="prose prose-invert max-w-none text-silver py-4 leading-relaxed">
@@ -195,7 +195,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       )}
 
       {/* 7. What happens next */}
-      <Section className="py-16 border-b border-thin bg-surface/20">
+      <Section className="py-16 border-b border-border bg-surface/20">
         <Container className="max-w-4xl">
           <SectionHeading title="What happens next" />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
@@ -213,10 +213,10 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
       {/* 8. FAQs */}
       {service.faqs && service.faqs.length > 0 && (
-        <Section className="py-16 border-b border-thin">
+        <Section className="py-16 border-b border-border">
           <Container className="max-w-3xl">
             <SectionHeading title={`FAQs: ${service.name}`} />
-            <div className="divide-y divide-thin border-y border-thin">
+            <div className="divide-y divide-thin border-y border-border">
               {service.faqs.map((faq, i) => (
                 <Accordion key={i} title={faq.question}>
                   <p className="py-4 text-silver">{faq.answer}</p>

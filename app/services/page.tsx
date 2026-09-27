@@ -20,7 +20,7 @@ export default function ServicesPage() {
 
   return (
     <>
-      <Section className="pt-8 pb-16 md:pt-16 md:pb-24 border-b border-thin">
+      <Section className="pt-8 pb-16 md:pt-16 md:pb-24 border-b border-border">
         <Container>
           <Reveal>
             <Breadcrumbs items={[{ label: "Services", href: "/services" }]} />
@@ -36,7 +36,7 @@ export default function ServicesPage() {
         </Container>
       </Section>
 
-      <Section className="bg-surface/20 border-b border-thin">
+      <Section className="bg-surface/20 border-b border-border">
         <Container>
           <Reveal>
             <ServiceGroups services={services} />
@@ -45,7 +45,7 @@ export default function ServicesPage() {
       </Section>
 
       {visibleOffers.length > 0 && (
-        <Section className="border-b border-thin bg-surface/30">
+        <Section className="border-b border-border bg-surface/30">
           <Container>
             <Reveal>
               <SectionHeading eyebrow="Value" title="Active Offers & Bundles" />
