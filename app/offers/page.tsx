@@ -27,7 +27,7 @@ export default function OffersPage() {
                 Special Offers
               </h1>
               <p className="text-xl text-silver">
-                Get more value with our bundles and limited-time discounts.
+                Get more value with our bundles and limited offers.
               </p>
             </div>
           </Reveal>

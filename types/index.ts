@@ -7,7 +7,8 @@ export type Service = {
   status: "active" | "draft";
   indexable: boolean;
   price: Price;
-  priceOptions?: { label: string; amount: number }[];
+  launchPrice: number | null;       // shown while the launch offer is active; null = no discount
+  priceOptions?: { label: string; amount: number; launchPrice?: number | null }[];
   shortDescription: string | null;
   plainEnglish: string | null;      // for beginners
   technicalDetail: string | null;   // for enthusiasts, shown on demand
@@ -104,6 +105,7 @@ export type SiteData = {
   serviceAreaSummary: string;
   homeTitle: string;
   homeDescription: string;
+  deleteServiceDisclaimer: string;
 };
 
 export type AboutData = {

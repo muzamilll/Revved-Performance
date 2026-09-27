@@ -17,9 +17,7 @@ export const offers: Offer[] = [
       "remap-add-ons"
     ],
     includes: [
-      "Full pre-remap vehicle health check",
-      "Pre-remap DynoDrive performance testing",
-      "Post-remap DynoDrive performance testing"
+      "Full pre-remap vehicle health check"
     ],
     price: null,
     discount: null,

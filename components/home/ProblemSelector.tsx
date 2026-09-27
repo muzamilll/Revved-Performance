@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import { Problem, Service } from "../../types";
-import { Card, PriceTag } from "../ui/ui-primitives";
+import { Card } from "../ui/ui-primitives";
+import { ServicePrice } from "../ui/ServicePrice";
 import { WhatsAppButton } from "../ui/WhatsAppButton";
 import { Button } from "../ui/Button";
 
@@ -57,7 +58,7 @@ export function ProblemSelector({ problems, services }: ProblemSelectorProps) {
                   {recommendedService.shortDescription || "We can diagnose and resolve this issue."}
                 </p>
                 <div className="flex items-center justify-between mb-6 pb-6 border-b border-thin">
-                  <PriceTag price={recommendedService.price} />
+                  <ServicePrice service={recommendedService} />
                 </div>
                 <div className="flex flex-col gap-4">
                   <WhatsAppButton 

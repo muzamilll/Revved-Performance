@@ -8,7 +8,8 @@ import { getPhoneUrl } from "../../../lib/whatsapp";
 import { absoluteUrl, getSiteUrl } from "../../../lib/seo";
 import { site } from "../../../data/site";
 import { Container, Section, SectionHeading } from "../../../components/layout/layout-primitives";
-import { PriceTag, Badge } from "../../../components/ui/ui-primitives";
+import { Badge } from "../../../components/ui/ui-primitives";
+import { ServicePrice, PriceOptionLabel, getLaunchPrice } from "../../../components/ui/ServicePrice";
 import { WhatsAppButton } from "../../../components/ui/WhatsAppButton";
 import { VehicleLookup } from "../../../components/home/VehicleLookup";
 import { OfferCard } from "../../../components/home/OfferCard";
@@ -52,6 +53,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   const relatedOffers = getVisibleOffers(offers, services).filter(o => o.serviceSlugs.includes(service.slug));
 
+  const launchPrice = getLaunchPrice(service);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -67,7 +70,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     ...(service.price && !service.price.from ? {
       "offers": {
         "@type": "Offer",
-        "price": service.price.amount,
+        "price": launchPrice ?? service.price.amount,
         "priceCurrency": "GBP"
       }
     } : {})
@@ -109,8 +112,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           {/* 2. Price */}
           <div className="mb-6 p-4 rounded-xl border border-thin bg-surface flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <div className="text-sm font-bold uppercase tracking-wider text-muted mb-1">Starting from</div>
-              <PriceTag price={service.price} />
+              <ServicePrice service={service} />
             </div>
             
             {/* WhatsApp CTA directly in hero for Meta ads */}
@@ -125,7 +127,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             <div className="flex gap-2 flex-wrap mb-8">
               {service.priceOptions.map((opt, i) => (
                 <Badge key={i} className="bg-surface border-thin">
-                  {opt.label}: £{opt.amount}
+                  <PriceOptionLabel option={opt} />
                 </Badge>
               ))}
             </div>

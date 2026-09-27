@@ -22,6 +22,9 @@ import { WhatsAppButton } from "../components/ui/WhatsAppButton";
 import { VehicleLookup } from "../components/home/VehicleLookup";
 import { ProblemSelector } from "../components/home/ProblemSelector";
 import { ServiceCard } from "../components/home/ServiceCard";
+import { LaunchSignup } from "../components/home/LaunchSignup";
+import { LaunchSlots, isLaunchOfferRunning } from "../components/ui/ServicePrice";
+import { launchOffer } from "../data/launch-offer";
 import { getVisibleOffers, getOfferSavings } from "../lib/offers";
 
 export const metadata: Metadata = {
@@ -40,6 +43,8 @@ export default function Home() {
   const diagServices = activeServices.filter(s => s.category === "diagnostics");
   const verifiedTrust = tunedBrands.filter(t => t.verified);
   const dealerBadge = trust.find(t => t.id === "top-gear-tuning-agent");
+  // Sign-up only renders when Brevo is configured and the launch offer is running.
+  const showLaunchSignup = Boolean(process.env.BREVO_API_KEY && process.env.BREVO_LIST_ID) && isLaunchOfferRunning();
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -113,7 +118,7 @@ export default function Home() {
                 
                 {/* Left: Eyebrow + Title + Pricing */}
                 <div className="w-full lg:w-auto">
-                  <div className="text-xs font-bold uppercase tracking-widest text-white/80 mb-2">Limited-Time Offer</div>
+                  <div className="text-xs font-bold uppercase tracking-widest text-white/80 mb-2">Limited Offer</div>
                   <div className="flex flex-col md:flex-row md:items-end gap-2 md:gap-6">
                     <h2 className="text-3xl md:text-5xl font-heading font-extrabold text-white uppercase tracking-tight leading-none">
                       {featuredOffer.title}
@@ -201,6 +206,27 @@ export default function Home() {
           </Reveal>
         </Container>
       </Section>
+
+      {/* Launch offer email sign-up */}
+      {showLaunchSignup && (
+        <Section id="launch-offer" className="border-t border-thin bg-surface/20">
+          <Container>
+            <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-center">
+              <div>
+                <p className="text-accent text-sm font-bold uppercase tracking-[0.2em] mb-2">{launchOffer.label}</p>
+                <h2 className="text-3xl md:text-5xl font-heading font-extrabold text-white uppercase tracking-tight mb-4">
+                  Get our<br/><span className="text-accent">launch prices.</span>
+                </h2>
+                <p className="text-silver text-lg mb-4">
+                  Pop your email in to claim one of our launch slots. We&apos;ll show you the offer straight away.
+                </p>
+                <LaunchSlots />
+              </div>
+              <LaunchSignup />
+            </Reveal>
+          </Container>
+        </Section>
+      )}
 
       {/* 5. Split-Screen Vehicle Lookup */}
       <Section id="check-my-car" className="p-0 border-y border-thin">

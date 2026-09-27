@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import { Service } from "../../types";
-import { Card, PriceTag } from "../ui/ui-primitives";
+import { Card } from "../ui/ui-primitives";
+import { ServicePrice } from "../ui/ServicePrice";
 import { Modal } from "../ui/Modal";
 import { WhatsAppButton } from "../ui/WhatsAppButton";
 import { Button } from "../ui/Button";
@@ -52,10 +53,7 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
           )}
 
           <div className="flex flex-col gap-4 mt-auto pt-6 border-t border-white/5 relative z-10">
-            <div className="flex flex-col gap-0">
-              <span className="text-[10px] uppercase tracking-widest text-muted">From</span>
-              <span className="text-3xl md:text-4xl font-heading font-extrabold text-accent">£{service.price ? service.price.amount : 'POA'}</span>
-            </div>
+            <ServicePrice service={service} amountClassName="text-3xl md:text-4xl font-extrabold text-accent" />
             <Button className="w-full text-sm h-12 uppercase tracking-widest font-bold bg-accent/10 text-accent hover:bg-accent hover:text-white border border-accent/20">
               Get a Quote &rarr;
             </Button>
@@ -82,7 +80,7 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
         )}
 
         <div className="flex items-center justify-between mb-8 pb-6 border-b border-thin">
-          <PriceTag price={service.price} />
+          <ServicePrice service={service} />
         </div>
 
         <div className="flex flex-col gap-3">
