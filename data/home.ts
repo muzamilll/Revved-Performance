@@ -23,6 +23,7 @@ export const home: HomeData = {
   whyRevved: [
     { title: "We come to you", description: "Convenient mobile service at your location." },
     { title: "Health check before any tuning", description: "Issues are identified before tuning." },
+    { title: "Verified tuning files", description: "Genuine files as a verified Top Gear Tuning dealer." },
     { title: "Talk to us directly on WhatsApp", description: "Speak directly to the tuner, not a call centre." }
   ],
   newToTuning: null

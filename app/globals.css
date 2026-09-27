@@ -23,6 +23,11 @@
   html, body {
     @apply bg-background text-text font-sans antialiased selection:bg-accent selection:text-white;
   }
+
+  /* Keep anchor targets (#how-it-works, #about…) clear of the sticky header */
+  html {
+    scroll-padding-top: 5rem;
+  }
 }
 
 @layer utilities {
@@ -74,8 +79,23 @@
     scrollbar-width: none;
   }
 
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-marquee {
+      animation: none;
+    }
+  }
+
   .mask-edges {
     mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }

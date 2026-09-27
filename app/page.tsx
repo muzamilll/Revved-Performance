@@ -153,26 +153,31 @@ export default function Home() {
 
       {/* 3. Trust Strip */}
       {verifiedTrust.length > 0 && (
-        <div className="w-full bg-background border-b border-thin py-6 md:py-8 overflow-hidden">
+        <div className="w-full bg-background border-b border-border py-6 md:py-8 overflow-hidden">
           <Container>
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-12">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-12">
                <span className="text-xs font-bold text-muted uppercase tracking-[0.2em] whitespace-nowrap">
                  We tune vehicles from
                </span>
-               <div className="flex-1 w-full overflow-x-auto no-scrollbar mask-edges">
-                 <div className="flex items-center justify-start lg:justify-center gap-8 md:gap-12 min-w-max opacity-60 grayscale hover:grayscale-0 transition-all">
-                    {verifiedTrust.map(t => (
-                      <div key={t.id} className="h-6 md:h-8 relative w-20 flex-shrink-0 flex items-center justify-center">
-                        {t.logoSrc ? (
-                          <Img src={t.logoSrc} alt={t.alt || t.label} fill className="object-contain" />
-                        ) : (
-                          <span className="text-xs md:text-sm font-bold uppercase tracking-widest text-silver">{t.label}</span>
-                        )}
+               {/* Auto-scrolling strip: no touch scrolling, so it can't be dragged up/down on phones */}
+               <div className="flex-1 w-full overflow-hidden mask-edges touch-pan-y" aria-label={verifiedTrust.map(t => t.label).join(", ")}>
+                 <div className="flex w-max animate-marquee opacity-60" aria-hidden="true">
+                    {[0, 1].map(copy => (
+                      <div key={copy} className="flex items-center gap-10 md:gap-14 pr-10 md:pr-14">
+                        {verifiedTrust.map(t => (
+                          <div key={t.id} className="h-6 md:h-8 relative flex-shrink-0 flex items-center justify-center">
+                            {t.logoSrc ? (
+                              <Img src={t.logoSrc} alt={t.alt || t.label} fill className="object-contain" />
+                            ) : (
+                              <span className="text-xs md:text-sm font-bold uppercase tracking-widest text-silver whitespace-nowrap">{t.label}</span>
+                            )}
+                          </div>
+                        ))}
                       </div>
                     ))}
                  </div>
                </div>
-               <span className="hidden lg:block text-xs font-bold text-muted uppercase tracking-[0.2em] whitespace-nowrap">
+               <span className="text-xs font-bold text-muted uppercase tracking-[0.2em] whitespace-nowrap">
                  And many more
                </span>
             </div>
@@ -184,7 +189,7 @@ export default function Home() {
       <Section id="services" className="bg-background relative">
         <Container>
           <Reveal>
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-thin pb-6 gap-4">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-border pb-6 gap-4">
               <div>
                 <p className="text-accent text-sm font-bold uppercase tracking-[0.2em] mb-2">Our Services</p>
                 <h2 className="text-3xl md:text-5xl font-heading font-extrabold text-white uppercase tracking-tight">
@@ -197,6 +202,25 @@ export default function Home() {
             </div>
 
             <ServiceGroups services={services} />
+          </Reveal>
+        </Container>
+      </Section>
+
+      {/* How it works */}
+      <Section id="how-it-works" className="border-t border-border bg-surface/10">
+        <Container>
+          <Reveal>
+            <SectionHeading eyebrow="How it works" title="Booking takes a few minutes." />
+            <ol className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {home.howItWorks.map(item => (
+                <li key={item.step} className="flex gap-4 p-6 rounded-xl bg-background border border-border">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent/20 border border-accent/50 flex items-center justify-center text-accent font-heading font-bold">
+                    {item.step}
+                  </div>
+                  <p className="text-lg text-silver pt-1.5">{item.text}</p>
+                </li>
+              ))}
+            </ol>
           </Reveal>
         </Container>
       </Section>
@@ -343,7 +367,7 @@ export default function Home() {
         <Section className="border-b border-thin bg-surface/20">
           <Container>
             <Reveal>
-              <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-thin pb-6 gap-4">
+              <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-border pb-6 gap-4">
                 <div>
                   <p className="text-accent text-sm font-bold uppercase tracking-[0.2em] mb-2">What our customers say</p>
                   <h2 className="text-3xl md:text-5xl font-heading font-extrabold text-white uppercase tracking-tight">
