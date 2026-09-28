@@ -23,7 +23,38 @@
 
 @layer base {
   html, body {
-    @apply bg-background text-text font-sans antialiased selection:bg-accent selection:text-white;
+    @apply text-text font-sans antialiased selection:bg-accent selection:text-white;
+  }
+
+  /* Solid base colour lives on <html>; <body> stays transparent so the fixed
+     atmosphere and grain layers below can show through the page. */
+  html {
+    @apply bg-background;
+  }
+
+  /* Atmosphere: very faint plum light top-right and bottom-left, gunmetal falloff
+     through the middle. Fixed, so it reads as a lit space the page scrolls over. */
+  body::before,
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  body::before {
+    background:
+      radial-gradient(ellipse 70% 55% at 90% 0%, color-mix(in oklab, var(--color-brand-plum) 16%, transparent), transparent 70%),
+      radial-gradient(ellipse 60% 50% at 0% 100%, color-mix(in oklab, var(--color-brand-plum) 9%, transparent), transparent 70%),
+      radial-gradient(ellipse 90% 70% at 50% 45%, color-mix(in oklab, var(--color-brand-gunmetal) 45%, transparent), transparent 75%);
+  }
+
+  /* Film grain: one small SVG noise tile, fixed, so it costs nothing while scrolling */
+  body::after {
+    opacity: 0.06;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
   }
 
   /* Keep anchor targets (#how-it-works, #about…) clear of the sticky header */
@@ -35,6 +66,28 @@
 @layer utilities {
   .bg-noise {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+
+  /* Section tones: alternate these so sections read as bands of light rather than one flat canvas.
+     All translucent, so the atmosphere and grain carry through. */
+  .section-tone-raised {
+    background: linear-gradient(180deg,
+      color-mix(in oklab, var(--color-brand-gunmetal) 38%, transparent) 0%,
+      color-mix(in oklab, var(--color-brand-gunmetal) 10%, transparent) 100%);
+    box-shadow: inset 0 1px 0 color-mix(in oklab, var(--color-brand-offwhite) 4%, transparent);
+  }
+
+  .section-tone-glow {
+    background:
+      radial-gradient(ellipse 55% 60% at 50% 0%, color-mix(in oklab, var(--color-brand-plum) 13%, transparent), transparent 70%),
+      linear-gradient(180deg, color-mix(in oklab, var(--color-brand-gunmetal) 14%, transparent), transparent 60%);
+  }
+
+  .section-tone-sunk {
+    background: linear-gradient(180deg,
+      color-mix(in oklab, var(--color-brand-carbon) 75%, transparent) 0%,
+      color-mix(in oklab, var(--color-brand-carbon) 35%, transparent) 100%);
+    box-shadow: inset 0 12px 24px -12px color-mix(in oklab, var(--color-brand-carbon) 90%, transparent);
   }
 
   .glow-plum {

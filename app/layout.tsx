@@ -49,7 +49,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${oswald.variable} scroll-smooth`}>
-      <body className="bg-background text-text antialiased min-h-screen flex flex-col relative bg-noise">
+      <body className="text-text antialiased min-h-screen flex flex-col relative">
         <Header />
         <main className="flex-1 flex flex-col relative z-10">
           {children}

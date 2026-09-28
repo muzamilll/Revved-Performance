@@ -80,24 +80,26 @@ export default function Home() {
       {/* 1. Cinematic Hero: plain <section> (not <Section>) so the photo fills the whole box, including the area behind the fixed header */}
       <section className="relative isolate overflow-hidden flex flex-col lg:min-h-[88vh]">
         <div
-          className="absolute inset-0 -z-10 bg-cover bg-[position:58%_62%] lg:bg-[position:center_62%]"
+          className="absolute inset-x-0 top-0 h-[100vw] md:h-auto md:inset-0 -z-10 bg-cover bg-[position:50%_60%] md:bg-[position:58%_62%] lg:bg-[position:center_62%]"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=2500&auto=format&fit=crop')" }}
           aria-hidden="true"
         />
         {/* Overlays: overall dim, dark top for the header, dark left for the copy (desktop), fade into the page at the bottom */}
-        <div className="absolute inset-0 -z-10 bg-background/55 lg:bg-background/35" aria-hidden="true" />
+        <div className="absolute inset-0 -z-10 bg-background/25 md:bg-background/55 lg:bg-background/35" aria-hidden="true" />
+        {/* Mobile: fade the bottom of the photo box into the page */}
+        <div className="absolute inset-x-0 top-0 h-[100vw] -z-10 md:hidden bg-gradient-to-b from-transparent from-60% to-background" aria-hidden="true" />
         <div className="absolute inset-x-0 top-0 h-40 -z-10 bg-gradient-to-b from-background/90 to-transparent" aria-hidden="true" />
         <div className="absolute inset-y-0 left-0 w-2/3 -z-10 hidden lg:block bg-gradient-to-r from-background/90 via-background/60 to-transparent" aria-hidden="true" />
-        <div className="absolute inset-x-0 bottom-0 h-2/3 lg:h-1/2 -z-10 bg-gradient-to-t from-background via-background/70 to-transparent" aria-hidden="true" />
+        <div className="absolute inset-x-0 bottom-0 h-2/3 lg:h-1/2 -z-10 hidden md:block bg-gradient-to-t from-background via-background/70 to-transparent" aria-hidden="true" />
 
-        {/* Top padding clears the fixed header (h-20) */}
-        <Container className="flex-1 flex flex-col justify-center pt-28 pb-8 md:pt-36 md:pb-12 lg:pt-32">
+        {/* Top padding clears the fixed header (h-20); on mobile it starts the copy just under the car */}
+        <Container className="flex-1 flex flex-col justify-center pt-[calc(100vw-6rem)] pb-8 md:pt-36 md:pb-12 lg:pt-32">
           <div>
-            <p className="text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-accent-light mb-4">
+            <p className="text-xs md:text-sm font-bold uppercase tracking-[0.2em] max-[380px]:text-[11px] max-[380px]:tracking-[0.08em] text-accent-light mb-4">
               Mobile Tuning · East London · Essex
             </p>
 
-            <h1 className="text-[2.6rem] min-[400px]:text-5xl md:text-7xl xl:text-[84px] font-heading font-extrabold text-white leading-[0.95] uppercase tracking-tight mb-5 lg:whitespace-nowrap">
+            <h1 className="text-[2.6rem] min-[400px]:text-5xl md:text-6xl lg:text-7xl xl:text-[84px] font-heading font-extrabold text-white leading-[0.95] uppercase tracking-tight mb-5 lg:whitespace-nowrap">
               Mobile ECU Remapping &amp;<br />
               <span className="text-accent-light">Performance Tuning</span>
             </h1>
@@ -179,7 +181,7 @@ export default function Home() {
 
       {/* 3. Trust Strip */}
       {verifiedTrust.length > 0 && (
-        <div className="w-full bg-background border-b border-border py-6 md:py-8 overflow-hidden">
+        <div className="w-full section-tone-sunk border-b border-border py-6 md:py-8 overflow-hidden">
           <Container>
             <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-12">
                <span className="text-xs font-bold text-muted uppercase tracking-[0.2em] whitespace-nowrap">
@@ -212,7 +214,7 @@ export default function Home() {
       )}
 
       {/* 4. Services (Premium Grid) */}
-      <Section id="services" className="bg-background relative">
+      <Section id="services" className="section-tone-glow relative">
         <Container>
           <Reveal>
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-border pb-6 gap-4">
@@ -233,7 +235,7 @@ export default function Home() {
       </Section>
 
       {/* Why your ECU is safe with us */}
-      <Section id="ecu-safe" className="border-t border-border bg-surface/10">
+      <Section id="ecu-safe" className="border-t border-border section-tone-raised">
         <Container>
           <Reveal>
             <EcuTrust data={home.ecuTrust} />
@@ -242,7 +244,7 @@ export default function Home() {
       </Section>
 
       {/* How it works */}
-      <Section id="how-it-works" className="border-t border-border bg-surface/10">
+      <Section id="how-it-works" className="border-t border-border section-tone-sunk">
         <Container>
           <Reveal>
             <SectionHeading eyebrow="How it works" title="Booking takes a few minutes." />
@@ -262,7 +264,7 @@ export default function Home() {
 
       {/* Launch offer email sign-up */}
       {showLaunchSignup && (
-        <Section id="launch-offer" className="border-t border-border bg-surface/20">
+        <Section id="launch-offer" className="border-t border-border section-tone-glow">
           <Container>
             <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-center">
               <div>
@@ -282,7 +284,7 @@ export default function Home() {
       )}
 
       {/* 5. Split-Screen Vehicle Lookup */}
-      <Section id="check-my-car" className="p-0 border-y border-border">
+      <Section id="check-my-car" className="p-0 md:p-0 border-y border-border">
         <div className="grid grid-cols-1 lg:grid-cols-2">
           {/* Left: Cinematic Background */}
           <div className="hidden lg:block relative min-h-[500px] bg-surface">
@@ -317,7 +319,7 @@ export default function Home() {
       </Section>
 
       {/* 6. Problem Selector */}
-      <Section className="bg-surface/20 border-b border-border">
+      <Section className="section-tone-raised border-b border-border">
         <Container>
           <Reveal>
              <SectionHeading 
@@ -334,7 +336,7 @@ export default function Home() {
 
       {/* 7. New to tuning / Glossary */}
       {home.newToTuning && (home.newToTuning.explainer || (home.newToTuning.glossary && home.newToTuning.glossary.length > 0)) && (
-        <Section className="border-b border-border bg-background">
+        <Section className="border-b border-border section-tone-sunk">
           <Container>
             <Reveal>
               <div className="max-w-4xl">
@@ -399,7 +401,7 @@ export default function Home() {
 
       {/* 9. Reviews */}
       {reviews && reviews.length > 0 && (
-        <Section className="border-b border-border bg-surface/20">
+        <Section className="border-b border-border section-tone-glow">
           <Container>
             <Reveal>
               <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-border pb-6 gap-4">
@@ -442,7 +444,7 @@ export default function Home() {
 
       {/* 10. Map / Service Areas */}
       {locations && locations.length > 0 && (
-        <Section id="locations" className="border-b border-border bg-background">
+        <Section id="locations" className="border-b border-border section-tone-raised">
           <Container>
             <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-end mb-10 md:mb-14">
               <div>
