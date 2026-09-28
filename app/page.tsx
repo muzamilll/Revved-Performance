@@ -10,6 +10,7 @@ import { about } from "../data/about";
 import { trust, tunedBrands } from "../data/trust";
 import { reviews } from "../data/reviews";
 import { absoluteUrl, getSiteUrl } from "../lib/seo";
+import { cn } from "../lib/utils";
 
 import { BadgeCheck } from "lucide-react";
 import { Container, Section, SectionHeading } from "../components/layout/layout-primitives";
@@ -174,9 +175,9 @@ export default function Home() {
                     {[0, 1].map(copy => (
                       <div key={copy} className="flex items-center gap-10 md:gap-14 pr-10 md:pr-14">
                         {verifiedTrust.map(t => (
-                          <div key={t.id} className="h-6 md:h-8 relative flex-shrink-0 flex items-center justify-center">
+                          <div key={t.id} className={cn("relative flex-shrink-0 flex items-center justify-center", t.logoSrc ? "w-9 h-9 md:w-11 md:h-11" : "h-6 md:h-8")}>
                             {t.logoSrc ? (
-                              <Img src={t.logoSrc} alt={t.alt || t.label} fill className="object-contain" />
+                              <Img src={t.logoSrc} alt={t.alt || t.label} fill sizes="44px" className="object-contain" />
                             ) : (
                               <span className="text-xs md:text-sm font-bold uppercase tracking-widest text-muted whitespace-nowrap">{t.label}</span>
                             )}

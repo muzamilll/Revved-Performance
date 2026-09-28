@@ -2,16 +2,22 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { ChevronRight, Mail, Menu, Phone, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { Logo } from "./Logo";
 import { WhatsAppButton } from "../ui/WhatsAppButton";
 import { about } from "../../data/about";
+import { site } from "../../data/site";
+import { getPhoneUrl } from "../../lib/whatsapp";
+import { trackEvent } from "../../lib/analytics";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const pathname = usePathname();
+  // True only in the browser, so the portal never renders during SSR/hydration
+  const isClient = React.useSyncExternalStore(() => () => {}, () => true, () => false);
 
   // On home page, we can link to hash directly. On other pages, we prepend '/'.
   const isHome = pathname === "/";
@@ -32,6 +38,19 @@ export function Header() {
     // eslint-disable-next-line
     setMobileMenuOpen(false);
   }, [pathname]);
+
+  // Stop the page scrolling behind the open menu, and let Escape close it
+  React.useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMobileMenuOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [mobileMenuOpen]);
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border bg-background/80 backdrop-blur-md">
@@ -55,52 +74,82 @@ export function Header() {
         </div>
 
         <button
-          className="lg:hidden p-2 text-muted hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
+          className="lg:hidden -mr-2 p-2.5 text-white hover:text-accent-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
           onClick={() => setMobileMenuOpen(true)}
           aria-label="Open menu"
+          aria-expanded={mobileMenuOpen}
         >
-          <Menu className="w-6 h-6" />
+          <Menu className="w-7 h-7" />
         </button>
       </div>
 
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: "100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="fixed inset-0 z-50 bg-background flex flex-col"
-          >
-            <div className="h-20 px-6 flex items-center justify-between border-b border-border">
-              <Logo onClick={() => setMobileMenuOpen(false)} />
-              <button
-                className="p-2 text-muted hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
-                onClick={() => setMobileMenuOpen(false)}
-                aria-label="Close menu"
-              >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
-
-            <nav className="flex-1 flex flex-col p-6 gap-6 overflow-y-auto">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
+      {/* Portalled to <body>: the header's backdrop-blur would otherwise trap this fixed overlay inside the header bar */}
+      {isClient && createPortal(
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, x: "100%" }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: "100%" }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="lg:hidden fixed inset-0 z-50 bg-background flex flex-col"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Menu"
+            >
+              <div className="h-20 px-6 flex items-center justify-between border-b border-border flex-shrink-0">
+                <Logo onClick={() => setMobileMenuOpen(false)} />
+                <button
+                  className="-mr-2 p-2.5 text-white hover:text-accent-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-2xl font-heading font-bold text-white hover:text-accent-light transition-colors block"
+                  aria-label="Close menu"
                 >
-                  {link.label}
-                </Link>
-              ))}
-              <div className="mt-8">
-                <WhatsAppButton label="Get a quote" className="w-full" />
+                  <X className="w-7 h-7" />
+                </button>
               </div>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
+              <nav className="flex-1 flex flex-col px-6 pt-4 pb-[max(env(safe-area-inset-bottom),1.5rem)] overflow-y-auto">
+                <ul>
+                  {navLinks.map((link) => (
+                    <li key={link.label} className="border-b border-border">
+                      <Link
+                        href={link.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex items-center justify-between py-5 text-2xl font-heading font-bold uppercase tracking-wide text-white hover:text-accent-light transition-colors"
+                      >
+                        {link.label}
+                        <ChevronRight className="w-6 h-6 text-accent-light" aria-hidden="true" />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-auto pt-10 flex flex-col gap-3">
+                  <WhatsAppButton label="Get a quote" className="w-full h-14 uppercase tracking-widest font-bold" />
+                  <a
+                    href={getPhoneUrl()}
+                    onClick={() => trackEvent("phone_click")}
+                    className="w-full h-14 inline-flex items-center justify-center gap-2 rounded-md border border-muted/40 text-white font-bold uppercase tracking-widest hover:border-white transition-colors"
+                  >
+                    <Phone className="w-5 h-5" aria-hidden="true" />
+                    Call us
+                  </a>
+                  {site.social.email && (
+                    <a
+                      href={`mailto:${site.social.email}`}
+                      className="mt-2 inline-flex items-center justify-center gap-2 text-muted hover:text-white transition-colors"
+                    >
+                      <Mail className="w-4 h-4" aria-hidden="true" />
+                      {site.social.email}
+                    </a>
+                  )}
+                </div>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </header>
   );
 }
