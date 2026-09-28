@@ -7,12 +7,12 @@ import { offers } from "../data/offers";
 import { problems } from "../data/problems";
 import { locations } from "../data/locations";
 import { about } from "../data/about";
-import { trust, tunedBrands } from "../data/trust";
+import { tunedBrands } from "../data/trust";
 import { reviews } from "../data/reviews";
 import { absoluteUrl, getSiteUrl } from "../lib/seo";
 import { cn } from "../lib/utils";
 
-import { BadgeCheck, ShieldCheck } from "lucide-react";
+import { BadgeCheck, ClipboardCheck, MapPin, ShieldCheck } from "lucide-react";
 import { Container, Section, SectionHeading } from "../components/layout/layout-primitives";
 import { Reveal } from "../components/ui/Reveal";
 import { ServiceAreaMap } from "../components/home/ServiceAreaMap";
@@ -42,9 +42,15 @@ export default function Home() {
   const featuredOffer = visibleOffers.find(o => o.featured);
 
   const verifiedTrust = tunedBrands.filter(t => t.verified);
-  const dealerBadge = trust.find(t => t.id === "top-gear-tuning-agent");
   // Sign-up only renders when Brevo is configured and the launch offer is running.
   const showLaunchSignup = Boolean(process.env.BREVO_API_KEY && process.env.BREVO_LIST_ID) && isLaunchOfferRunning();
+
+  const heroPoints = [
+    { icon: BadgeCheck, title: "Top Gear Tuning", sub: "Verified Dealer" },
+    { icon: ShieldCheck, title: warranty.name, sub: null },
+    { icon: MapPin, title: "Mobile Service", sub: "We come to you" },
+    { icon: ClipboardCheck, title: "Pre & Post", sub: "Diagnostics" },
+  ];
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -71,59 +77,59 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       
-      {/* 1. Cinematic Hero */}
-      <Section className="relative flex flex-col justify-center pt-24 pb-12 md:pt-32 md:pb-24 lg:min-h-[80vh]" overlay>
-        {/* Placeholder for the cinematic car background */}
-        <div className="absolute inset-0 z-0 bg-[url('https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=2500&auto=format&fit=crop')] bg-cover bg-center opacity-40"></div>
-        <div className="absolute inset-0 bg-gradient-cinematic z-0"></div>
+      {/* 1. Cinematic Hero: plain <section> (not <Section>) so the photo fills the whole box, including the area behind the fixed header */}
+      <section className="relative isolate overflow-hidden flex flex-col lg:min-h-[88vh]">
+        <div
+          className="absolute inset-0 -z-10 bg-cover bg-[position:58%_62%] lg:bg-[position:center_62%]"
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=2500&auto=format&fit=crop')" }}
+          aria-hidden="true"
+        />
+        {/* Overlays: overall dim, dark top for the header, dark left for the copy (desktop), fade into the page at the bottom */}
+        <div className="absolute inset-0 -z-10 bg-background/55 lg:bg-background/35" aria-hidden="true" />
+        <div className="absolute inset-x-0 top-0 h-40 -z-10 bg-gradient-to-b from-background/90 to-transparent" aria-hidden="true" />
+        <div className="absolute inset-y-0 left-0 w-2/3 -z-10 hidden lg:block bg-gradient-to-r from-background/90 via-background/60 to-transparent" aria-hidden="true" />
+        <div className="absolute inset-x-0 bottom-0 h-2/3 lg:h-1/2 -z-10 bg-gradient-to-t from-background via-background/70 to-transparent" aria-hidden="true" />
 
-        <Container className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center flex-1">
+        {/* Top padding clears the fixed header (h-20) */}
+        <Container className="flex-1 flex flex-col justify-center pt-28 pb-8 md:pt-36 md:pb-12 lg:pt-32">
           <div>
-            <div className="mb-4 flex flex-col gap-2">
-              {dealerBadge && (
-                <div className="flex items-center gap-2">
-                   <BadgeCheck className="w-5 h-5 text-accent-light flex-shrink-0" />
-                   <span className="text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-muted">
-                     {dealerBadge.label}
-                   </span>
-                </div>
-              )}
-              <div className="flex items-center gap-2">
-                 <ShieldCheck className="w-5 h-5 text-accent-light flex-shrink-0" />
-                 <span className="text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-muted">
-                   {warranty.name}
-                 </span>
-              </div>
-            </div>
-            
-            <h1 className="text-6xl md:text-7xl lg:text-[100px] font-heading font-extrabold text-white mb-4 leading-[0.9] uppercase tracking-tighter text-glow-accent">
-              <span className="block text-gradient-accent">Mobile</span>
-              <span className="block text-accent-light">Mechanic</span>
-              <span className="block">Services</span>
-            </h1>
-            
-            <p className="text-lg md:text-2xl text-muted mb-8 font-medium">
-              Servicing. Repairs. Diagnostics. ECU Remapping.<br/>
-              At home, at work or roadside.
+            <p className="text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-accent-light mb-4">
+              Mobile Tuning · East London · Essex
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 items-center w-full">
-              <Button href="#check-my-car" className="w-full sm:w-auto text-base md:text-lg h-14 px-8 uppercase tracking-wider font-bold" variant="primary">
-                Get a Quote &rarr;
-              </Button>
-              <Button href="#services" className="w-full sm:w-auto text-base md:text-lg h-14 px-8 uppercase tracking-wider" variant="secondary">
-                View Services
+            <h1 className="text-[2.6rem] min-[400px]:text-5xl md:text-7xl xl:text-[84px] font-heading font-extrabold text-white leading-[0.95] uppercase tracking-tight mb-5 lg:whitespace-nowrap">
+              Mobile ECU Remapping &amp;<br />
+              <span className="text-accent-light">Performance Tuning</span>
+            </h1>
+
+            <p className="text-lg md:text-2xl text-white/80 mb-8 max-w-xl">
+              Professional ECU &amp; TCU tuning across East London &amp; Essex.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <WhatsAppButton label="Get a quote" className="w-full sm:w-auto h-14 px-8 text-base md:text-lg uppercase tracking-wider font-bold" />
+              <Button href="#check-my-car" variant="secondary" className="w-full sm:w-auto h-14 px-8 text-base md:text-lg uppercase tracking-wider font-bold bg-background/40 backdrop-blur-sm">
+                Check your car
               </Button>
             </div>
           </div>
-          
-          <div className="hidden lg:flex justify-end items-center opacity-20">
-             <div className="font-heading text-[150px] leading-none text-right uppercase font-bold tracking-tighter" style={{ writingMode: 'vertical-rl' }}>
-               Drive Better
-             </div>
-          </div>
         </Container>
-      </Section>
+
+        {/* Value / trust strip */}
+        <Container className="pb-8 md:pb-12">
+          <ul className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-5 border-t border-white/10 pt-6">
+            {heroPoints.map(({ icon: Icon, title, sub }) => (
+              <li key={title} className="flex items-start gap-3 min-w-0">
+                <Icon className="w-5 h-5 mt-0.5 text-accent-light flex-shrink-0" aria-hidden="true" />
+                <div className="min-w-0">
+                  <p className="text-xs md:text-sm font-bold uppercase tracking-wider text-white leading-snug">{title}</p>
+                  {sub && <p className="text-xs md:text-sm text-muted">{sub}</p>}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </section>
 
       {/* 2. Horizontal Special Offer Banner */}
       {featuredOffer && (

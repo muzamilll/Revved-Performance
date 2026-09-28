@@ -12,9 +12,12 @@ import { about } from "../../data/about";
 import { site } from "../../data/site";
 import { getPhoneUrl } from "../../lib/whatsapp";
 import { trackEvent } from "../../lib/analytics";
+import { cn } from "../../lib/utils";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const [hiddenOnScroll, setHiddenOnScroll] = React.useState(false);
+  const [atTop, setAtTop] = React.useState(true);
   const pathname = usePathname();
   // True only in the browser, so the portal never renders during SSR/hydration
   const isClient = React.useSyncExternalStore(() => () => {}, () => true, () => false);
@@ -39,6 +42,32 @@ export function Header() {
     setMobileMenuOpen(false);
   }, [pathname]);
 
+  // Smart header: hide while scrolling down, show on scroll up or once scrolling stops.
+  // Only the mobile styles act on hiddenOnScroll (max-lg:), so desktop is unchanged.
+  React.useEffect(() => {
+    let lastY = window.scrollY;
+    let idleTimer: number | undefined;
+    const onScroll = () => {
+      const y = window.scrollY;
+      const delta = y - lastY;
+      setAtTop(y < 10);
+      if (y < 80 || delta < -4) setHiddenOnScroll(false);
+      else if (delta > 4) setHiddenOnScroll(true);
+      lastY = y;
+      window.clearTimeout(idleTimer);
+      idleTimer = window.setTimeout(() => setHiddenOnScroll(false), 250);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.clearTimeout(idleTimer);
+    };
+  }, []);
+
+  const isHidden = hiddenOnScroll && !mobileMenuOpen;
+  // Over the homepage hero the header is see-through until the page scrolls
+  const isTransparent = isHome && atTop && !mobileMenuOpen;
+
   // Stop the page scrolling behind the open menu, and let Escape close it
   React.useEffect(() => {
     if (!mobileMenuOpen) return;
@@ -53,7 +82,15 @@ export function Header() {
   }, [mobileMenuOpen]);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border bg-background/80 backdrop-blur-md">
+    <>
+    <header
+      onFocusCapture={() => setHiddenOnScroll(false)}
+      className={cn(
+        "fixed top-0 inset-x-0 z-40 border-b transition-[transform,background-color,border-color] duration-300 ease-out motion-reduce:transition-none",
+        isTransparent ? "bg-transparent border-transparent" : "bg-background/80 backdrop-blur-md border-border",
+        isHidden && "max-lg:-translate-y-full"
+      )}
+    >
       <div className="max-w-[1440px] mx-auto px-6 md:px-8 lg:px-12 h-20 flex items-center justify-between">
         <Logo />
 
@@ -151,5 +188,8 @@ export function Header() {
         document.body
       )}
     </header>
+    {/* The header is fixed, so reserve its height on every page except home, where the hero sits behind it */}
+    {!isHome && <div className="h-20" aria-hidden="true" />}
+    </>
   );
 }
