@@ -16,7 +16,7 @@ export function getLaunchPrice(service: Service): number | null {
 export function LaunchSlots({ className }: { className?: string }) {
   if (!isLaunchOfferRunning()) return null;
   return (
-    <p className={cn("text-xs font-bold uppercase tracking-widest text-accent", className)}>
+    <p className={cn("text-xs font-bold uppercase tracking-widest text-accent-light", className)}>
       {launchOffer.slotsRemaining} of {launchOffer.slotsTotal} launch slots left
     </p>
   );
@@ -26,10 +26,9 @@ interface ServicePriceProps {
   service: Service;
   className?: string;
   amountClassName?: string;
-  showSlots?: boolean;
 }
 
-export function ServicePrice({ service, className, amountClassName, showSlots = true }: ServicePriceProps) {
+export function ServicePrice({ service, className, amountClassName }: ServicePriceProps) {
   const { price } = service;
   const launchPrice = getLaunchPrice(service);
 
@@ -40,7 +39,7 @@ export function ServicePrice({ service, className, amountClassName, showSlots = 
   return (
     <div className={cn("flex flex-col gap-1", className)}>
       {launchPrice !== null && (
-        <span className="text-[10px] font-bold uppercase tracking-widest text-accent">{launchOffer.label}</span>
+        <span className="text-[10px] font-bold uppercase tracking-widest text-accent-light">{launchOffer.label}</span>
       )}
       <div className="flex items-baseline gap-3 flex-wrap">
         {price.from && <span className="text-xs uppercase tracking-widest text-muted">From</span>}
@@ -51,7 +50,6 @@ export function ServicePrice({ service, className, amountClassName, showSlots = 
           £{launchPrice ?? price.amount}
         </span>
       </div>
-      {launchPrice !== null && showSlots && <LaunchSlots className="mt-1" />}
     </div>
   );
 }

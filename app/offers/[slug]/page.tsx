@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const isIndexable = Boolean(offer.indexable && offer.seoTitle && offer.seoDescription);
 
   return {
-    title: offer.seoTitle || `${offer.title} | Revved Automotive`,
+    title: offer.seoTitle || `${offer.title} | Revved Performance`,
     description: offer.seoDescription || offer.description || "",
     robots: {
       index: isIndexable,
@@ -64,7 +64,7 @@ export default async function OfferPage({ params }: { params: Promise<{ slug: st
           <div className="flex flex-wrap gap-3 mb-6">
             <Badge className="bg-accent text-white border-transparent">Limited Offer</Badge>
             {savings && (
-              <Badge className="bg-surface border-accent text-accent">Save £{savings}</Badge>
+              <Badge className="bg-surface border-accent text-accent-light">Save £{savings}</Badge>
             )}
           </div>
 
@@ -73,13 +73,13 @@ export default async function OfferPage({ params }: { params: Promise<{ slug: st
           </h1>
 
           {offer.tagline && (
-            <p className="text-xl text-accent mb-4 font-medium">
+            <p className="text-xl text-accent-light mb-4 font-medium">
               {offer.tagline}
             </p>
           )}
 
           {offer.description && (
-            <p className="text-lg text-silver mb-8 leading-relaxed">
+            <p className="text-lg text-muted mb-8 leading-relaxed">
               {offer.description}
             </p>
           )}
@@ -115,8 +115,8 @@ export default async function OfferPage({ params }: { params: Promise<{ slug: st
                <h3 className="text-lg font-bold text-white mb-4">Included Items</h3>
                <ul className="space-y-3">
                  {offer.includes.map((item, i) => (
-                   <li key={i} className="flex items-start text-silver">
-                     <span className="text-accent mr-3 mt-1 font-bold">✓</span>
+                   <li key={i} className="flex items-start text-muted">
+                     <span className="text-accent-light mr-3 mt-1 font-bold">✓</span>
                      {item}
                    </li>
                  ))}
@@ -134,7 +134,7 @@ export default async function OfferPage({ params }: { params: Promise<{ slug: st
                        <h4 className="font-bold text-white">{service.name}</h4>
                        <p className="text-sm text-muted mt-1">{service.shortDescription}</p>
                        {service.indexable && (
-                         <Link href={`/services/${service.slug}`} className="text-accent text-sm mt-2 inline-block hover:underline">
+                         <Link href={`/services/${service.slug}`} className="text-accent-light text-sm mt-2 inline-block hover:underline">
                            View service details &rarr;
                          </Link>
                        )}
@@ -151,7 +151,7 @@ export default async function OfferPage({ params }: { params: Promise<{ slug: st
       <Section className="py-16 border-b border-border glow-plum bg-surface/10">
         <Container className="max-w-3xl text-center">
           <h2 className="text-2xl font-heading font-bold text-white mb-4 uppercase">Check availability</h2>
-          <p className="text-silver mb-8">Enter your registration to check if this offer applies to your vehicle.</p>
+          <p className="text-muted mb-8">Enter your registration to check if this offer applies to your vehicle.</p>
           <VehicleLookup />
         </Container>
       </Section>

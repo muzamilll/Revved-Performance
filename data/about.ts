@@ -5,5 +5,5 @@ export const about: AboutData = {
   personName: "Rayyan",
   role: "Founder",
   photo: null,
-  body: "Revved Automotive is a mobile automotive services business based in Romford, founded by Rayyan. We come to your home or workplace across East London and Essex. Revved Automotive is an authorised agent of Top Gear Tuning."
+  body: "Revved Performance is a mobile automotive services business based in Romford, founded by Rayyan. We come to your home or workplace across East London and Essex. Revved Performance is an authorised agent of Top Gear Tuning."
 };

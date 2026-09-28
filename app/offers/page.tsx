@@ -9,7 +9,7 @@ import { Reveal } from "../../components/ui/Reveal";
 import { Breadcrumbs } from "../../components/ui/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "Special Offers & Packages | Revved Automotive",
+  title: "Special Offers & Packages | Revved Performance",
   description: "View our current special offers and tuning bundles for ECU remapping and diagnostics.",
 };
 
@@ -26,7 +26,7 @@ export default function OffersPage() {
               <h1 className="text-4xl md:text-5xl font-heading font-bold text-white mb-6 uppercase tracking-wide">
                 Special Offers
               </h1>
-              <p className="text-xl text-silver">
+              <p className="text-xl text-muted">
                 Get more value with our bundles and limited offers.
               </p>
             </div>
@@ -45,8 +45,8 @@ export default function OffersPage() {
               </div>
             ) : (
               <div className="py-24 text-center">
-                <p className="text-xl text-silver mb-8">We don&apos;t have any special offers running right now.</p>
-                <Link href="/services" className="text-accent hover:text-white underline underline-offset-4">
+                <p className="text-xl text-muted mb-8">We don&apos;t have any special offers running right now.</p>
+                <Link href="/services" className="text-accent-light hover:text-white underline underline-offset-4">
                   View our standard services &rarr;
                 </Link>
               </div>

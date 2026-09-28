@@ -49,7 +49,7 @@ export const SectionHeading = React.forwardRef<HTMLDivElement, SectionHeadingPro
   ({ eyebrow, title, intro, className, ...props }, ref) => (
     <div ref={ref} className={cn("max-w-2xl mb-12", className)} {...props}>
       {eyebrow && (
-        <p className="text-accent text-sm font-bold uppercase tracking-wider mb-2">
+        <p className="text-accent-light text-sm font-bold uppercase tracking-wider mb-2">
           {eyebrow}
         </p>
       )}

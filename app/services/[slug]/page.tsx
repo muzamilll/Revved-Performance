@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const isIndexable = Boolean(service.indexable && service.seoTitle && service.seoDescription);
 
   return {
-    title: service.seoTitle || `${service.name} | Revved Automotive`,
+    title: service.seoTitle || `${service.name} | Revved Performance`,
     description: service.seoDescription || service.shortDescription || "",
     robots: {
       index: isIndexable,
@@ -105,7 +105,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
           {/* 1. Plain English / Short Description */}
           {(service.plainEnglish || service.shortDescription) && (
-            <p className="text-lg md:text-xl text-silver mb-6 font-medium leading-relaxed">
+            <p className="text-lg md:text-xl text-muted mb-6 font-medium leading-relaxed">
               {service.plainEnglish || service.shortDescription}
             </p>
           )}
@@ -143,9 +143,9 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             <h2 className="text-2xl font-heading font-bold text-white mb-6 uppercase">What&apos;s included</h2>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {service.includedItems.map((item, i) => (
-                <li key={i} className="flex items-start text-silver">
+                <li key={i} className="flex items-start text-muted">
                   <div className="flex-shrink-0 w-6 h-6 rounded-full bg-accent/20 border border-accent/50 flex items-center justify-center mr-3 mt-0.5">
-                    <span className="text-accent text-xs font-bold">✓</span>
+                    <span className="text-accent-light text-xs font-bold">✓</span>
                   </div>
                   {item}
                 </li>
@@ -176,7 +176,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       <Section className="py-16 border-b border-border glow-plum bg-surface/10">
         <Container className="max-w-3xl text-center">
           <h2 className="text-2xl font-heading font-bold text-white mb-4 uppercase">Is my car suitable?</h2>
-          <p className="text-silver mb-8">Enter your registration to check if we can perform this service on your specific engine.</p>
+          <p className="text-muted mb-8">Enter your registration to check if we can perform this service on your specific engine.</p>
           <VehicleLookup />
         </Container>
       </Section>
@@ -186,7 +186,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <Section className="py-12 border-b border-border">
           <Container className="max-w-3xl">
             <Accordion title="Technical Details (For Enthusiasts)" className="border-t" trackingEvent="service_details_open">
-               <div className="prose prose-invert max-w-none text-silver py-4 leading-relaxed">
+               <div className="prose prose-invert max-w-none text-muted py-4 leading-relaxed">
                  {service.technicalDetail}
                </div>
             </Accordion>
@@ -201,10 +201,10 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             {home.howItWorks.map((item, i) => (
               <div key={i} className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-accent/20 border border-accent/50 flex items-center justify-center text-accent font-bold">
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-accent/20 border border-accent/50 flex items-center justify-center text-accent-light font-bold">
                   {item.step}
                 </div>
-                <p className="text-lg text-silver pt-1">{item.text}</p>
+                <p className="text-lg text-muted pt-1">{item.text}</p>
               </div>
             ))}
           </div>
@@ -219,7 +219,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             <div className="divide-y divide-thin border-y border-border">
               {service.faqs.map((faq, i) => (
                 <Accordion key={i} title={faq.question}>
-                  <p className="py-4 text-silver">{faq.answer}</p>
+                  <p className="py-4 text-muted">{faq.answer}</p>
                 </Accordion>
               ))}
             </div>
@@ -231,7 +231,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       <Section className="py-24">
         <Container className="max-w-2xl text-center">
           <h2 className="text-3xl font-heading font-bold text-white mb-4">Book this service</h2>
-          <p className="text-silver mb-8 text-lg">Send us your registration and we&apos;ll confirm the exact price and availability.</p>
+          <p className="text-muted mb-8 text-lg">Send us your registration and we&apos;ll confirm the exact price and availability.</p>
           <div className="flex justify-center">
             <WhatsAppButton 
               className="w-full sm:w-auto h-14 px-8 text-lg"
@@ -239,7 +239,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             />
           </div>
           <div className="mt-6">
-            <a href={getPhoneUrl()} className="text-silver hover:text-white underline underline-offset-4">
+            <a href={getPhoneUrl()} className="text-muted hover:text-white underline underline-offset-4">
               Or call us to discuss your vehicle
             </a>
           </div>

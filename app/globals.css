@@ -14,6 +14,8 @@
   --color-text: var(--color-brand-offwhite);
   --color-muted: var(--color-brand-silver);
   --color-accent: var(--color-brand-plum);
+  /* Plum for text on dark backgrounds: brand plum is too dark to read (2.2:1), this tint passes AA (5.7:1) */
+  --color-accent-light: #B07A95;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-oswald), ui-sans-serif, system-ui, sans-serif;

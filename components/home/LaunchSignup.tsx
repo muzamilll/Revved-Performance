@@ -51,14 +51,14 @@ export function LaunchSignup() {
   if (status === "success") {
     return (
       <Card className="bg-surface border-accent/40 glow-plum max-w-xl">
-        <p className="text-xs font-bold uppercase tracking-widest text-accent mb-2">{launchOffer.label}</p>
+        <p className="text-xs font-bold uppercase tracking-widest text-accent-light mb-2">{launchOffer.label}</p>
         <h3 className="text-2xl md:text-3xl font-heading font-extrabold text-white uppercase tracking-tight mb-4">
           You&apos;re in. Here&apos;s your launch offer.
         </h3>
         {launchServices.length > 0 && (
           <ul className="space-y-2 mb-4">
             {launchServices.map(s => (
-              <li key={s.slug} className="flex justify-between gap-4 text-sm text-silver border-b border-thin/50 pb-2">
+              <li key={s.slug} className="flex justify-between gap-4 text-sm text-muted border-b border-thin/50 pb-2">
                 <span>{s.name}</span>
                 <span className="whitespace-nowrap">
                   {s.price?.from && <span className="text-muted text-xs uppercase mr-2">From</span>}
@@ -83,20 +83,20 @@ export function LaunchSignup() {
     <Card className="bg-surface border-thin max-w-xl">
       <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate={false}>
         <div>
-          <label htmlFor="launch-email" className="block text-xs font-bold uppercase tracking-widest text-silver mb-2">Email</label>
+          <label htmlFor="launch-email" className="block text-xs font-bold uppercase tracking-widest text-muted mb-2">Email</label>
           <input id="launch-email" name="email" type="email" required autoComplete="email" className={inputClasses} placeholder="you@example.com" />
         </div>
         <div>
-          <label htmlFor="launch-phone" className="block text-xs font-bold uppercase tracking-widest text-silver mb-2">
+          <label htmlFor="launch-phone" className="block text-xs font-bold uppercase tracking-widest text-muted mb-2">
             Phone <span className="text-muted normal-case tracking-normal font-medium">(optional)</span>
           </label>
           <input id="launch-phone" name="phone" type="tel" autoComplete="tel" className={inputClasses} placeholder="07..." />
         </div>
         {/* Honeypot: hidden from people, filled in by bots */}
         <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
-        <label className="flex items-start gap-3 text-sm text-silver cursor-pointer">
+        <label className="flex items-start gap-3 text-sm text-muted cursor-pointer">
           <input name="consent" type="checkbox" required className="mt-1 h-4 w-4 accent-accent flex-shrink-0" />
-          <span>I&apos;d like to hear about offers and updates from Revved Automotive</span>
+          <span>I&apos;d like to hear about offers and updates from Revved Performance</span>
         </label>
         <p className="text-xs text-muted">
           Unsubscribe any time. See our <Link href="/privacy" className="underline underline-offset-2 hover:text-white">privacy policy</Link>.

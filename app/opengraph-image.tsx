@@ -1,8 +1,10 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { site } from "../data/site";
 
 export const runtime = "nodejs";
-export const alt = "Revved Automotive";
+export const alt = "Revved Performance";
 export const size = {
   width: 1200,
   height: 630,
@@ -11,6 +13,9 @@ export const size = {
 export const contentType = "image/png";
 
 export default async function Image() {
+  const logoData = await readFile(join(process.cwd(), "public/images/revved-logo-transparent.png"), "base64");
+  const logoSrc = `data:image/png;base64,${logoData}`;
+
   return new ImageResponse(
     (
       <div
@@ -45,6 +50,7 @@ export default async function Image() {
             justifyContent: "center",
           }}
         >
+          <img src={logoSrc} width={378} height={179} alt="" style={{ marginBottom: "32px" }} />
           <div
             style={{
               fontSize: "72px",
@@ -61,7 +67,7 @@ export default async function Image() {
           <div
             style={{
               fontSize: "36px",
-              color: "#9B607D",
+              color: "#B07A95",
               fontFamily: "sans-serif",
               marginBottom: "24px",
               textTransform: "uppercase",
@@ -69,7 +75,7 @@ export default async function Image() {
               textAlign: "center",
             }}
           >
-            Performance &amp; Diagnostics
+            Mobile ECU Remapping &amp; Diagnostics
           </div>
           <div
             style={{

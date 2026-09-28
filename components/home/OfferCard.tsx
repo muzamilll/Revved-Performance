@@ -19,9 +19,9 @@ export function OfferCard({ offer, services }: OfferCardProps) {
         
         <div className="relative z-10 flex flex-col h-full">
           <div className="flex justify-between items-start mb-4">
-            <Badge className="bg-accent/20 text-accent border-accent/30">Limited Offer</Badge>
+            <Badge className="bg-accent/20 text-accent-light border-accent/30">Limited Offer</Badge>
             {savings && (
-              <span className="text-sm font-bold text-accent">Save £{savings}</span>
+              <span className="text-sm font-bold text-accent-light">Save £{savings}</span>
             )}
           </div>
           
@@ -33,8 +33,8 @@ export function OfferCard({ offer, services }: OfferCardProps) {
           
           <ul className="space-y-2 mb-8 flex-1">
             {offer.includes.map((item, i) => (
-              <li key={i} className="flex items-start text-sm text-silver">
-                <span className="text-accent mr-2 font-bold">✓</span>
+              <li key={i} className="flex items-start text-sm text-muted">
+                <span className="text-accent-light mr-2 font-bold">✓</span>
                 {item}
               </li>
             ))}
@@ -42,7 +42,7 @@ export function OfferCard({ offer, services }: OfferCardProps) {
           
           <div className="flex items-end justify-between mt-auto pt-6 border-t border-thin/50">
             <PriceTag price={offer.price} />
-            <span className="text-sm font-medium text-accent">View details &rarr;</span>
+            <span className="text-sm font-medium text-accent-light">View details &rarr;</span>
           </div>
         </div>
       </Card>

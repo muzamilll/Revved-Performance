@@ -31,7 +31,7 @@ export const Accordion = React.forwardRef<HTMLDetailsElement, AccordionProps>(
       >
         <summary className="flex items-center justify-between py-4 cursor-pointer list-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm text-lg font-medium">
           {title}
-          <span className="ml-4 flex-shrink-0 transition-transform duration-300 group-open:rotate-180 text-accent">
+          <span className="ml-4 flex-shrink-0 transition-transform duration-300 group-open:rotate-180 text-accent-light">
             <ChevronDown className="w-5 h-5" />
           </span>
         </summary>

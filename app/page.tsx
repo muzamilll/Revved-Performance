@@ -9,7 +9,7 @@ import { locations } from "../data/locations";
 import { about } from "../data/about";
 import { trust, tunedBrands } from "../data/trust";
 import { reviews } from "../data/reviews";
-import { getSiteUrl } from "../lib/seo";
+import { absoluteUrl, getSiteUrl } from "../lib/seo";
 
 import { BadgeCheck } from "lucide-react";
 import { Container, Section, SectionHeading } from "../components/layout/layout-primitives";
@@ -48,6 +48,8 @@ export default function Home() {
     "@type": "AutomotiveBusiness",
     "name": site.name,
     "url": getSiteUrl(),
+    "logo": absoluteUrl("/images/revved-logo.png"),
+    "email": site.social.email,
     "telephone": process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "447999200655",
     "areaServed": locations.map(l => l.name).join(', ')
   };
@@ -69,8 +71,8 @@ export default function Home() {
           <div>
             {dealerBadge && (
               <div className="mb-4 flex items-center gap-2">
-                 <BadgeCheck className="w-5 h-5 text-accent flex-shrink-0" />
-                 <span className="text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-silver">
+                 <BadgeCheck className="w-5 h-5 text-accent-light flex-shrink-0" />
+                 <span className="text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-muted">
                    {dealerBadge.label}
                  </span>
               </div>
@@ -78,11 +80,11 @@ export default function Home() {
             
             <h1 className="text-6xl md:text-7xl lg:text-[100px] font-heading font-extrabold text-white mb-4 leading-[0.9] uppercase tracking-tighter text-glow-accent">
               <span className="block text-gradient-accent">Mobile</span>
-              <span className="block text-accent">Mechanic</span>
+              <span className="block text-accent-light">Mechanic</span>
               <span className="block">Services</span>
             </h1>
             
-            <p className="text-lg md:text-2xl text-silver mb-8 font-medium">
+            <p className="text-lg md:text-2xl text-muted mb-8 font-medium">
               Servicing. Repairs. Diagnostics. ECU Remapping.<br/>
               At home, at work or roadside.
             </p>
@@ -139,7 +141,7 @@ export default function Home() {
 
                 {/* Right: CTA */}
                 <div className="w-full lg:w-auto flex flex-col items-start lg:items-end gap-2">
-                   <Button href={`/offers/${featuredOffer.slug}`} className="bg-white text-brand-plum hover:bg-silver font-bold uppercase tracking-widest w-full lg:w-auto h-12 md:h-14 md:px-8">
+                   <Button href={`/offers/${featuredOffer.slug}`} className="bg-white text-brand-plum hover:bg-muted font-bold uppercase tracking-widest w-full lg:w-auto h-12 md:h-14 md:px-8">
                      Claim This Offer &rarr;
                    </Button>
                    <p className="text-[10px] text-white/70 uppercase tracking-widest pl-1 lg:pl-0">Vehicle eligibility applies.</p>
@@ -169,7 +171,7 @@ export default function Home() {
                             {t.logoSrc ? (
                               <Img src={t.logoSrc} alt={t.alt || t.label} fill className="object-contain" />
                             ) : (
-                              <span className="text-xs md:text-sm font-bold uppercase tracking-widest text-silver whitespace-nowrap">{t.label}</span>
+                              <span className="text-xs md:text-sm font-bold uppercase tracking-widest text-muted whitespace-nowrap">{t.label}</span>
                             )}
                           </div>
                         ))}
@@ -191,12 +193,12 @@ export default function Home() {
           <Reveal>
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-border pb-6 gap-4">
               <div>
-                <p className="text-accent text-sm font-bold uppercase tracking-[0.2em] mb-2">Our Services</p>
+                <p className="text-accent-light text-sm font-bold uppercase tracking-[0.2em] mb-2">Our Services</p>
                 <h2 className="text-3xl md:text-5xl font-heading font-extrabold text-white uppercase tracking-tight">
-                  Professional<br/><span className="text-accent">Automotive Care.</span>
+                  Professional<br/><span className="text-accent-light">Automotive Care.</span>
                 </h2>
               </div>
-              <Link href="/services" className="text-accent font-bold uppercase tracking-wider text-sm hover:text-white transition-colors">
+              <Link href="/services" className="text-accent-light font-bold uppercase tracking-wider text-sm hover:text-white transition-colors">
                 View All Services &rarr;
               </Link>
             </div>
@@ -214,10 +216,10 @@ export default function Home() {
             <ol className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {home.howItWorks.map(item => (
                 <li key={item.step} className="flex gap-4 p-6 rounded-xl bg-background border border-border">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent/20 border border-accent/50 flex items-center justify-center text-accent font-heading font-bold">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent/20 border border-accent/50 flex items-center justify-center text-accent-light font-heading font-bold">
                     {item.step}
                   </div>
-                  <p className="text-lg text-silver pt-1.5">{item.text}</p>
+                  <p className="text-lg text-muted pt-1.5">{item.text}</p>
                 </li>
               ))}
             </ol>
@@ -231,11 +233,11 @@ export default function Home() {
           <Container>
             <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-center">
               <div>
-                <p className="text-accent text-sm font-bold uppercase tracking-[0.2em] mb-2">{launchOffer.label}</p>
+                <p className="text-accent-light text-sm font-bold uppercase tracking-[0.2em] mb-2">{launchOffer.label}</p>
                 <h2 className="text-3xl md:text-5xl font-heading font-extrabold text-white uppercase tracking-tight mb-4">
-                  Get our<br/><span className="text-accent">launch prices.</span>
+                  Get our<br/><span className="text-accent-light">launch prices.</span>
                 </h2>
-                <p className="text-silver text-lg mb-4">
+                <p className="text-muted text-lg mb-4">
                   Pop your email in to claim one of our launch slots. We&apos;ll show you the offer straight away.
                 </p>
                 <LaunchSlots />
@@ -258,11 +260,11 @@ export default function Home() {
           {/* Right: The Lookup Form */}
           <div className="bg-background py-20 px-6 lg:px-20 flex flex-col justify-center">
             <Reveal>
-              <p className="text-accent text-sm font-bold uppercase tracking-[0.2em] mb-2">Check Compatibility</p>
+              <p className="text-accent-light text-sm font-bold uppercase tracking-[0.2em] mb-2">Check Compatibility</p>
               <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-white uppercase tracking-tight mb-4">
                 What can we do<br/>for your car?
               </h2>
-              <p className="text-silver mb-8 text-lg">
+              <p className="text-muted mb-8 text-lg">
                 Enter your vehicle registration and we&apos;ll check what services are available for your specific engine.
               </p>
               
@@ -271,7 +273,7 @@ export default function Home() {
               </div>
               
               <div className="mt-8 pt-8 border-t border-border flex flex-col gap-4">
-                <p className="text-sm text-silver">
+                <p className="text-sm text-muted">
                   Not sure? No problem. <strong className="text-white">Prefer WhatsApp?</strong> Send us your registration and we&apos;ll check it for you.
                 </p>
                 <WhatsAppButton variant="secondary" className="w-full sm:w-auto self-start uppercase tracking-wider font-bold text-xs" label="Chat on WhatsApp" />
@@ -306,7 +308,7 @@ export default function Home() {
                 {home.newToTuning.explainer && (
                   <div className="mb-12">
                     <h2 className="text-3xl font-heading font-bold text-white mb-6 uppercase tracking-tight">New to tuning?</h2>
-                    <div className="prose prose-invert prose-lg max-w-none text-silver">
+                    <div className="prose prose-invert prose-lg max-w-none text-muted">
                       {home.newToTuning.explainer.split('\n').map((p, i) => p.trim() && <p key={i}>{p}</p>)}
                     </div>
                   </div>
@@ -314,12 +316,12 @@ export default function Home() {
                 
                 {home.newToTuning.glossary && home.newToTuning.glossary.length > 0 && (
                   <div>
-                    <h3 className="text-sm font-bold text-accent mb-6 uppercase tracking-[0.2em]">Plain English Glossary</h3>
+                    <h3 className="text-sm font-bold text-accent-light mb-6 uppercase tracking-[0.2em]">Plain English Glossary</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
                       {home.newToTuning.glossary.map((item, i) => (
                         <div key={i} className="pb-4 border-b border-thin/50">
                           <strong className="text-white block mb-1 uppercase tracking-wider text-sm">{item.term}</strong>
-                          <span className="text-sm text-silver">{item.definition}</span>
+                          <span className="text-sm text-muted">{item.definition}</span>
                         </div>
                       ))}
                     </div>
@@ -337,22 +339,22 @@ export default function Home() {
           <Container className="py-12">
             <Reveal>
               <div className="max-w-3xl mx-auto">
-                <p className="text-accent text-sm font-bold uppercase tracking-[0.2em] mb-4">About Revved Automotive</p>
+                <p className="text-accent-light text-sm font-bold uppercase tracking-[0.2em] mb-4">About Revved Performance</p>
                 <h2 className="text-4xl md:text-6xl font-heading font-extrabold text-white mb-8 uppercase tracking-tighter text-glow-accent">
                   Passion drives<br/>everything we do.
                 </h2>
-                <div className="prose prose-invert text-silver mx-auto mb-12 text-lg">
+                <div className="prose prose-invert text-muted mx-auto mb-12 text-lg">
                   {about.body.split('\n').map((p, i) => p.trim() && <p key={i}>{p}</p>)}
                 </div>
                 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-white/10 pt-12">
                   {home.whyRevved.map((item, i) => (
                     <div key={i} className="text-center">
-                      <div className="w-10 h-10 mx-auto rounded-full bg-accent/20 flex items-center justify-center text-accent mb-3 border border-accent/30">
+                      <div className="w-10 h-10 mx-auto rounded-full bg-accent/20 flex items-center justify-center text-accent-light mb-3 border border-accent/30">
                         ✓
                       </div>
                       <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-1">{item.title}</h4>
-                      <p className="text-[10px] text-silver uppercase">{item.description}</p>
+                      <p className="text-[10px] text-muted uppercase">{item.description}</p>
                     </div>
                   ))}
                 </div>
@@ -369,14 +371,14 @@ export default function Home() {
             <Reveal>
               <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-border pb-6 gap-4">
                 <div>
-                  <p className="text-accent text-sm font-bold uppercase tracking-[0.2em] mb-2">What our customers say</p>
+                  <p className="text-accent-light text-sm font-bold uppercase tracking-[0.2em] mb-2">What our customers say</p>
                   <h2 className="text-3xl md:text-5xl font-heading font-extrabold text-white uppercase tracking-tight">
-                    Real Drivers.<br/><span className="text-silver">Real Results.</span>
+                    Real Drivers.<br/><span className="text-muted">Real Results.</span>
                   </h2>
                 </div>
                 <div className="flex items-center gap-4 bg-surface px-4 py-2 rounded-full border border-thin">
                    <span className="text-sm font-bold text-white">4.9 out of 5</span>
-                   <div className="flex text-accent">★★★★★</div>
+                   <div className="flex text-accent-light">★★★★★</div>
                    <span className="text-xs text-muted uppercase tracking-wider">{reviews.length}+ reviews</span>
                 </div>
               </div>
@@ -384,10 +386,10 @@ export default function Home() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {reviews.map(review => (
                   <Card key={review.id} className="bg-background border-thin p-8 hover:border-accent/50 transition-colors">
-                    <p className="text-silver mb-8 text-sm leading-relaxed min-h-[80px]">&ldquo;{review.text}&rdquo;</p>
+                    <p className="text-muted mb-8 text-sm leading-relaxed min-h-[80px]">&ldquo;{review.text}&rdquo;</p>
                     <div className="flex justify-between items-center text-sm border-t border-thin/50 pt-4 mt-auto">
                       <div className="flex flex-col">
-                        <div className="flex text-accent mb-1 text-xs">
+                        <div className="flex text-accent-light mb-1 text-xs">
                           {Array.from({ length: 5 }).map((_, i) => (
                             <span key={i} className={i < review.rating ? "opacity-100" : "opacity-30"}>★</span>
                           ))}
@@ -411,16 +413,16 @@ export default function Home() {
           <Container>
             <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-end mb-10 md:mb-14">
               <div>
-                <p className="text-accent text-sm font-bold uppercase tracking-[0.2em] mb-4">Areas we cover</p>
+                <p className="text-accent-light text-sm font-bold uppercase tracking-[0.2em] mb-4">Areas we cover</p>
                 <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-white uppercase tracking-tight leading-none">
-                  East London, Essex<br/><span className="text-silver">& Surrounding Areas.</span>
+                  East London, Essex<br/><span className="text-muted">& Surrounding Areas.</span>
                 </h2>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-4 text-sm text-silver uppercase tracking-wider font-medium">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-4 text-sm text-muted uppercase tracking-wider font-medium">
                 {locations.map(loc => (
                   <span key={loc.slug} className="border-b border-thin/30 pb-2">{loc.name}</span>
                 ))}
-                <span className="border-b border-thin/30 pb-2 text-accent">And more...</span>
+                <span className="border-b border-thin/30 pb-2 text-accent-light">And more...</span>
               </div>
             </Reveal>
 
@@ -439,7 +441,7 @@ export default function Home() {
               <h2 className="text-4xl md:text-6xl font-heading font-extrabold text-white mb-6 uppercase tracking-tighter text-glow-accent">
                 Ready to rev it up?
               </h2>
-              <p className="text-sm md:text-lg text-silver mb-12 uppercase tracking-widest font-bold">
+              <p className="text-sm md:text-lg text-muted mb-12 uppercase tracking-widest font-bold">
                 Tell us what you drive. We&apos;ll take it from there.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

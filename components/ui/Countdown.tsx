@@ -33,15 +33,15 @@ export function Countdown({ endDateStr }: { endDateStr: string }) {
   return (
     <div className="flex gap-4 mt-6">
       <div className="flex flex-col items-center p-3 bg-surface border border-accent/30 rounded-lg min-w-[70px]">
-        <span className="text-2xl font-bold text-accent">{timeLeft.days}</span>
+        <span className="text-2xl font-bold text-accent-light">{timeLeft.days}</span>
         <span className="text-xs uppercase tracking-wider text-muted">Days</span>
       </div>
       <div className="flex flex-col items-center p-3 bg-surface border border-accent/30 rounded-lg min-w-[70px]">
-        <span className="text-2xl font-bold text-accent">{timeLeft.hours}</span>
+        <span className="text-2xl font-bold text-accent-light">{timeLeft.hours}</span>
         <span className="text-xs uppercase tracking-wider text-muted">Hours</span>
       </div>
       <div className="flex flex-col items-center p-3 bg-surface border border-accent/30 rounded-lg min-w-[70px]">
-        <span className="text-2xl font-bold text-accent">{timeLeft.minutes}</span>
+        <span className="text-2xl font-bold text-accent-light">{timeLeft.minutes}</span>
         <span className="text-xs uppercase tracking-wider text-muted">Mins</span>
       </div>
     </div>

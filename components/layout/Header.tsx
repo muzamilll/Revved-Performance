@@ -89,7 +89,7 @@ export function Header() {
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-2xl font-heading font-bold text-white hover:text-accent transition-colors block"
+                  className="text-2xl font-heading font-bold text-white hover:text-accent-light transition-colors block"
                 >
                   {link.label}
                 </Link>

@@ -40,7 +40,7 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
           {service.emissionsRelated && (
             <Badge className="self-start mb-3">Enquiry only</Badge>
           )}
-          <h3 className="text-xl font-heading font-extrabold text-white mb-2 uppercase tracking-wide group-hover:text-accent transition-colors">{service.name}</h3>
+          <h3 className="text-xl font-heading font-extrabold text-white mb-2 uppercase tracking-wide group-hover:text-accent-light transition-colors">{service.name}</h3>
           
           <p className="text-muted text-sm mb-6 flex-1">
             {service.shortDescription}
@@ -49,8 +49,8 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
           {service.includedItems && service.includedItems.length > 0 && (
             <ul className="space-y-3 mb-8">
               {service.includedItems.slice(0, 4).map((item, i) => (
-                <li key={i} className="flex items-start text-xs font-medium text-silver">
-                  <span className="text-accent mr-3 font-bold">✓</span>
+                <li key={i} className="flex items-start text-xs font-medium text-muted">
+                  <span className="text-accent-light mr-3 font-bold">✓</span>
                   {item}
                 </li>
               ))}
@@ -62,8 +62,8 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
           )}
 
           <div className="flex flex-col gap-4 mt-auto pt-6 border-t border-white/5 relative z-10">
-            <ServicePrice service={service} amountClassName="text-3xl md:text-4xl font-extrabold text-accent" />
-            <Button className="w-full text-sm h-12 uppercase tracking-widest font-bold bg-accent/10 text-accent hover:bg-accent hover:text-white border border-accent/20">
+            <ServicePrice service={service} amountClassName="text-3xl md:text-4xl font-extrabold text-accent-light" />
+            <Button className="w-full text-sm h-12 uppercase tracking-widest font-bold bg-accent/10 text-accent-light hover:bg-accent hover:text-white border border-accent/20">
               Get a Quote &rarr;
             </Button>
           </div>
@@ -72,15 +72,15 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
 
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <h3 className="text-3xl font-heading font-extrabold text-white mb-2 uppercase tracking-tight">{service.name}</h3>
-        <p className="text-silver mb-8 text-lg">{service.plainEnglish || service.shortDescription}</p>
+        <p className="text-muted mb-8 text-lg">{service.plainEnglish || service.shortDescription}</p>
         
         {service.includedItems && service.includedItems.length > 0 && (
           <div className="mb-8 p-6 bg-surface/30 rounded-xl border border-thin">
-            <h4 className="text-xs font-bold text-accent uppercase tracking-widest mb-4">Included in service</h4>
+            <h4 className="text-xs font-bold text-accent-light uppercase tracking-widest mb-4">Included in service</h4>
             <ul className="space-y-3">
               {service.includedItems.map((item, i) => (
-                <li key={i} className="flex items-start text-sm text-silver font-medium">
-                  <span className="text-accent mr-3 font-bold text-lg leading-none">✓</span>
+                <li key={i} className="flex items-start text-sm text-muted font-medium">
+                  <span className="text-accent-light mr-3 font-bold text-lg leading-none">✓</span>
                   {item}
                 </li>
               ))}

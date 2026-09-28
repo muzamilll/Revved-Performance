@@ -11,7 +11,7 @@ import { Reveal } from "../../components/ui/Reveal";
 import { Breadcrumbs } from "../../components/ui/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "Tuning & Diagnostic Services | Revved Automotive",
+  title: "Tuning & Diagnostic Services | Revved Performance",
   description: "Explore our range of mobile ECU remapping, performance tuning, and diagnostic services across East London and Essex.",
 };
 
@@ -28,7 +28,7 @@ export default function ServicesPage() {
               <h1 className="text-4xl md:text-5xl font-heading font-bold text-white mb-6 uppercase tracking-wide">
                 Our Services
               </h1>
-              <p className="text-xl text-silver">
+              <p className="text-xl text-muted">
                 Professional mobile remapping, calibration, and advanced diagnostics brought directly to you.
               </p>
             </div>
@@ -65,12 +65,12 @@ export default function ServicesPage() {
           <Reveal>
             <div className="max-w-2xl mx-auto text-center">
               <h2 className="text-3xl font-heading font-bold text-white mb-6">Not sure what you need?</h2>
-              <p className="text-lg text-silver mb-8">Send us your registration and we will advise you on the best service for your vehicle.</p>
+              <p className="text-lg text-muted mb-8">Send us your registration and we will advise you on the best service for your vehicle.</p>
               <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
                 <WhatsAppButton className="w-full sm:w-auto h-14 px-8 text-lg" message="Hi Revved, I'm not sure which service I need. My registration is ______." />
               </div>
               <div className="mt-6">
-                <a href={getPhoneUrl()} className="text-silver hover:text-white underline underline-offset-4">
+                <a href={getPhoneUrl()} className="text-muted hover:text-white underline underline-offset-4">
                   Or call us to discuss your car
                 </a>
               </div>

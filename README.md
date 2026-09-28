@@ -1,6 +1,6 @@
-# Revved Automotive
+# Revved Performance
 
-Revved Automotive is a mobile automotive services business based in Romford, covering East London and Essex.
+Revved Performance is a mobile automotive services business based in Romford, covering East London and Essex.
 
 ## Getting Started
 
