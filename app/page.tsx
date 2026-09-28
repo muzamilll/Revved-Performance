@@ -81,7 +81,7 @@ export default function Home() {
       <section className="relative isolate overflow-hidden flex flex-col lg:min-h-[88vh]">
         <div
           className="absolute inset-x-0 top-0 h-[100vw] md:h-auto md:inset-0 -z-10 bg-cover bg-[position:50%_60%] md:bg-[position:58%_62%] lg:bg-[position:center_62%]"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=2500&auto=format&fit=crop')" }}
+          style={{ backgroundImage: "url('/images/hero-r8.webp')" }}
           aria-hidden="true"
         />
         {/* Overlays: overall dim, dark top for the header, dark left for the copy (desktop), fade into the page at the bottom */}
