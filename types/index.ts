@@ -107,6 +107,12 @@ export type SiteData = {
   homeTitle: string;
   homeDescription: string;
   deleteServiceDisclaimer: string;
+  company: {
+    legalName: string;
+    number: string;
+    registeredIn: string;
+    registeredOffice: string;
+  };
   social: {
     instagram: string;   // full profile URL; empty = shown but not clickable yet
     facebook: string;

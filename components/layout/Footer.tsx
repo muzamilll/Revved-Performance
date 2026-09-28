@@ -125,7 +125,12 @@ export function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-thin/50 flex flex-col md:flex-row items-center justify-between text-sm text-muted/60">
-          <p>&copy; {new Date().getFullYear()} {site.name}. All rights reserved.</p>
+          <div className="space-y-1 text-center md:text-left">
+            <p>&copy; {new Date().getFullYear()} {site.company.legalName}. All rights reserved.</p>
+            <p>
+              Registered in {site.company.registeredIn}, company no. {site.company.number}. Registered office: {site.company.registeredOffice}.
+            </p>
+          </div>
         </div>
       </div>
     </footer>

@@ -50,6 +50,13 @@ export default function Home() {
     "url": getSiteUrl(),
     "logo": absoluteUrl("/images/revved-logo.png"),
     "email": site.social.email,
+    "legalName": site.company.legalName,
+    // Mobile business: town only, no street address (registered office is not a trading address)
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": site.baseTown,
+      "addressCountry": "GB"
+    },
     "telephone": process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "447999200655",
     "areaServed": locations.map(l => l.name).join(', ')
   };
