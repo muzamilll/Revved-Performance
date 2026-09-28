@@ -1,4 +1,5 @@
 import { HomeData } from "../types";
+import { warranty } from "./warranty";
 
 export const home: HomeData = {
   hero: {
@@ -22,9 +23,21 @@ export const home: HomeData = {
   ],
   whyRevved: [
     { title: "We come to you", description: "Convenient mobile service at your location." },
-    { title: "Health check before any tuning", description: "Issues are identified before tuning." },
-    { title: "Verified tuning files", description: "Genuine files as a verified Top Gear Tuning dealer." },
+    { title: "Custom tuning files", description: "Made for your car by Top Gear Tuning." },
+    { title: "Lifetime software warranty", description: "For as long as you own the car." },
     { title: "Talk to us directly on WhatsApp", description: "Speak directly to the tuner, not a call centre." }
   ],
+  ecuTrust: {
+    eyebrow: "Tuning, done properly",
+    title: "Why your ECU is safe with us",
+    intro: "A remap is only as good as the file, the tools and the care behind it. Here's what comes with every ECU tune.",
+    items: [
+      { id: "file", title: "Custom tuning file", description: "Written for your exact car and engine by Top Gear Tuning. We're a verified dealer." },
+      { id: "tool", title: "Professional tuning tool", description: "We read and write your ECU with the Alientech KESS3, a professional-grade programming tool." },
+      { id: "power", title: "ECU-protected power", description: "A mains-powered battery support unit keeps your car's voltage steady while we work on it, so a weak battery can't interrupt the tune." },
+      { id: "health", title: "Health check before & after", description: "We scan for faults and check live engine data before we tune, then again after. You know the car's healthy both times." },
+      { id: "warranty", title: "Lifetime software warranty", description: warranty.summary, note: warranty.termsNote }
+    ]
+  },
   newToTuning: null
 };

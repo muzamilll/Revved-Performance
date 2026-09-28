@@ -1,4 +1,5 @@
 import { Service } from "../types";
+import { warranty, remapFaqs } from "./warranty";
 
 export const services: Service[] = [
   {
@@ -14,11 +15,14 @@ export const services: Service[] = [
     plainEnglish: null,
     technicalDetail: null,
     includedItems: [
-      "Vehicle health check",
-      "ECU calibration",
+      "Health check before & after",
+      "Custom Top Gear Tuning file",
+      warranty.includedItem,
+      "ECU-protected power supply",
       "Before/after comparison"
     ],
-    faqs: [],
+    warranty: true,
+    faqs: remapFaqs,
     seoTitle: null,
     seoDescription: null,
     whatsappMessage: null
@@ -36,12 +40,14 @@ export const services: Service[] = [
     plainEnglish: null,
     technicalDetail: null,
     includedItems: [
-      "Vehicle health check",
+      "Health check before & after",
+      "Custom Top Gear Tuning file",
+      warranty.includedItem,
       "ECU removed, read and written on the bench",
-      "ECU calibration",
       "Before/after comparison"
     ],
-    faqs: [],
+    warranty: true,
+    faqs: remapFaqs,
     seoTitle: null,
     seoDescription: null,
     whatsappMessage: null
@@ -59,12 +65,14 @@ export const services: Service[] = [
     plainEnglish: null,
     technicalDetail: null,
     includedItems: [
-      "Vehicle health check",
+      "Health check before & after",
+      "Custom Top Gear Tuning file for your hardware",
+      warranty.includedItem,
       "ECU bench unlock",
-      "ECU calibration for your hardware",
       "Before/after comparison"
     ],
-    faqs: [],
+    warranty: true,
+    faqs: remapFaqs,
     seoTitle: null,
     seoDescription: null,
     whatsappMessage: null
@@ -82,11 +90,14 @@ export const services: Service[] = [
     plainEnglish: null,
     technicalDetail: null,
     includedItems: [
-      "Vehicle health check",
-      "Gearbox (TCU) read and original file backed up",
-      "TCU calibration: shift speed, shift points and torque limits"
+      "Health check before & after",
+      "TCU calibration: shift speed, shift points and torque limits",
+      warranty.includedItem,
+      "ECU-protected power supply",
+      "Gearbox (TCU) read and original file backed up"
     ],
-    faqs: [],
+    warranty: true,
+    faqs: remapFaqs,
     seoTitle: null,
     seoDescription: null,
     whatsappMessage: null
@@ -108,6 +119,7 @@ export const services: Service[] = [
       "Speed limiter removal",
       "Launch control"
     ],
+    warranty: true,
     faqs: [],
     seoTitle: null,
     seoDescription: null,

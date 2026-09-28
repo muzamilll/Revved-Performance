@@ -12,7 +12,7 @@ import { reviews } from "../data/reviews";
 import { absoluteUrl, getSiteUrl } from "../lib/seo";
 import { cn } from "../lib/utils";
 
-import { BadgeCheck } from "lucide-react";
+import { BadgeCheck, ShieldCheck } from "lucide-react";
 import { Container, Section, SectionHeading } from "../components/layout/layout-primitives";
 import { Reveal } from "../components/ui/Reveal";
 import { ServiceAreaMap } from "../components/home/ServiceAreaMap";
@@ -23,6 +23,8 @@ import { WhatsAppButton } from "../components/ui/WhatsAppButton";
 import { VehicleLookup } from "../components/home/VehicleLookup";
 import { ProblemSelector } from "../components/home/ProblemSelector";
 import { ServiceGroups } from "../components/services/ServiceGroups";
+import { EcuTrust } from "../components/home/EcuTrust";
+import { warranty } from "../data/warranty";
 import { LaunchSignup } from "../components/home/LaunchSignup";
 import { LaunchSlots, isLaunchOfferRunning } from "../components/ui/ServicePrice";
 import { launchOffer } from "../data/launch-offer";
@@ -77,14 +79,22 @@ export default function Home() {
 
         <Container className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center flex-1">
           <div>
-            {dealerBadge && (
-              <div className="mb-4 flex items-center gap-2">
-                 <BadgeCheck className="w-5 h-5 text-accent-light flex-shrink-0" />
+            <div className="mb-4 flex flex-col gap-2">
+              {dealerBadge && (
+                <div className="flex items-center gap-2">
+                   <BadgeCheck className="w-5 h-5 text-accent-light flex-shrink-0" />
+                   <span className="text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-muted">
+                     {dealerBadge.label}
+                   </span>
+                </div>
+              )}
+              <div className="flex items-center gap-2">
+                 <ShieldCheck className="w-5 h-5 text-accent-light flex-shrink-0" />
                  <span className="text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-muted">
-                   {dealerBadge.label}
+                   {warranty.name}
                  </span>
               </div>
-            )}
+            </div>
             
             <h1 className="text-6xl md:text-7xl lg:text-[100px] font-heading font-extrabold text-white mb-4 leading-[0.9] uppercase tracking-tighter text-glow-accent">
               <span className="block text-gradient-accent">Mobile</span>
@@ -212,6 +222,15 @@ export default function Home() {
             </div>
 
             <ServiceGroups services={services} />
+          </Reveal>
+        </Container>
+      </Section>
+
+      {/* Why your ECU is safe with us */}
+      <Section id="ecu-safe" className="border-t border-border bg-surface/10">
+        <Container>
+          <Reveal>
+            <EcuTrust data={home.ecuTrust} />
           </Reveal>
         </Container>
       </Section>

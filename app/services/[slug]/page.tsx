@@ -6,6 +6,7 @@ import { home } from "../../../data/home";
 import { getVisibleOffers } from "../../../lib/offers";
 import { getPhoneUrl } from "../../../lib/whatsapp";
 import { absoluteUrl, getSiteUrl } from "../../../lib/seo";
+import { warranty } from "../../../data/warranty";
 import { site } from "../../../data/site";
 import { Container, Section, SectionHeading } from "../../../components/layout/layout-primitives";
 import { Badge } from "../../../components/ui/ui-primitives";
@@ -151,6 +152,11 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 </li>
               ))}
             </ul>
+            {service.warranty && (
+              <p className="mt-6 text-sm text-muted">
+                Covered by our {warranty.name}. {warranty.summary} {warranty.termsNote}
+              </p>
+            )}
             {service.emissionsRelated && (
               <EmissionsDisclaimer text={site.deleteServiceDisclaimer} className="mt-6 text-xs" />
             )}

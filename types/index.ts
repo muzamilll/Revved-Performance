@@ -14,6 +14,7 @@ export type Service = {
   technicalDetail: string | null;   // for enthusiasts, shown on demand
   includedItems: string[] | null;
   emissionsRelated?: boolean;       // shows site.deleteServiceDisclaimer and an "Enquiry only" badge
+  warranty?: boolean;               // covered by the Lifetime Software Warranty (links to the terms)
   faqs: { question: string; answer: string }[];
   seoTitle: string | null;
   seoDescription: string | null;
@@ -94,6 +95,12 @@ export type HomeData = {
   };
   howItWorks: { step: number; text: string }[];
   whyRevved: { title: string; description: string }[];
+  ecuTrust: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    items: { id: "file" | "tool" | "power" | "health" | "warranty"; title: string; description: string; note?: string }[];
+  };
   newToTuning: {
     explainer: string | null;
     glossary: { term: string; definition: string }[] | null;

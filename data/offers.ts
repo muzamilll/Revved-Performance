@@ -1,4 +1,5 @@
 import { Offer } from "../types";
+import { warranty } from "./warranty";
 
 export const offers: Offer[] = [
   {
@@ -18,7 +19,8 @@ export const offers: Offer[] = [
       "remap-add-ons"
     ],
     includes: [
-      "Full pre-remap vehicle health check"
+      "Health check before and after your remap",
+      warranty.includedItem
     ],
     price: null,
     discount: null,
@@ -47,7 +49,8 @@ export const offers: Offer[] = [
     includes: [
       "Stage 1 ECU remap",
       "DSG / gearbox (TCU) remap",
-      "Vehicle health check",
+      "Health check before & after",
+      warranty.includedItem,
       "Before/after comparison"
     ],
     price: { amount: 325, from: true },

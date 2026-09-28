@@ -5,7 +5,7 @@ export const site: SiteData = {
   baseTown: "Romford",
   serviceAreaSummary: "East London & Essex",
   homeTitle: "Mobile ECU Remapping East London & Essex | Revved Performance",
-  homeDescription: "Mobile ECU remapping and diagnostics at your home or workplace across East London & Essex. Every remap includes a health check.",
+  homeDescription: "Mobile ECU remapping and diagnostics across East London & Essex. Custom Top Gear Tuning files, health check before and after, and a lifetime software warranty.",
   deleteServiceDisclaimer: "This modification may affect your vehicle's road-legality, insurance, or warranty. It's your responsibility to check before going ahead — get advice if you're unsure.",
   // Required disclosure for a limited company (Companies Act trading disclosures)
   company: {
