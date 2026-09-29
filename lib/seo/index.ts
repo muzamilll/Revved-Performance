@@ -1,12 +1,10 @@
 import { Service, Offer } from "../../types";
 
-// Explicit env var wins; otherwise use Vercel's production domain (set automatically
-// on Vercel builds, and switches to the custom domain once one is attached).
+// The live domain. Every canonical URL, the sitemap and robots.txt use it, so preview
+// deployments and the *.vercel.app address all point Google at revvedperformance.uk.
+// NEXT_PUBLIC_SITE_URL can override it (e.g. for local testing).
 export function getSiteUrl(): string {
-  const url =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    (process.env.VERCEL_PROJECT_PRODUCTION_URL && `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`) ||
-    "https://www.revvedautomotive.co.uk";
+  const url = process.env.NEXT_PUBLIC_SITE_URL || "https://revvedperformance.uk";
   return url.replace(/\/+$/, "");
 }
 

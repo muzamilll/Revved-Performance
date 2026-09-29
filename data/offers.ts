@@ -37,7 +37,7 @@ export const offers: Offer[] = [
     id: "ecu-tcu-stage-1-bundle",
     slug: "ecu-tcu-stage-1-bundle",
     status: "active",
-    indexable: false,
+    indexable: true,
     kind: "bundle",
     title: "ECU + TCU Stage 1 Bundle",
     tagline: "Engine and gearbox tuned together.",
@@ -60,8 +60,8 @@ export const offers: Offer[] = [
     showCountdown: false,
     featured: true,
     terms: "Vehicle eligibility applies. We confirm the exact price once we've checked your registration.",
-    seoTitle: null,
-    seoDescription: null,
+    seoTitle: "ECU + TCU Stage 1 Remap Bundle",
+    seoDescription: "Stage 1 engine remap plus DSG / gearbox remap in one visit, so the gearbox handles the extra torque. Mobile across East London & Essex.",
     whatsappMessage: "Hi Revved, I'm interested in the ECU + TCU Stage 1 Bundle."
   }
 ];

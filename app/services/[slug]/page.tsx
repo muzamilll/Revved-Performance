@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const isIndexable = Boolean(service.indexable && service.seoTitle && service.seoDescription);
 
   return {
-    title: service.seoTitle || `${service.name} | Revved Performance`,
+    title: service.seoTitle || service.name,
     description: service.seoDescription || service.shortDescription || "",
     robots: {
       index: isIndexable,

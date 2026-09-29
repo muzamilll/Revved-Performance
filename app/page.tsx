@@ -35,6 +35,7 @@ export const metadata: Metadata = {
     absolute: site.homeTitle,
   },
   description: site.homeDescription,
+  alternates: { canonical: "/" },
 };
 
 export default function Home() {

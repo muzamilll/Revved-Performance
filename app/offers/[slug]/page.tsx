@@ -26,11 +26,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const isIndexable = Boolean(offer.indexable && offer.seoTitle && offer.seoDescription);
 
   return {
-    title: offer.seoTitle || `${offer.title} | Revved Performance`,
+    title: offer.seoTitle || offer.title,
     description: offer.seoDescription || offer.description || "",
     robots: {
       index: isIndexable,
       follow: true,
+    },
+    alternates: {
+      canonical: `/offers/${offer.slug}`
     }
   };
 }

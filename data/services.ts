@@ -7,7 +7,7 @@ export const services: Service[] = [
     name: "Stage 1 Remap (OBD)",
     category: "ecu-remapping",
     status: "active",
-    indexable: false,
+    indexable: true,
     price: { amount: 250, from: true },
     launchPrice: 200,
     priceOptions: undefined,
@@ -23,8 +23,8 @@ export const services: Service[] = [
     ],
     warranty: true,
     faqs: remapFaqs,
-    seoTitle: null,
-    seoDescription: null,
+    seoTitle: "Stage 1 ECU Remap, East London & Essex",
+    seoDescription: "Mobile Stage 1 ECU remap at your home or work in East London & Essex. Custom Top Gear Tuning file, health check before and after, lifetime software warranty.",
     whatsappMessage: null
   },
   {
@@ -32,7 +32,7 @@ export const services: Service[] = [
     name: "Stage 1 Remap (Bench)",
     category: "ecu-remapping",
     status: "active",
-    indexable: false,
+    indexable: true,
     price: { amount: 350, from: true },
     launchPrice: 300,
     priceOptions: undefined,
@@ -48,8 +48,8 @@ export const services: Service[] = [
     ],
     warranty: true,
     faqs: remapFaqs,
-    seoTitle: null,
-    seoDescription: null,
+    seoTitle: "Stage 1 Bench ECU Remap, East London & Essex",
+    seoDescription: "Bench ECU remapping for cars that can't be tuned through the OBD port. Mobile across East London & Essex, with a custom file and lifetime software warranty.",
     whatsappMessage: null
   },
   {
@@ -57,7 +57,7 @@ export const services: Service[] = [
     name: "Stage 2 Remap",
     category: "ecu-remapping",
     status: "active",
-    indexable: false,
+    indexable: true,
     price: { amount: 300, from: true },
     launchPrice: 250,
     priceOptions: undefined,
@@ -73,8 +73,8 @@ export const services: Service[] = [
     ],
     warranty: true,
     faqs: remapFaqs,
-    seoTitle: null,
-    seoDescription: null,
+    seoTitle: "Stage 2 ECU Remap, East London & Essex",
+    seoDescription: "Stage 2 remaps for cars with supporting hardware upgrades, ECU bench unlock included. Mobile across East London & Essex with a lifetime software warranty.",
     whatsappMessage: null
   },
   {
@@ -82,7 +82,7 @@ export const services: Service[] = [
     name: "DSG / Gearbox Remap",
     category: "ecu-remapping",
     status: "active",
-    indexable: false,
+    indexable: true,
     price: { amount: 150, from: false },
     launchPrice: null,
     priceOptions: undefined,
@@ -98,8 +98,8 @@ export const services: Service[] = [
     ],
     warranty: true,
     faqs: remapFaqs,
-    seoTitle: null,
-    seoDescription: null,
+    seoTitle: "DSG & Gearbox (TCU) Remap, East London & Essex",
+    seoDescription: "Faster, firmer shifts and gearbox torque limits raised to match your engine remap. Mobile DSG / TCU tuning across East London & Essex.",
     whatsappMessage: null
   },
   {
@@ -107,7 +107,7 @@ export const services: Service[] = [
     name: "Remap Add-Ons",
     category: "ecu-remapping",
     status: "active",
-    indexable: false,
+    indexable: true,
     price: { amount: 50, from: false },
     launchPrice: null,
     priceOptions: undefined,
@@ -121,8 +121,8 @@ export const services: Service[] = [
     ],
     warranty: true,
     faqs: [],
-    seoTitle: null,
-    seoDescription: null,
+    seoTitle: "Pops & Bangs, Launch Control & Limiter Removal",
+    seoDescription: "ECU remap add-ons: pops & bangs, launch control and speed limiter removal. Mobile across East London & Essex, covered by our lifetime software warranty.",
     whatsappMessage: null
   },
   {

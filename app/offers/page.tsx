@@ -9,8 +9,9 @@ import { Reveal } from "../../components/ui/Reveal";
 import { Breadcrumbs } from "../../components/ui/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "Special Offers & Packages | Revved Performance",
-  description: "View our current special offers and tuning bundles for ECU remapping and diagnostics.",
+  title: "ECU Remap Offers & Bundles",
+  description: "Current offers and bundles on mobile ECU and gearbox remapping across East London & Essex.",
+  alternates: { canonical: "/offers" },
 };
 
 export default function OffersPage() {

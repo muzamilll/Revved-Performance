@@ -11,8 +11,9 @@ import { Reveal } from "../../components/ui/Reveal";
 import { Breadcrumbs } from "../../components/ui/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "Tuning & Diagnostic Services | Revved Performance",
-  description: "Explore our range of mobile ECU remapping, performance tuning, and diagnostic services across East London and Essex.",
+  title: "ECU Remapping & Diagnostic Services",
+  description: "Mobile ECU remapping, gearbox tuning and diagnostics at your home or workplace across East London & Essex. Custom Top Gear Tuning files and a lifetime software warranty.",
+  alternates: { canonical: "/services" },
 };
 
 export default function ServicesPage() {
