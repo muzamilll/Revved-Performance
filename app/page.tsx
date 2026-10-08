@@ -16,6 +16,7 @@ import { BadgeCheck, ClipboardCheck, MapPin, ShieldCheck } from "lucide-react";
 import { Container, Section, SectionHeading } from "../components/layout/layout-primitives";
 import { Reveal } from "../components/ui/Reveal";
 import { ServiceAreaMap } from "../components/home/ServiceAreaMap";
+import { RevealPhotoSection } from "../components/home/RevealPhotoSection";
 import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/ui-primitives";
 import { Img } from "../components/ui/Img";
@@ -371,7 +372,13 @@ export default function Home() {
 
       {/* 8. About (Cinematic) */}
       {about && (
-        <Section id="about" className="border-b border-border text-center" backgroundImage="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2000&auto=format&fit=crop" overlay>
+        <RevealPhotoSection
+          id="about"
+          className="border-b border-border text-center"
+          image="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2000&auto=format&fit=crop"
+          // Keep the hand and spanner (right of centre in the photo) in frame on narrow screens
+          imagePosition="bg-[position:66%_45%] md:bg-[position:center_45%]"
+        >
           <Container className="py-12">
             <Reveal>
               <div className="max-w-3xl mx-auto">
@@ -397,7 +404,7 @@ export default function Home() {
               </div>
             </Reveal>
           </Container>
-        </Section>
+        </RevealPhotoSection>
       )}
 
       {/* 9. Reviews */}
@@ -454,12 +461,21 @@ export default function Home() {
                   East London, Essex<br/><span className="text-muted">& Surrounding Areas.</span>
                 </h2>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-4 text-sm text-muted uppercase tracking-wider font-medium">
+              <ul className="flex flex-wrap gap-2" aria-label="Towns we cover">
                 {locations.map(loc => (
-                  <span key={loc.slug} className="border-b border-thin/30 pb-2">{loc.name}</span>
+                  <li
+                    key={loc.slug}
+                    className={cn(
+                      "rounded-full border px-3 py-1 text-[11px] md:text-xs font-medium uppercase tracking-wider",
+                      loc.name === site.baseTown
+                        ? "border-accent/60 bg-accent/20 text-white"
+                        : "border-thin bg-surface/40 text-muted"
+                    )}
+                  >
+                    {loc.name}
+                  </li>
                 ))}
-                <span className="border-b border-thin/30 pb-2 text-accent-light">And more...</span>
-              </div>
+              </ul>
             </Reveal>
 
             <Reveal delay={0.1}>
