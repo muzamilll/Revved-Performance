@@ -14,10 +14,9 @@ export const site: SiteData = {
     registeredIn: "England & Wales",
     registeredOffice: "5 Broadway Chambers, 1 Cranbrook Road, Ilford, England, IG1 4DU"
   },
-  // TODO: fill in once the accounts are set up
   social: {
-    instagram: "",
-    facebook: "",
+    instagram: "https://www.instagram.com/revved_performance",
+    facebook: "https://www.facebook.com/share/1CFUqmHgYo/",
     email: "info@revved.uk"
   }
 };
