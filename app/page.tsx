@@ -376,8 +376,8 @@ export default function Home() {
           id="about"
           className="border-b border-border text-center"
           image="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2000&auto=format&fit=crop"
-          // Keep the hand and spanner (right of centre in the photo) in frame on narrow screens
-          imagePosition="bg-[position:66%_45%] md:bg-[position:center_45%]"
+          imageRatio={4 / 3}
+          imagePosition="md:bg-[position:center_45%]"
         >
           <Container className="py-12">
             <Reveal>

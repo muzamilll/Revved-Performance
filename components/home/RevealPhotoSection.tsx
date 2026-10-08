@@ -5,13 +5,15 @@ import { cn } from "../../lib/utils";
 
 interface RevealPhotoSectionProps extends React.HTMLAttributes<HTMLElement> {
   image: string;
-  /** background-position classes, so the subject can be framed per breakpoint */
+  /** width / height of the photo. On phones it's shown whole at the top rather than cropped to fill the section. */
+  imageRatio: number;
+  /** background-position classes for the cropped desktop view */
   imagePosition?: string;
 }
 
 // Section with a dark photo backdrop. Hovering (mouse) or tapping (touch/pen) fades the
 // overlay back so the photo shows through. A second tap, or scrolling away, brings it back.
-export function RevealPhotoSection({ image, imagePosition = "bg-center", className, children, ...props }: RevealPhotoSectionProps) {
+export function RevealPhotoSection({ image, imageRatio, imagePosition = "bg-center", className, children, ...props }: RevealPhotoSectionProps) {
   const [revealed, setRevealed] = React.useState(false);
   const sectionRef = React.useRef<HTMLElement>(null);
   const pointerType = React.useRef("mouse");
@@ -43,7 +45,17 @@ export function RevealPhotoSection({ image, imagePosition = "bg-center", classNa
       onClick={toggle}
       {...props}
     >
-      <div className={cn("absolute inset-0 -z-10 bg-cover", imagePosition)} style={{ backgroundImage: `url(${image})` }} aria-hidden="true" />
+      {/* Phones: the section is far taller than the photo, so filling it would crop most of the picture.
+          Show it full-width at its own ratio instead, fading into the background below. */}
+      <div
+        className={cn(
+          "absolute inset-x-0 top-0 -z-10 aspect-(--ratio) bg-cover bg-center mask-b-from-60%",
+          "md:bottom-0 md:aspect-auto md:mask-none",
+          imagePosition
+        )}
+        style={{ backgroundImage: `url(${image})`, "--ratio": imageRatio } as React.CSSProperties}
+        aria-hidden="true"
+      />
       <div
         className={cn(
           "absolute inset-0 -z-10 transition-opacity duration-500 ease-out group-hover:opacity-40",
