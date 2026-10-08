@@ -46,11 +46,16 @@ export function RevealPhotoSection({ image, imagePosition = "bg-center", classNa
       <div className={cn("absolute inset-0 -z-10 bg-cover", imagePosition)} style={{ backgroundImage: `url(${image})` }} aria-hidden="true" />
       <div
         className={cn(
-          "absolute inset-0 -z-10 bg-gradient-cinematic transition-opacity duration-500 ease-out group-hover:opacity-40",
+          "absolute inset-0 -z-10 transition-opacity duration-500 ease-out group-hover:opacity-40",
           revealed && "opacity-40"
         )}
         aria-hidden="true"
-      />
+      >
+        {/* On phones the section is tall and narrow, so the photo's brightest part lands behind the text.
+            An extra flat scrim keeps it as dark as the desktop version. */}
+        <div className="absolute inset-0 bg-background/70 md:hidden" />
+        <div className="absolute inset-0 bg-gradient-cinematic" />
+      </div>
       {children}
     </section>
   );
