@@ -25,11 +25,6 @@ function List({ items }: { items: ReactNode[] }) {
   );
 }
 
-// Still to be filled in before this policy is final
-function ToConfirm({ children }: { children: ReactNode }) {
-  return <mark className="bg-accent/20 text-white rounded px-1">[To confirm: {children}]</mark>;
-}
-
 const code = "text-white font-mono text-sm";
 
 export default function CookiesPage() {
@@ -37,7 +32,7 @@ export default function CookiesPage() {
     <Section>
       <Container className="max-w-3xl text-muted leading-relaxed">
         <h1 className="text-4xl md:text-5xl font-heading font-extrabold text-white uppercase tracking-tight mb-6">Cookie Policy</h1>
-        <p className="mb-3">Last updated: <ToConfirm>date this is published</ToConfirm></p>
+        <p className="mb-3">Last updated: 12 October 2026</p>
         <p>
           We use cookies and similar technologies, such as your browser&apos;s local and session storage, on
           revvedperformance.uk. Here&apos;s what they do and when they&apos;re used. For how we handle personal data more

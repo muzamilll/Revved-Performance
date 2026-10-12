@@ -27,11 +27,6 @@ function List({ items }: { items: ReactNode[] }) {
   );
 }
 
-// Still to be filled in before this policy is final
-function ToConfirm({ children }: { children: ReactNode }) {
-  return <mark className="bg-accent/20 text-white rounded px-1">[To confirm: {children}]</mark>;
-}
-
 export default function PrivacyPage() {
   const { company } = site;
   const email = site.social.email;
@@ -40,7 +35,7 @@ export default function PrivacyPage() {
     <Section>
       <Container className="max-w-3xl text-muted leading-relaxed">
         <h1 className="text-4xl md:text-5xl font-heading font-extrabold text-white uppercase tracking-tight mb-6">Privacy Policy</h1>
-        <p className="mb-8">Last updated: <ToConfirm>date this is published</ToConfirm></p>
+        <p className="mb-8">Last updated: 12 October 2026</p>
 
         <H3>Who we are</H3>
         <p className="mb-3">
@@ -102,14 +97,8 @@ export default function PrivacyPage() {
         <List
           items={[
             "WhatsApp conversations and booking details: kept for as long as needed to carry out the work and for our basic business and tax records, then deleted.",
-            <>
-              Email sign-up details: kept until you unsubscribe, or until <ToConfirm>period of inactivity, e.g. 24 months</ToConfirm>{" "}
-              if you never engage with our emails.
-            </>,
-            <>
-              Analytics data: governed by Google&apos;s retention settings for Google Analytics 4, which we&apos;ve set to{" "}
-              <ToConfirm>your GA4 retention setting, commonly 14 months</ToConfirm>.
-            </>,
+            "Email sign-up details: kept until you unsubscribe, or deleted after 24 months if you don't engage with our emails in that time.",
+            "Analytics data: governed by Google's retention settings for Google Analytics 4, which we've set to 14 months.",
           ]}
         />
 
