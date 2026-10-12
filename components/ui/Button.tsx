@@ -27,15 +27,17 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const classes = buttonStyles(variant, className);
 
     if (href) {
+      // Links still run the caller's onClick (e.g. analytics on WhatsApp buttons)
+      const onClick = props.onClick as React.MouseEventHandler<HTMLAnchorElement> | undefined;
       if (external || href.startsWith("http") || href.startsWith("tel:") || href.startsWith("mailto:")) {
         return (
-          <a href={href} className={classes} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined}>
+          <a href={href} className={classes} onClick={onClick} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined}>
             {props.children}
           </a>
         );
       }
       return (
-        <Link href={href} className={classes}>
+        <Link href={href} className={classes} onClick={onClick}>
           {props.children}
         </Link>
       );
