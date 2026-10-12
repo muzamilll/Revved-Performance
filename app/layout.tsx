@@ -6,6 +6,8 @@ import { getSiteUrl } from "../lib/seo";
 import { Header } from "../components/layout/Header";
 import { Footer } from "../components/layout/Footer";
 import { PersistentCTA } from "../components/layout/PersistentCTA";
+import { ConsentBanner } from "../components/consent/ConsentBanner";
+import { AnalyticsScripts } from "../components/analytics/AnalyticsScripts";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -56,6 +58,8 @@ export default function RootLayout({
         </main>
         <Footer />
         <PersistentCTA />
+        <ConsentBanner />
+        <AnalyticsScripts />
       </body>
     </html>
   );
