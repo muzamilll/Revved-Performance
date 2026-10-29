@@ -56,8 +56,20 @@ function toLead(r: Row): Lead {
   };
 }
 
+// The Neon integration names its variables after the chosen prefix, so accept the common variants.
+function connectionString(): string | undefined {
+  return (
+    process.env.DATABASE_URL ||
+    process.env.DATABASE_DATABASE_URL ||
+    process.env.POSTGRES_URL ||
+    process.env.DATABASE_POSTGRES_URL ||
+    process.env.STORAGE_URL ||
+    undefined
+  );
+}
+
 export function isDatabaseConnected(): boolean {
-  return !!process.env.DATABASE_URL;
+  return !!connectionString();
 }
 
 // ---------------------------------------------------------------------------
@@ -72,7 +84,7 @@ const memory: { leads: Lead[] } = (globalThis as unknown as { __revvedLeads?: { 
 let tableReady: Promise<void> | null = null;
 
 function db() {
-  return neon(process.env.DATABASE_URL!);
+  return neon(connectionString()!);
 }
 
 // Creates the table on first use, so no separate migration step is needed.
