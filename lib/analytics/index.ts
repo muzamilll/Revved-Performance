@@ -1,6 +1,7 @@
 import { hasConsent } from "../consent";
 import { getAttribution, persistAttribution } from "./attribution";
 import { GA4_ID, META_PIXEL_ID, initGtag, initPixel } from "./providers";
+import { logClickLead } from "../leads/client";
 
 export type AnalyticsEvent =
   | "page_view"
@@ -30,7 +31,7 @@ const META_EVENTS: Partial<Record<AnalyticsEvent, string>> = {
 };
 
 // Free text (e.g. a prefilled WhatsApp message) is never sent to a provider
-const DROPPED_KEYS = new Set(["message"]);
+const DROPPED_KEYS = new Set(["message", "reg"]);
 
 function generateEventId(): string {
   if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") return crypto.randomUUID();
@@ -64,6 +65,18 @@ export function trackEvent(event: AnalyticsEvent, data?: Record<string, unknown>
   }
 
   if (typeof window === "undefined") return;
+
+  // First-party lead log for the Revved dashboard. Not analytics: it sets no
+  // cookies and goes only to our own server, so it runs regardless of consent.
+  if (event === "whatsapp_click" || event === "phone_click") {
+    const slug = slugFor(data);
+    logClickLead({
+      contactMethod: event === "whatsapp_click" ? "whatsapp_click" : "call_click",
+      message: typeof data?.message === "string" ? data.message : undefined,
+      reg: typeof data?.reg === "string" ? data.reg : undefined,
+      service: slug.service ?? slug.offer,
+    });
+  }
 
   // A returning visitor's page-view events can fire before AnalyticsScripts has
   // mounted, so set the providers up here too (both are idempotent)

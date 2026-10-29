@@ -8,6 +8,7 @@ import { Footer } from "../components/layout/Footer";
 import { PersistentCTA } from "../components/layout/PersistentCTA";
 import { ConsentBanner } from "../components/consent/ConsentBanner";
 import { AnalyticsScripts } from "../components/analytics/AnalyticsScripts";
+import { HideOnDashboard } from "../components/layout/HideOnDashboard";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -52,13 +53,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${oswald.variable} scroll-smooth`}>
       <body className="text-text antialiased min-h-screen flex flex-col relative">
-        <Header />
+        <HideOnDashboard><Header /></HideOnDashboard>
         <main className="flex-1 flex flex-col relative z-10">
           {children}
         </main>
-        <Footer />
-        <PersistentCTA />
-        <ConsentBanner />
+        <HideOnDashboard>
+          <Footer />
+          <PersistentCTA />
+          <ConsentBanner />
+        </HideOnDashboard>
         <AnalyticsScripts />
       </body>
     </html>

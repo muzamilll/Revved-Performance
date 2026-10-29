@@ -22,6 +22,7 @@ import { Card } from "../components/ui/ui-primitives";
 import { Img } from "../components/ui/Img";
 import { WhatsAppButton } from "../components/ui/WhatsAppButton";
 import { VehicleLookup } from "../components/home/VehicleLookup";
+import { EnquiryForm } from "../components/home/EnquiryForm";
 import { ProblemSelector } from "../components/home/ProblemSelector";
 import { ServiceGroups } from "../components/services/ServiceGroups";
 import { EcuTrust } from "../components/home/EcuTrust";
@@ -314,6 +315,13 @@ export default function Home() {
                   Not sure? No problem. <strong className="text-white">Prefer WhatsApp?</strong> Send us your registration and we&apos;ll check it for you.
                 </p>
                 <WhatsAppButton variant="secondary" className="w-full sm:w-auto self-start uppercase tracking-wider font-bold text-xs" label="Chat on WhatsApp" />
+              </div>
+
+              <div className="mt-8 pt-8 border-t border-border max-w-xl">
+                <p className="text-sm text-muted mb-4">
+                  <strong className="text-white">Busy right now?</strong> Leave your details and we&apos;ll get back to you.
+                </p>
+                <EnquiryForm services={services.filter((s) => s.status === "active").map((s) => ({ slug: s.slug, name: s.name }))} />
               </div>
             </Reveal>
           </div>

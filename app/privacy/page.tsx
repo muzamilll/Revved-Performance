@@ -35,7 +35,7 @@ export default function PrivacyPage() {
     <Section>
       <Container className="max-w-3xl text-muted leading-relaxed">
         <h1 className="text-4xl md:text-5xl font-heading font-extrabold text-white uppercase tracking-tight mb-6">Privacy Policy</h1>
-        <p className="mb-8">Last updated: 12 October 2026</p>
+        <p className="mb-8">Last updated: 30 October 2026</p>
 
         <H3>Who we are</H3>
         <p className="mb-3">
@@ -62,6 +62,15 @@ export default function PrivacyPage() {
           own basic business records, and no longer than that.
         </p>
         <p className="mb-3">
+          <strong className="text-white">When you send an enquiry on our website.</strong> If you use our enquiry form, we
+          collect the details you give us (your name, phone number, and optionally your email, vehicle registration, the service
+          you&apos;re interested in and your message) so we can reply and quote. When you tap a WhatsApp or call button, we also
+          log that you did, with the page you were on, any registration you entered, and how you found our site (for example a
+          Google search or an Instagram link), so we can follow up and see which of our pages and channels work. This is stored
+          securely by our database provider and is only visible to us. We rely on our legitimate interest in responding to
+          enquiries you&apos;ve started.
+        </p>
+        <p className="mb-3">
           <strong className="text-white">If you sign up for offers.</strong> If you give us your email (and optionally your phone
           number) to hear about our offers, we use it to send you offers and updates by email. We only do this with your consent,
           given when you tick the box on the sign-up form, and you can unsubscribe at any time: every email includes a link to do
@@ -86,6 +95,8 @@ export default function PrivacyPage() {
             "Brevo: email sign-up and offer emails",
             "Google: website analytics, only with your consent",
             "Vercel: website hosting",
+            "Neon: secure database storage for website enquiries",
+            "Resend: sending us a notification email when you submit an enquiry",
           ]}
         />
         <p className="mt-3">
@@ -97,6 +108,7 @@ export default function PrivacyPage() {
         <List
           items={[
             "WhatsApp conversations and booking details: kept for as long as needed to carry out the work and for our basic business and tax records, then deleted.",
+            "Website enquiries and button clicks: deleted automatically after 12 months, or sooner if you ask.",
             "Email sign-up details: kept until you unsubscribe, or deleted after 24 months if you don't engage with our emails in that time.",
             "Analytics data: governed by Google's retention settings for Google Analytics 4, which we've set to 14 months.",
           ]}

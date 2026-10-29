@@ -17,9 +17,9 @@ export function VehicleLookup() {
     e.preventDefault();
     if (!reg) return;
     trackEvent("quote_start");
-    trackEvent("whatsapp_click");
-    
     const message = getWhatsAppMessage({ reg });
+    trackEvent("whatsapp_click", { message, reg });
+
     window.location.href = buildWhatsAppUrl(message);
   };
 
