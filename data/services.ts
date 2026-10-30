@@ -23,8 +23,8 @@ export const services: Service[] = [
     ],
     warranty: true,
     faqs: remapFaqs,
-    seoTitle: "Stage 1 ECU Remap, East London & Essex",
-    seoDescription: "Mobile Stage 1 ECU remap at your home or work in East London & Essex. Custom Top Gear Tuning file, health check before and after, lifetime software warranty.",
+    seoTitle: "Mobile Stage 1 Remap, Romford & Essex",
+    seoDescription: "Mobile Stage 1 ECU remap at your home or work in Romford, East London & Essex. Custom Top Gear Tuning file, health check before and after, lifetime software warranty.",
     whatsappMessage: null
   },
   {
@@ -48,7 +48,7 @@ export const services: Service[] = [
     ],
     warranty: true,
     faqs: remapFaqs,
-    seoTitle: "Stage 1 Bench ECU Remap, East London & Essex",
+    seoTitle: "Stage 1 Bench ECU Remap, Romford & Essex",
     seoDescription: "Bench ECU remapping for cars that can't be tuned through the OBD port. Mobile across East London & Essex, with a custom file and lifetime software warranty.",
     whatsappMessage: null
   },
@@ -73,7 +73,7 @@ export const services: Service[] = [
     ],
     warranty: true,
     faqs: remapFaqs,
-    seoTitle: "Stage 2 ECU Remap, East London & Essex",
+    seoTitle: "Mobile Stage 2 Remap, Romford & Essex",
     seoDescription: "Stage 2 remaps for cars with supporting hardware upgrades, ECU bench unlock included. Mobile across East London & Essex with a lifetime software warranty.",
     whatsappMessage: null
   },
@@ -98,7 +98,7 @@ export const services: Service[] = [
     ],
     warranty: true,
     faqs: remapFaqs,
-    seoTitle: "DSG & Gearbox (TCU) Remap, East London & Essex",
+    seoTitle: "Mobile DSG & Gearbox Remap, Romford & Essex",
     seoDescription: "Faster, firmer shifts and gearbox torque limits raised to match your engine remap. Mobile DSG / TCU tuning across East London & Essex.",
     whatsappMessage: null
   },
@@ -121,7 +121,7 @@ export const services: Service[] = [
     ],
     warranty: true,
     faqs: [],
-    seoTitle: "Pops & Bangs, Launch Control & Limiter Removal",
+    seoTitle: "Pops & Bangs, Launch Control & Limiter Removal, Essex",
     seoDescription: "ECU remap add-ons: pops & bangs, launch control and speed limiter removal. Mobile across East London & Essex, covered by our lifetime software warranty.",
     whatsappMessage: null
   },
@@ -153,53 +153,67 @@ export const services: Service[] = [
     name: "Full Vehicle Health Check",
     category: "diagnostics",
     status: "active",
-    indexable: false,
+    indexable: true,
     price: { amount: 75, from: false },
     launchPrice: 60,
     priceOptions: undefined,
-    shortDescription: null,
+    shortDescription: "A full diagnostic scan and health check of your car at your home or work. Warning light on, or want to know the car is healthy? We find out and explain what we find.",
     plainEnglish: null,
     technicalDetail: null,
     includedItems: null,
-    faqs: [],
-    seoTitle: null,
-    seoDescription: null,
-    whatsappMessage: null
+    faqs: [
+      { question: "What does the health check include?", answer: "A diagnostic scan of your car's control modules for stored and live fault codes, plus a check of live engine data. We talk you through what we find and what it means, in plain English." },
+      { question: "My engine management light is on. Can you help?", answer: "Yes. We read the fault codes, check the live data and tell you what's likely causing the light before anything is replaced." },
+      { question: "Do I need to bring the car anywhere?", answer: "No. We come to your home or workplace across Romford, East London and Essex." },
+      { question: "Is the health check included with a remap?", answer: "Yes. Every remap includes a health check before and after, so you don't need to book one separately." }
+    ],
+    seoTitle: "Mobile Car Diagnostics, Romford & Essex",
+    seoDescription: "Mobile car diagnostics and health check at your home or work in Romford, East London & Essex. Warning light on? We scan, explain and advise. \u00a375.",
+    whatsappMessage: "Hi Revved, I'd like a diagnostic health check. My registration is ______."
   },
   {
     slug: "pre-purchase-inspection",
     name: "Pre-Purchase Inspection",
     category: "diagnostics",
     status: "active",
-    indexable: false,
+    indexable: true,
     price: { amount: 99, from: false },
     launchPrice: null,
     priceOptions: undefined,
-    shortDescription: null,
+    shortDescription: "Buying a used car? We meet you at the seller's, scan the car for faults and check it over before you hand over any money.",
     plainEnglish: null,
     technicalDetail: null,
     includedItems: null,
-    faqs: [],
-    seoTitle: null,
-    seoDescription: null,
-    whatsappMessage: null
+    faqs: [
+      { question: "Can you meet me at the seller's address?", answer: "Yes, anywhere in our area across Romford, East London and Essex. Tell us the seller's postcode and when you're viewing." },
+      { question: "What do you check?", answer: "A diagnostic scan for stored and hidden fault codes, plus a check of the car's condition and live data. We tell you what we found before you decide." },
+      { question: "Can you check a car from a dealer as well as a private seller?", answer: "Yes. Let the seller know we're coming so they're happy for the car to be scanned." },
+      { question: "How quickly can you come out?", answer: "Message us the car's registration and the viewing time on WhatsApp and we'll confirm availability." }
+    ],
+    seoTitle: "Used Car Inspection, Romford & Essex",
+    seoDescription: "Pre-purchase car inspection at the seller's, across Romford, East London & Essex. Fault scan and check-over before you buy. \u00a399.",
+    whatsappMessage: "Hi Revved, I'd like a pre-purchase inspection. The car's registration is ______."
   },
   {
     slug: "pre-mot-check",
     name: "Pre-MOT Diagnostic Check",
     category: "diagnostics",
     status: "active",
-    indexable: false,
+    indexable: true,
     price: { amount: 65, from: false },
     launchPrice: null,
     priceOptions: undefined,
-    shortDescription: null,
+    shortDescription: "A diagnostic check before the MOT, at your home or work, so warning lights and faults are found before the test, not at it.",
     plainEnglish: null,
     technicalDetail: null,
     includedItems: null,
-    faqs: [],
-    seoTitle: null,
-    seoDescription: null,
-    whatsappMessage: null
+    faqs: [
+      { question: "Why have a check before the MOT?", answer: "Warning lights and some faults are MOT fails. Finding them before the test gives you time to sort them out." },
+      { question: "Is this an MOT?", answer: "No. It's a diagnostic check before your MOT. The MOT itself must be done at an approved test centre." },
+      { question: "Do you come to me?", answer: "Yes. We come to your home or workplace across Romford, East London and Essex." }
+    ],
+    seoTitle: "Pre-MOT Check, Romford & Essex",
+    seoDescription: "Mobile pre-MOT diagnostic check at your home or work in Romford, East London & Essex. Find faults and warning lights before the test. \u00a365.",
+    whatsappMessage: "Hi Revved, I'd like a pre-MOT check. My registration is ______."
   }
 ];

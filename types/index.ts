@@ -110,6 +110,8 @@ export type HomeData = {
 export type SiteData = {
   name: string;
   baseTown: string;
+  phoneDisplay: string;
+  openingHours: { days: string[]; opens: string; closes: string };
   serviceAreaSummary: string;
   homeTitle: string;
   homeDescription: string;

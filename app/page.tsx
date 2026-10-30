@@ -10,6 +10,7 @@ import { about } from "../data/about";
 import { tunedBrands } from "../data/trust";
 import { reviews } from "../data/reviews";
 import { absoluteUrl, getSiteUrl } from "../lib/seo";
+import { getWhatsAppNumber } from "../lib/whatsapp";
 import { cn } from "../lib/utils";
 
 import { BadgeCheck, ClipboardCheck, MapPin, ShieldCheck } from "lucide-react";
@@ -57,9 +58,11 @@ export default function Home() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "AutomotiveBusiness",
+    "@id": `${getSiteUrl()}/#business`,
     "name": site.name,
     "url": getSiteUrl(),
     "logo": absoluteUrl("/images/revved-logo.png"),
+    "image": absoluteUrl("/images/revved-logo.png"),
     "email": site.social.email,
     "legalName": site.company.legalName,
     // Mobile business: town only, no street address (registered office is not a trading address)
@@ -68,8 +71,28 @@ export default function Home() {
       "addressLocality": site.baseTown,
       "addressCountry": "GB"
     },
-    "telephone": process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "447999200655",
-    "areaServed": locations.map(l => l.name).join(', ')
+    "telephone": `+${getWhatsAppNumber()}`,
+    "priceRange": "££",
+    "areaServed": locations.map(l => ({ "@type": "City", "name": l.name })),
+    "sameAs": [site.social.instagram, site.social.facebook].filter(Boolean),
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": site.openingHours.days,
+      "opens": site.openingHours.opens,
+      "closes": site.openingHours.closes
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Mobile tuning and diagnostic services",
+      "itemListElement": services
+        .filter(s => s.status === "active" && s.indexable && s.price)
+        .map(s => ({
+          "@type": "Offer",
+          "itemOffered": { "@type": "Service", "name": s.name, "url": absoluteUrl(`/services/${s.slug}`) },
+          "price": s.price!.amount,
+          "priceCurrency": "GBP"
+        }))
+    }
   };
 
   return (
@@ -98,7 +121,7 @@ export default function Home() {
         <Container className="flex-1 flex flex-col justify-center pt-[calc(100vw-6rem)] pb-8 md:pt-36 md:pb-12 lg:pt-32">
           <div>
             <p className="text-xs md:text-sm font-bold uppercase tracking-[0.2em] max-[380px]:text-[11px] max-[380px]:tracking-[0.08em] text-accent-light mb-4">
-              Mobile Tuning · East London · Essex
+              Mobile Tuning · Romford · East London · Essex
             </p>
 
             <h1 className="text-[2.6rem] min-[400px]:text-5xl md:text-6xl lg:text-7xl xl:text-[84px] font-heading font-extrabold text-white leading-[0.95] uppercase tracking-tight mb-5 lg:whitespace-nowrap">
@@ -107,7 +130,7 @@ export default function Home() {
             </h1>
 
             <p className="text-lg md:text-2xl text-white/80 mb-8 max-w-xl">
-              Professional ECU &amp; TCU tuning across East London &amp; Essex.
+              Professional ECU &amp; TCU tuning in Romford, East London &amp; Essex. We come to you.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">

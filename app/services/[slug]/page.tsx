@@ -4,10 +4,11 @@ import { services } from "../../../data/services";
 import { offers } from "../../../data/offers";
 import { home } from "../../../data/home";
 import { getVisibleOffers } from "../../../lib/offers";
-import { getPhoneUrl } from "../../../lib/whatsapp";
+import { getPhoneUrl, getWhatsAppNumber } from "../../../lib/whatsapp";
 import { absoluteUrl, getSiteUrl } from "../../../lib/seo";
 import { warranty } from "../../../data/warranty";
 import { site } from "../../../data/site";
+import { locations } from "../../../data/locations";
 import { Container, Section, SectionHeading } from "../../../components/layout/layout-primitives";
 import { Badge } from "../../../components/ui/ui-primitives";
 import { ServicePrice, PriceOptionLabel, getLaunchPrice } from "../../../components/ui/ServicePrice";
@@ -64,10 +65,10 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     "provider": {
       "@type": "AutomotiveBusiness",
       "name": site.name,
-      "telephone": process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "447999200655",
+      "telephone": `+${getWhatsAppNumber()}`,
       "url": getSiteUrl()
     },
-    "areaServed": site.baseTown,
+    "areaServed": locations.map(l => ({ "@type": "City", "name": l.name })),
     "description": service.seoDescription || service.shortDescription || undefined,
     ...(service.price && !service.price.from ? {
       "offers": {
@@ -78,6 +79,27 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     } : {})
   };
 
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": absoluteUrl("/") },
+      { "@type": "ListItem", "position": 2, "name": "Services", "item": absoluteUrl("/services") },
+      { "@type": "ListItem", "position": 3, "name": service.name, "item": absoluteUrl(`/services/${service.slug}`) }
+    ]
+  };
+
+  // FAQ markup mirrors the FAQs rendered on the page, word for word
+  const faqLd = service.faqs.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": service.faqs.map(f => ({
+      "@type": "Question",
+      "name": f.question,
+      "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+    }))
+  } : null;
+
   return (
     <>
       <TrackView event="service_view" properties={{ service: service.slug }} />
@@ -85,6 +107,16 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
+      {faqLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+        />
+      )}
 
       {/* 1. Mobile First Hero: Title, Plain English, Price, WhatsApp button (no scroll) */}
       <Section className="pt-6 pb-12 border-b border-border relative overflow-hidden bg-surface/10">

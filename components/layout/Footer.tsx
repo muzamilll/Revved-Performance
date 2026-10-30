@@ -97,7 +97,7 @@ export function Footer() {
                   onClick={handlePhoneClick}
                   className="text-muted hover:text-white transition-colors"
                 >
-                  Call Us
+                  Call {site.phoneDisplay}
                 </a>
               </li>
               {[
