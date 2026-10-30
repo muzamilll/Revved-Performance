@@ -28,6 +28,13 @@ export const metadata: Metadata = {
     default: site.homeTitle,
   },
   description: site.homeDescription,
+  // Search Console and Bing Webmaster Tools ownership tags; set the env vars in Vercel
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+    other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+      ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
+      : undefined,
+  },
   openGraph: {
     title: site.homeTitle,
     description: site.homeDescription,

@@ -174,7 +174,7 @@ export function Header() {
                     className="w-full h-14 inline-flex items-center justify-center gap-2 rounded-md border border-muted/40 text-white font-bold uppercase tracking-widest hover:border-white transition-colors"
                   >
                     <Phone className="w-5 h-5" aria-hidden="true" />
-                    Call us
+                    Call {site.phoneDisplay}
                   </a>
                   {site.social.email && (
                     <a
