@@ -15,6 +15,7 @@ export const offers: Offer[] = [
       "stage-1-remap",
       "stage-1-remap-bench",
       "stage-2-remap",
+      "van-remap",
       "dsg-gearbox-remap",
       "remap-add-ons"
     ],

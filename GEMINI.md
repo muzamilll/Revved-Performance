@@ -158,7 +158,7 @@ Services:
 * Only `status: "active"` services are rendered, linked, offered in selectors or bundles, or returned by `generateStaticParams`. Draft means invisible everywhere.
 * `indexable` is separate from `status`. A page is indexable only if it is active AND `indexable: true` AND both `seoTitle` and `seoDescription` are non-null. Otherwise it gets `robots: { index: false, follow: true }` and is left out of the sitemap.
 * A `null` price shows "Price on request" and a WhatsApp button, never a number.
-* Emissions-related services (EGR, DPF, AdBlue) must always be `indexable: false`.
+* Emissions delete services (EGR, DPF or AdBlue deletes, `emissionsRelated: true`) must always be `indexable: false`. Legal repair and maintenance services such as DPF cleaning and AdBlue fault diagnosis are normal, indexable services.
 
 Offers and bundles:
 

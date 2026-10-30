@@ -14,6 +14,18 @@ export const problems: Problem[] = [
     whatsappMessage: "Hi Revved, I have a warning light on my dashboard. I'd like to book a diagnostic check."
   },
   {
+    id: "dpf-light",
+    label: "DPF light on",
+    recommendedServiceSlug: "dpf-cleaning",
+    whatsappMessage: "Hi Revved, my DPF light is on. I'd like a DPF check."
+  },
+  {
+    id: "adblue-warning",
+    label: "AdBlue warning",
+    recommendedServiceSlug: "adblue-diagnosis",
+    whatsappMessage: "Hi Revved, I have an AdBlue warning. I'd like a diagnosis."
+  },
+  {
     id: "poor-fuel-economy",
     label: "Poor fuel economy",
     recommendedServiceSlug: "vehicle-diagnostics",

@@ -78,6 +78,36 @@ export const services: Service[] = [
     whatsappMessage: null
   },
   {
+    slug: "van-remap",
+    name: "Van Remap (Stage 1)",
+    category: "ecu-remapping",
+    status: "active",
+    indexable: true,
+    price: { amount: 300, from: true },
+    launchPrice: 250,
+    priceOptions: undefined,
+    shortDescription: "More pulling power for loaded vans and towing, tuned through the diagnostic (OBD) port at your yard, home or job site.",
+    plainEnglish: null,
+    technicalDetail: null,
+    includedItems: [
+      "Health check before & after",
+      "Custom Top Gear Tuning file for your van",
+      warranty.includedItem,
+      "ECU-protected power supply",
+      "Before/after comparison"
+    ],
+    warranty: true,
+    faqs: [
+      { question: "Which vans can you remap?", answer: "Most modern diesel vans, including the Ford Transit and Transit Custom, Mercedes Sprinter and Vito, VW Transporter and Crafter, and Vauxhall Vivaro. Send us the registration and we'll confirm the options for your van." },
+      { question: "Can you remap my van while it's at work?", answer: "Yes. We come to your yard, home or job site across Romford, East London and Essex, so the van is off the road for as short a time as possible." },
+      { question: "Will a remap improve my van's fuel economy?", answer: "It can, especially for vans that work hard or carry heavy loads, but it depends on how the van is driven. We won't promise a figure we can't guarantee." },
+      ...remapFaqs
+    ],
+    seoTitle: "Mobile Van Remapping, Romford & Essex",
+    seoDescription: "Mobile van remapping for Transit, Sprinter, Transporter and more at your yard or home in Romford, East London & Essex. Custom file and lifetime software warranty.",
+    whatsappMessage: "Hi Revved, I'd like a quote for a van remap. My registration is ______."
+  },
+  {
     slug: "dsg-gearbox-remap",
     name: "DSG / Gearbox Remap",
     category: "ecu-remapping",
@@ -147,6 +177,62 @@ export const services: Service[] = [
     seoTitle: null,
     seoDescription: null,
     whatsappMessage: "Hi Revved, I'd like to enquire about emissions add-ons for my car."
+  },
+  {
+    slug: "dpf-cleaning",
+    name: "DPF Clean & Regeneration",
+    category: "diagnostics",
+    status: "active",
+    indexable: true,
+    price: { amount: 195, from: true },
+    launchPrice: null,
+    priceOptions: [{ label: "Forced regeneration only", amount: 95 }],
+    shortDescription: "DPF light on? We find out why, chemically clean the filter and run a forced regeneration at your home or work, so you avoid a new DPF.",
+    plainEnglish: null,
+    technicalDetail: null,
+    includedItems: [
+      "Fault scan to find why the DPF blocked",
+      "Chemical DPF clean",
+      "Forced regeneration",
+      "Soot and pressure readings before and after"
+    ],
+    faqs: [
+      { question: "Can I keep driving with the DPF light on?", answer: "Short trips will usually make it worse. Avoid stop-start driving and book a check soon, because a filter that keeps blocking can force the car into limp mode and lead to a much bigger bill." },
+      { question: "What's the difference between a regeneration and a clean?", answer: "A forced regeneration uses the diagnostic tool to burn off soot at high temperature. A chemical clean breaks down deposits first, for filters too blocked for a regeneration alone. We check the readings and tell you which your car needs." },
+      { question: "Do you come to me?", answer: "Yes. We do it at your home or workplace across Romford, East London and Essex." },
+      { question: "Why did my DPF block?", answer: "Common causes are lots of short journeys, a faulty pressure sensor, EGR problems or the wrong oil. We scan for faults first so it doesn't just block again." },
+      { question: "Is the price fixed?", answer: "\u00a395 covers a forced regeneration. A chemical clean and regeneration starts from \u00a3195. We confirm the price after checking your registration and readings, before any work starts." }
+    ],
+    seoTitle: "Mobile DPF Cleaning & Regeneration, Romford & Essex",
+    seoDescription: "Mobile DPF cleaning and forced regeneration at your home or work in Romford, East London & Essex. Fault scan included. Regeneration £95, clean from £195.",
+    whatsappMessage: "Hi Revved, my DPF light is on and I'd like a DPF clean. My registration is ______."
+  },
+  {
+    slug: "adblue-diagnosis",
+    name: "AdBlue Fault Diagnosis",
+    category: "diagnostics",
+    status: "active",
+    indexable: true,
+    price: { amount: 85, from: false },
+    launchPrice: null,
+    priceOptions: undefined,
+    shortDescription: "AdBlue warning or a \"no start in X miles\" countdown? We read the fault codes and live data at your home or work and tell you exactly what's wrong.",
+    plainEnglish: null,
+    technicalDetail: null,
+    includedItems: [
+      "AdBlue / SCR fault code scan",
+      "Live data check of sensors, heater and pump",
+      "Clear explanation of the cause and the fix"
+    ],
+    faqs: [
+      { question: "My dash says the engine won't start in a few hundred miles. What should I do?", answer: "Book a diagnosis straight away. The countdown is real, and once it reaches zero the car won't restart until the fault is fixed." },
+      { question: "Is it just low AdBlue?", answer: "Sometimes. If the warning stays on after topping up, there's usually a fault such as a sensor, heater, pump or NOx sensor. That's what we diagnose." },
+      { question: "Does the \u00a385 include the repair?", answer: "No, it covers the diagnosis. We explain what's needed and what it involves before anything else is done." },
+      { question: "Do you work on vans?", answer: "Yes. AdBlue faults are common on diesel vans and we come to your yard, home or job site." }
+    ],
+    seoTitle: "Mobile AdBlue Fault Diagnosis, Romford & Essex",
+    seoDescription: "AdBlue warning or no-start countdown? Mobile AdBlue fault diagnosis on cars and vans at your home or work in Romford, East London & Essex. £85.",
+    whatsappMessage: "Hi Revved, I have an AdBlue warning and I'd like a diagnosis. My registration is ______."
   },
   {
     slug: "vehicle-diagnostics",
