@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { site } from "../data/site";
@@ -407,7 +408,9 @@ export default function Home() {
               <div className="max-w-3xl mx-auto">
                 <p className="text-accent-light text-sm font-bold uppercase tracking-[0.2em] mb-4">About Revved Performance</p>
                 <h2 className="text-4xl md:text-6xl font-heading font-extrabold text-white mb-8 uppercase tracking-tighter text-glow-accent">
-                  Passion drives<br/>everything we do.
+                  {about.heading.split("\n").map((line, i) => (
+                    <Fragment key={i}>{i > 0 && <br />}{line}</Fragment>
+                  ))}
                 </h2>
                 <div className="prose prose-invert text-muted mx-auto mb-12 text-lg">
                   {about.body.split('\n').map((p, i) => p.trim() && <p key={i}>{p}</p>)}
