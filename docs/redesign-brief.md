@@ -53,7 +53,8 @@ Rules for the wording:
 | Ink (background) | `#150B12` | Dark sections |
 | Deep black | `#0B0609` | Performance section, footer |
 | Plum | `#693C56` | Promise band, final call band, glows |
-| Plate yellow (accent) | `#FFD500` | Buttons, prices, the reg plate, PERFORMANCE in the logo |
+| Plate yellow (accent) | `#FFD500` | Buttons, prices, the reg plate, the WhatsApp card |
+| Plum for text on dark | `#B06C8E` | PERFORMANCE in the wordmark on dark backgrounds |
 | Cream | `#F4F2F0` | Light sections and text on dark |
 | Plum tint | `#D9A9C2` | Small labels on dark |
 
@@ -67,7 +68,10 @@ Rules for the wording:
   patterns across backgrounds.
 - Balance: mostly dark, with three light sections on the home page (services,
   areas, guides).
-- Logo wordmark: REVVED in cream, PERFORMANCE in yellow, same lettering.
+- Logo wordmark: REVVED and PERFORMANCE in the same lettering, with
+  PERFORMANCE in plum (the main theme). On dark backgrounds use `#B06C8E`,
+  because the true plum is too dark to read there; on light backgrounds use
+  `#693C56`.
 - A fixed yellow "WhatsApp Revved / Skip the form. Talk to us." card sits at the
   bottom right of every page. There is no WhatsApp button in the header.
 - Site copy is straight. The dry one-liners are for social media only.
@@ -117,6 +121,7 @@ separate About Revved page carries the rest.
 | Pre-MOT check | £65 |
 | Stage 1 remap (OBD) | From £250 |
 | Stage 1 remap (bench) | From £350 |
+| Stage 2 remap | From £300 |
 | Remap add-ons | £50 each |
 | Emissions add-ons (off-road use, by enquiry) | £50 each |
 
@@ -136,6 +141,7 @@ is listed under Performance only; ads should not point to it.
   AI-made images are fine as illustrations but not in Recent work.
 - The two reviews: wording and first names.
 - Brand kit: https://claude.ai/artifact/Do7yPdDT31A25nJ5X1pguj
+- Social templates: https://claude.ai/artifact/ELuhiijpxYgpnyCZTtdwru
 
 ## 7. Build stages
 
