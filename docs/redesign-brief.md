@@ -25,6 +25,12 @@ its higher-value side.
 
 The site collects the order; WhatsApp confirms it. Nothing is paid online.
 
+No outside services for now. Sending the order to WhatsApp is deliberate: it
+avoids any API (vehicle lookup, payments, booking calendars, email providers)
+until the business has jobs coming in. The reg box records the registration and
+passes it along; it does not look the car up, so prices shown are the same for
+every car and Revved confirms the price for that car on WhatsApp.
+
 1. Enter registration.
 2. Choose a job. Labour-only prices are marked "plus parts".
 3. Add-ons.
@@ -85,7 +91,8 @@ Rules for the wording:
 10. Questions: six answers.
 11. Guides (light): three article cards.
 12. Final call: plum band, "We come to you.", one button, WhatsApp link.
-13. MOT and service reminders by email.
+13. MOT and service reminders by email. On hold: sending email needs an
+    outside service, which the no-API rule excludes for now.
 14. Footer: Car care, Performance and Revved links, contact details with icons,
     and the registered company line (required for a limited company).
 
@@ -128,8 +135,7 @@ is listed under Performance only; ads should not point to it.
 - Photos: a sharper REV WHO hero photo, a battery photo, real job photos.
   AI-made images are fine as illustrations but not in Recent work.
 - The two reviews: wording and first names.
-- DVLA vehicle lookup key. Until then the reg is passed along without showing
-  the car's make.
+- Brand kit: https://claude.ai/artifact/Do7yPdDT31A25nJ5X1pguj
 
 ## 7. Build stages
 
