@@ -3,9 +3,15 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   async redirects() {
     return [
-      // Offers now live on one page; old single-offer links land on it.
+      // Offers live on one page and remaps on /performance; old links land on the right page.
       // Temporary (307) while the redesign is under review, so it can still be changed.
       { source: "/offers/:slug", destination: "/offers", permanent: false },
+      // The old services pages: each service now has one home
+      { source: "/services", destination: "/performance", permanent: false },
+      { source: "/services/vehicle-diagnostics", destination: "/diagnostics", permanent: false },
+      { source: "/services/pre-purchase-inspection", destination: "/diagnostics", permanent: false },
+      { source: "/services/pre-mot-check", destination: "/diagnostics", permanent: false },
+      { source: "/services/:slug", destination: "/performance", permanent: false },
     ];
   },
 };

@@ -111,7 +111,7 @@ export const services: Service[] = [
     price: { amount: 50, from: false },
     launchPrice: null,
     priceOptions: undefined,
-    shortDescription: "£50 per add-on, added to any remap.",
+    shortDescription: "Extras added to any remap: pops and bangs, speed limiter removal or launch control. £50 each.",
     plainEnglish: null,
     technicalDetail: null,
     includedItems: [
@@ -129,7 +129,7 @@ export const services: Service[] = [
     slug: "emissions-add-ons",
     name: "Emissions Add-Ons (Off-Road Use)",
     category: "ecu-remapping",
-    status: "active",
+    status: "draft", // off the site pending Rayyan's decision,
     indexable: false,
     price: { amount: 50, from: false },
     launchPrice: null,

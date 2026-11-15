@@ -5,4 +5,4 @@ export const launchOffer: {
   label: string;
   slotsTotal: number;
   slotsRemaining: number;
-} = { active: true, label: "Launch Offer", slotsTotal: 5, slotsRemaining: 5 };
+} = { active: false, label: "Launch Offer", slotsTotal: 5, slotsRemaining: 5 };

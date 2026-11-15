@@ -1,208 +1,187 @@
 import Link from "next/link";
-import { ArrowRight, Phone } from "lucide-react";
-import { Container } from "../layout/layout-primitives";
+import { ArrowRight, MessageCircle } from "lucide-react";
 import { EnquiryButton } from "../enquiry/EnquiryButton";
-import { TrackedAnchor } from "../analytics/TrackedAnchor";
-import { Reveal } from "../ui/Reveal";
+import { CallLink, WhatsAppLink } from "../ui/actions";
 import { Img } from "../ui/Img";
 import { CareIcon } from "./CareIcon";
-import { Eyebrow, Heading } from "./shared";
+import { Band, BandHeader, cardClass, cardInteractive } from "./Band";
 import { careCategories } from "../../data/care";
 import { locations } from "../../data/locations";
-import { site } from "../../data/site";
 import { workPhotos, workReviews } from "../../data/work";
 import { formatOfferPrice } from "../../lib/offers";
 import { isPreviewBuild } from "../../lib/env";
-import { getPhoneUrl } from "../../lib/whatsapp";
-import { NOT_SURE_ID } from "../../lib/enquiry";
 import { Offer } from "../../types";
 import { cn } from "../../lib/utils";
 
-// Car care (cream): the four categories, the dead-battery line, and a way in for "not sure".
+// Car care: the four categories. Tapping a card opens its page; "Book" opens the booking
+// form with that job selected.
 export function CareServices() {
   return (
-    <section id="services" className="bg-cream text-ink py-16 lg:py-24">
-      <Container>
-        <Reveal>
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
-            <div>
-              <Eyebrow>Everyday car care</Eyebrow>
-              <Heading className="mt-3">What needs doing?</Heading>
-            </div>
-            <p className="max-w-[21rem] text-[15px] leading-relaxed text-ink-soft">
-              Choose the job and see how it&apos;s priced. We confirm the full quote with you before you book.
+    <Band id="services">
+      <BandHeader eyebrow="Everyday car care" title="What needs doing?" aside="Pick a job to see its prices, or book it straight away." />
+
+      <ul className="grid gap-4 sm:grid-cols-2 lg:gap-5 xl:grid-cols-4">
+        {careCategories.map((category) => (
+          <li
+            key={category.slug}
+            className={cn(cardClass.cream, cardInteractive, "flex flex-col overflow-hidden hover:border-ink/40 hover:shadow-[0_16px_36px_-20px_rgba(26,20,24,0.45)]")}
+          >
+            <Link href={`/${category.slug}`} className="group flex flex-1 items-center gap-4 p-5 sm:flex-col sm:items-stretch sm:gap-3 sm:p-6">
+              <span className="flex items-start justify-between">
+                <span className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-plum/[0.08] text-plum transition-colors duration-200 group-hover:bg-plum group-hover:text-white">
+                  <CareIcon slug={category.slug} className="h-7 w-7" />
+                </span>
+                <ArrowRight className="hidden h-5 w-5 text-ink-soft transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none sm:block" aria-hidden="true" />
+              </span>
+              <span className="flex min-w-0 flex-1 flex-col gap-0.5 sm:gap-3">
+                <span className="text-[20px] font-semibold tracking-[-0.01em] sm:mt-2 sm:text-[22px]">{category.name}</span>
+                <span className="hidden text-[15px] leading-relaxed text-ink-soft sm:block">{category.cardSummary}</span>
+                <span className="flex flex-col gap-0.5 sm:mt-auto sm:pt-3">
+                  <span className="text-[15px] font-bold sm:text-[16px]">{category.cardPrice}</span>
+                  <span className="hidden text-[13px] text-ink-soft sm:block">{category.cardPriceNote}</span>
+                </span>
+              </span>
+              <ArrowRight className="h-5 w-5 shrink-0 text-ink-soft sm:hidden" aria-hidden="true" />
+            </Link>
+            <EnquiryButton
+              plain
+              choice={category.primaryJobId}
+              aria-label={`Request a booking: ${category.name.toLowerCase()}`}
+              className="inline-flex min-h-[48px] items-center justify-center gap-2 border-t border-line text-[15px] font-semibold text-plum transition-colors hover:bg-plum hover:text-white sm:min-h-[52px]"
+            >
+              Book {category.name.toLowerCase()}
+            </EnquiryButton>
+          </li>
+        ))}
+      </ul>
+
+      {/* Urgent help, and questions. Two different needs, two different routes. */}
+      <div className="mt-4 grid gap-4 lg:mt-5 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-5">
+        <div className={cn(cardClass.cream, "flex flex-col gap-4 border-ink/80 p-6 sm:flex-row sm:items-center sm:justify-between")}>
+          <div>
+            <span className="inline-block rounded-sm bg-plate px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.16em]">Day or night</span>
+            <p className="mt-2 text-[21px] font-semibold leading-snug tracking-[-0.01em]">Dead battery? We&apos;ll come out.</p>
+          </div>
+          <div className="flex shrink-0 flex-col gap-2.5 sm:flex-row">
+            <CallLink variant="primary" className="px-5">Call now</CallLink>
+            <EnquiryButton variant="secondary" choice="battery-replacement" timing="asap" className="px-5 text-ink">
+              Book a battery
+            </EnquiryButton>
+          </div>
+        </div>
+
+        <WhatsAppLink
+          plain
+          icon={false}
+          message="Hi Revved, I'm not sure what's wrong with my car."
+          className={cn(cardClass.cream, cardInteractive, "group flex items-center gap-4 p-6 hover:border-ink/40")}
+        >
+          <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#25D366]/15 text-[#128C4B]">
+            <MessageCircle className="h-6 w-6" aria-hidden="true" />
+          </span>
+          <span className="flex-1">
+            <span className="block text-[18px] font-semibold tracking-[-0.01em]">Not sure what&apos;s wrong?</span>
+            <span className="block text-[15px] text-ink-soft">Tell us on WhatsApp. We&apos;ll point you to the right job.</span>
+          </span>
+          <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none" aria-hidden="true" />
+        </WhatsAppLink>
+      </div>
+    </Band>
+  );
+}
+
+// The featured offer, full width in brand plum. It leads straight into Performance below.
+export function OfferBand({ offer }: { offer: Offer }) {
+  return (
+    <Band tone="plum" label="Featured offer" className="pb-8 lg:pb-10">
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-16">
+        <div>
+          <p className="text-[12px] font-bold uppercase tracking-[0.18em] text-white/70">Offer</p>
+          <h2 className="mt-3 text-[clamp(1.9rem,6.4vw,3.25rem)] font-medium leading-[1.05] tracking-[-0.02em]">{offer.title}</h2>
+          <p className="mt-3 max-w-xl text-[17px] leading-relaxed text-white/80">{offer.tagline}</p>
+        </div>
+        <div className="flex flex-col gap-5 rounded-xl bg-white p-5 text-ink sm:flex-row sm:items-center sm:gap-8 lg:p-6">
+          <div>
+            {offer.saving && <p className="text-[14px] text-ink-soft">Booked separately <span className="line-through">{offer.saving.separately}</span></p>}
+            <p className="mt-1 flex items-baseline gap-3">
+              <span className="text-[44px] font-bold leading-none tracking-[-0.02em]">{formatOfferPrice(offer)}</span>
+              {offer.saving && <span className="rounded-sm bg-plate px-2 py-0.5 text-[14px] font-bold">{offer.saving.headline}</span>}
             </p>
           </div>
-
-          <ul className="mt-9 grid gap-3 sm:grid-cols-2 lg:mt-10 xl:grid-cols-4">
-            {careCategories.map((category) => (
-              <li key={category.slug} className="flex flex-col border border-line bg-white/60 transition-[border-color,box-shadow] duration-200 hover:border-ink/50 hover:shadow-[0_10px_28px_-16px_rgba(26,20,24,0.45)]">
-                <Link href={`/${category.slug}`} className="group flex flex-1 flex-col gap-3 p-5 lg:p-6">
-                  <span className="flex items-start justify-between">
-                    <CareIcon slug={category.slug} className="h-9 w-9 text-plum" />
-                    <ArrowRight className="h-5 w-5 text-ink-soft transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none" aria-hidden="true" />
-                  </span>
-                  <span className="mt-2 text-[22px] font-semibold tracking-[-0.01em]">{category.name}</span>
-                  <span className="text-[15px] leading-relaxed text-ink-soft">{category.cardSummary}</span>
-                  <span className="mt-auto flex flex-col gap-0.5 pt-3">
-                    <span className="text-[16px] font-bold">{category.cardPrice}</span>
-                    <span className="text-[13px] text-ink-soft">{category.cardPriceNote}</span>
-                  </span>
-                </Link>
-                <div className="grid grid-cols-2 border-t border-line text-[14px] font-semibold">
-                  <Link href={`/${category.slug}`} className="inline-flex min-h-[48px] items-center justify-center border-r border-line hover:bg-ink/5">
-                    See prices
-                  </Link>
-                  <EnquiryButton plain choice={category.primaryJobId} aria-label={`Get a quote for ${category.name.toLowerCase()}`} className="inline-flex min-h-[48px] items-center justify-center text-plum hover:bg-plum/10">
-                    Get a quote
-                  </EnquiryButton>
-                </div>
-              </li>
-            ))}
-          </ul>
-
-          {/* The dead-battery line */}
-          <div className="mt-3 flex flex-col gap-4 border-[1.5px] border-ink bg-white p-5 text-ink sm:flex-row sm:items-center sm:justify-between lg:p-6">
-            <div className="flex flex-col gap-2">
-              <span className="self-start bg-plate px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-ink">Day or night</span>
-              <p className="text-[21px] font-semibold leading-snug tracking-[-0.01em] lg:text-[24px]">
-                Dead battery? Battery call-outs run day and night.
-              </p>
-            </div>
-            <div className="flex shrink-0 flex-col gap-2.5 sm:flex-row">
-              <EnquiryButton choice="battery-replacement" timing="asap" className="px-5">Get a battery now</EnquiryButton>
-              <TrackedAnchor
-                href={getPhoneUrl()}
-                event="phone_click"
-                className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-md border-[1.5px] border-ink px-5 text-[15px] font-bold hover:bg-ink/5"
-              >
-                <Phone className="h-[18px] w-[18px]" aria-hidden="true" />
-                Call {site.phoneDisplay}
-              </TrackedAnchor>
-            </div>
+          <div className="flex flex-col gap-2">
+            <EnquiryButton choice={`offer-${offer.slug}`} className="px-6">Book this offer</EnquiryButton>
+            <Link href={`/offers#${offer.slug}`} className="inline-flex min-h-[44px] items-center justify-center gap-1.5 text-[14px] font-semibold text-plum underline-offset-4 hover:underline">
+              What&apos;s included <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
           </div>
-
-          <EnquiryButton
-            plain
-            choice={NOT_SURE_ID}
-            className="group mt-3 flex min-h-[56px] w-full items-center justify-between gap-4 border-b border-line py-3 text-left text-[15px]"
-          >
-            <span><strong className="font-semibold">Not sure what&apos;s wrong?</strong> Tell us what&apos;s happening.</span>
-            <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none" aria-hidden="true" />
-          </EnquiryButton>
-        </Reveal>
-      </Container>
-    </section>
+        </div>
+      </div>
+    </Band>
   );
 }
 
-// One compact featured-offer teaser, linking to the Offers page
-export function OfferTeaser({ offer }: { offer: Offer }) {
-  return (
-    <section aria-label="Featured offer" className="bg-cream text-ink pb-16 lg:pb-24">
-      <Container>
-        <Reveal>
-          <Link
-            href={`/offers#${offer.slug}`}
-            className="group flex flex-col gap-4 border border-plum bg-white p-5 transition-shadow duration-200 hover:shadow-[0_10px_28px_-16px_rgba(105,60,86,0.7)] sm:flex-row sm:items-center sm:justify-between sm:gap-8 lg:p-6"
-          >
-            <span className="flex flex-col gap-1.5">
-              <span className="text-[12px] font-bold uppercase tracking-[0.18em] text-plum">Offer</span>
-              <span className="text-[21px] font-semibold leading-snug tracking-[-0.01em] lg:text-[24px]">{offer.title}</span>
-              {offer.tagline && <span className="text-[15px] text-ink-soft">{offer.tagline}</span>}
-            </span>
-            <span className="flex shrink-0 items-center justify-between gap-6">
-              <span className="bg-plate px-3 py-1 text-[26px] font-bold leading-tight tracking-[-0.01em]">{formatOfferPrice(offer)}</span>
-              <span className="inline-flex min-h-[44px] items-center gap-2 text-[15px] font-semibold text-plum">
-                See the offer
-                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none" aria-hidden="true" />
-              </span>
-            </span>
-          </Link>
-        </Reveal>
-      </Container>
-    </section>
-  );
-}
-
-// Recent work (cream): real photos and customers' own words. No review platform is named.
+// Recent work: real photos and customers' own words. No review platform is named.
 // With nothing to show yet it renders marked slots on preview builds and nothing on the live site.
 export function RecentWork() {
   const hasContent = workPhotos.length > 0 || workReviews.length > 0;
-  const preview = isPreviewBuild();
-  if (!hasContent && !preview) return null;
+  if (!hasContent && !isPreviewBuild()) return null;
 
-  const slot = "flex items-center justify-center border-[1.5px] border-dashed border-ink/35 bg-white/50 p-5 text-center text-[14px] leading-relaxed text-ink-soft";
+  const slot = "flex items-center justify-center rounded-xl border-[1.5px] border-dashed border-ink/30 bg-white/60 p-5 text-center text-[14px] leading-relaxed text-ink-soft";
 
   return (
-    <section id="recent-work" className="bg-cream text-ink py-16 lg:py-24">
-      <Container>
-        <Reveal>
-          <Eyebrow>Recent work</Eyebrow>
-          <Heading className="mt-3">Done at the door.</Heading>
+    <Band id="recent-work">
+      <BandHeader eyebrow="Recent work" title="Done at the door." />
+      {workPhotos.length > 0 ? (
+        <ul className="grid gap-4 sm:grid-cols-3 lg:gap-5">
+          {workPhotos.slice(0, 3).map((photo) => (
+            <li key={photo.src} className="relative aspect-[4/3] overflow-hidden rounded-xl bg-white">
+              <Img src={photo.src} alt={photo.alt} fill sizes="(min-width: 640px) 33vw, 100vw" />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <ul className="grid gap-4 sm:grid-cols-3 lg:gap-5" aria-label="Photo slots, preview only">
+          {[1, 2, 3].map((n) => (
+            <li key={n} className={cn(slot, "aspect-[4/3]", n > 1 && "hidden sm:flex")}>Slot for job photo {n}. Shown on previews only.</li>
+          ))}
+        </ul>
+      )}
 
-          {workPhotos.length > 0 ? (
-            <ul className="mt-9 grid gap-3 sm:grid-cols-3">
-              {workPhotos.slice(0, 3).map((photo) => (
-                <li key={photo.src} className="relative aspect-[4/3] overflow-hidden bg-cream-deep">
-                  <Img src={photo.src} alt={photo.alt} fill sizes="(min-width: 640px) 33vw, 100vw" />
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <ul className="mt-9 grid gap-3 sm:grid-cols-3" aria-label="Photo slots, preview only">
-              {[1, 2, 3].map((n) => (
-                <li key={n} className={cn(slot, "aspect-[4/3]", n > 1 && "hidden sm:flex")}>Slot for job photo {n}. Shown on previews only.</li>
-              ))}
-            </ul>
-          )}
-
-          {workReviews.length > 0 ? (
-            <ul className="mt-3 grid gap-3 lg:grid-cols-2">
-              {workReviews.slice(0, 2).map((review) => (
-                <li key={review.quote}>
-                  <figure className="flex h-full flex-col gap-3 border border-line bg-white/60 p-6">
-                    <blockquote className="font-accent text-[22px] italic leading-[1.4]">{review.quote}</blockquote>
-                    <figcaption className="mt-auto text-[14px] font-semibold text-ink-soft">{review.firstName} · {review.job}</figcaption>
-                  </figure>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <ul className="mt-3 grid gap-3 lg:grid-cols-2" aria-label="Review slots, preview only">
-              {[1, 2].map((n) => (
-                <li key={n} className={cn(slot, "min-h-[7.5rem]")}>Slot for review {n}: the customer&apos;s own words and first name. Shown on previews only.</li>
-              ))}
-            </ul>
-          )}
-        </Reveal>
-      </Container>
-    </section>
+      {workReviews.length > 0 ? (
+        <ul className="mt-4 grid gap-4 lg:mt-5 lg:grid-cols-2 lg:gap-5">
+          {workReviews.slice(0, 2).map((review) => (
+            <li key={review.quote}>
+              <figure className={cn(cardClass.cream, "flex h-full flex-col gap-3 p-6")}>
+                <blockquote className="font-accent text-[22px] italic leading-[1.4]">{review.quote}</blockquote>
+                <figcaption className="mt-auto text-[14px] font-semibold text-ink-soft">{review.firstName} · {review.job}</figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <ul className="mt-4 grid gap-4 lg:mt-5 lg:grid-cols-2 lg:gap-5" aria-label="Review slots, preview only">
+          {[1, 2].map((n) => (
+            <li key={n} className={cn(slot, "min-h-[7.5rem]")}>Slot for review {n}: the customer&apos;s own words and first name. Shown on previews only.</li>
+          ))}
+        </ul>
+      )}
+    </Band>
   );
 }
 
-// Areas (cream)
 export function Areas() {
   return (
-    <section id="areas" className="bg-cream-deep text-ink py-16 lg:py-24">
-      <Container>
-        <Reveal className="grid gap-8 lg:grid-cols-[minmax(0,28rem)_minmax(0,1fr)] lg:gap-14">
-          <div>
-            <Eyebrow>Close to home</Eyebrow>
-            <Heading className="mt-3">East London. Essex. Your door.</Heading>
-            <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-ink-soft">
-              Send your postcode with your request. We confirm coverage and availability.
-            </p>
-          </div>
-          <ul className="flex flex-wrap content-start gap-2" aria-label="Towns we cover">
-            {locations.map((location) => (
-              <li key={location.slug} className="border border-line bg-cream px-3.5 py-2 text-[14px] font-medium">
-                {location.name}
-              </li>
-            ))}
-          </ul>
-        </Reveal>
-      </Container>
-    </section>
+    <Band id="areas" className="border-t border-line">
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,24rem)_minmax(0,1fr)] lg:gap-14">
+        <BandHeader eyebrow="Close to home" title="East London. Essex. Your door." aside="Add your postcode when you book." className="mb-0 lg:mb-0 lg:block [&>div:last-child]:mt-4" />
+        <ul className="flex flex-wrap content-start gap-2" aria-label="Towns we cover">
+          {locations.map((location) => (
+            <li key={location.slug} className="rounded-full border border-line bg-white px-4 py-2 text-[14px] font-medium">
+              {location.name}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Band>
   );
 }

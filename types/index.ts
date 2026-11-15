@@ -44,9 +44,13 @@ export type Offer = {
   seoDescription: string | null;
   whatsappMessage: string | null;
   eligibility?: string;               // who the offer is for
-  // "What changes" table. A description of the work, never a test result.
-  comparison?: { label: string; before: string; after: string }[];
-  note?: string;                      // line shown under the comparison
+  // The saving, shown as plain arithmetic
+  saving?: {
+    headline: string;                 // e.g. "Save at least £75."
+    parts: { label: string; price: string }[];
+    separately: string;               // total booked separately
+  };
+  note?: string;                      // line shown under the saving
 };
 
 // A single car care job with its published price
@@ -67,6 +71,7 @@ export type CareCategory = {
   cardPrice: string;
   cardPriceNote: string;
   primaryJobId: string;               // preselected by the category's main button
+  heroLabel?: string;                 // label over the hero price, when it isn't the main job's name
   heroTitle: string;
   heroIntro: string;
   heroPrice: string;

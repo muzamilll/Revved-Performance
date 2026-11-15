@@ -3,19 +3,18 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronRight, Menu, Phone, X } from "lucide-react";
+import { ChevronRight, Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
 import { EnquiryButton } from "../enquiry/EnquiryButton";
+import { CallLink, WhatsAppLink } from "../ui/actions";
 import { careCategories } from "../../data/care";
 import { site } from "../../data/site";
-import { getPhoneUrl } from "../../lib/whatsapp";
-import { trackEvent } from "../../lib/analytics";
 import { lockScroll } from "../../lib/scroll-lock";
 import { cn } from "../../lib/utils";
 
 const careLinks = careCategories.map((c) => ({ label: c.name, href: `/${c.slug}` }));
 const otherLinks = [
-  { label: "Performance", href: "/#performance" },
+  { label: "Performance", href: "/performance" },
   { label: "Offers", href: "/offers" },
 ];
 
@@ -77,7 +76,7 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 bg-plum-hero text-white transition-shadow duration-200 motion-reduce:transition-none",
+        "sticky top-0 z-40 bg-plum text-white transition-shadow duration-200 motion-reduce:transition-none",
         scrolled && "shadow-[0_1px_0_rgba(255,255,255,0.1),0_8px_24px_rgba(11,6,9,0.25)]"
       )}
     >
@@ -93,7 +92,7 @@ export function Header() {
               aria-current={isCurrent(link.href) ? "page" : undefined}
               className={cn(
                 "inline-flex min-h-[44px] items-center rounded-md px-2 text-[12px] font-semibold uppercase tracking-[0.1em] whitespace-nowrap transition-colors xl:px-3 xl:tracking-[0.14em] hover:text-plate aria-[current=page]:text-plate",
-                link.label === "Performance" ? "text-plum-tint" : "text-white"
+                "text-white"
               )}
             >
               {link.label}
@@ -101,19 +100,20 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="hidden lg:flex items-center gap-2">
-          <a
-            href={getPhoneUrl()}
-            onClick={() => trackEvent("phone_click")}
-            className="hidden xl:inline-flex min-h-[44px] items-center gap-2 rounded-md px-3 text-[15px] font-semibold whitespace-nowrap hover:text-plate"
-          >
-            <Phone className="h-4 w-4" aria-hidden="true" />
+        <div className="hidden lg:flex items-center gap-1">
+          <CallLink plain icon={false} className="hidden 2xl:inline-flex min-h-[44px] items-center rounded-md px-3 text-[15px] font-semibold whitespace-nowrap hover:text-plate">
             {site.phoneDisplay}
-          </a>
-          <EnquiryButton className="min-h-[44px] px-4 text-[14px] whitespace-nowrap xl:px-5">Get a quote</EnquiryButton>
+          </CallLink>
+          <WhatsAppLink plain aria-label="Ask on WhatsApp" className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 rounded-md px-2 text-[14px] font-semibold whitespace-nowrap hover:text-plate xl:px-3">
+            <span className="hidden xl:inline">WhatsApp</span>
+          </WhatsAppLink>
+          <EnquiryButton className="ml-1 min-h-[44px] px-4 text-[14px] whitespace-nowrap xl:px-5">
+            <span className="xl:hidden">Book</span>
+            <span className="hidden xl:inline">Request a booking</span>
+          </EnquiryButton>
         </div>
 
-        {/* Mobile: one compact menu button. Call and Get a quote live in the bottom bar. */}
+        {/* Mobile: one compact menu button. The three actions live in the bottom bar. */}
         <button
           ref={menuButtonRef}
           type="button"
@@ -134,7 +134,7 @@ export function Header() {
           aria-modal="true"
           aria-label="Menu"
           className={cn(
-            "lg:hidden fixed inset-0 z-50 flex flex-col bg-plum-hero text-white transition-[opacity,transform] duration-[220ms] ease-out motion-reduce:transition-none",
+            "lg:hidden fixed inset-0 z-50 flex flex-col bg-plum text-white transition-[opacity,transform] duration-[220ms] ease-out motion-reduce:transition-none",
             menuVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
           )}
         >
@@ -152,7 +152,7 @@ export function Header() {
           </div>
 
           <nav aria-label="Main" className="flex-1 overflow-y-auto overscroll-contain px-6 pb-6 md:px-8">
-            <p className="pt-5 pb-1 text-[12px] font-bold uppercase tracking-[0.18em] text-plum-tint">Services</p>
+            <p className="pt-5 pb-1 text-[12px] font-bold uppercase tracking-[0.18em] text-white/70">Services</p>
             <ul>
               {careLinks.map((link) => (
                 <li key={link.href} className="border-b border-white/15">
@@ -163,13 +163,13 @@ export function Header() {
                     className="flex min-h-[56px] items-center justify-between text-[22px] font-semibold tracking-[-0.01em] aria-[current=page]:text-plate"
                   >
                     {link.label}
-                    <ChevronRight className="h-5 w-5 text-plum-tint" aria-hidden="true" />
+                    <ChevronRight className="h-5 w-5 text-white/60" aria-hidden="true" />
                   </Link>
                 </li>
               ))}
             </ul>
 
-            <p className="pt-7 pb-1 text-[12px] font-bold uppercase tracking-[0.18em] text-plum-tint">Tuning and offers</p>
+            <p className="pt-7 pb-1 text-[12px] font-bold uppercase tracking-[0.18em] text-white/70">Tuning and offers</p>
             <ul>
               {otherLinks.map((link) => (
                 <li key={link.href} className="border-b border-white/15">
@@ -180,27 +180,21 @@ export function Header() {
                     className="flex min-h-[56px] items-center justify-between text-[22px] font-semibold tracking-[-0.01em] aria-[current=page]:text-plate"
                   >
                     {link.label}
-                    <ChevronRight className="h-5 w-5 text-plum-tint" aria-hidden="true" />
+                    <ChevronRight className="h-5 w-5 text-white/60" aria-hidden="true" />
                   </Link>
                 </li>
               ))}
             </ul>
 
-            <p className="pt-7 text-[15px] leading-relaxed text-mist">
+            <p className="pt-7 text-[15px] leading-relaxed text-white/75">
               {site.serviceAreaSummary}, {site.hoursDisplay}. Battery call-outs run day and night.
             </p>
           </nav>
 
-          <div className="grid shrink-0 grid-cols-2 gap-3 border-t border-white/15 px-6 pt-3 pb-[max(env(safe-area-inset-bottom),0.75rem)] md:px-8">
-            <a
-              href={getPhoneUrl()}
-              onClick={() => trackEvent("phone_click")}
-              className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-md border-[1.5px] border-white text-[15px] font-bold"
-            >
-              <Phone className="h-[18px] w-[18px]" aria-hidden="true" />
-              Call
-            </a>
-            <EnquiryButton className="min-h-[48px] px-3" onClickCapture={() => closeMenu(false)}>Get a quote</EnquiryButton>
+          <div className="grid shrink-0 grid-cols-[1fr_1fr_1.5fr] gap-2 border-t border-white/15 px-6 pt-3 pb-[max(env(safe-area-inset-bottom),0.75rem)] md:px-8">
+            <CallLink className="min-h-[48px] px-2 text-white" onClick={() => closeMenu(false)}>Call</CallLink>
+            <WhatsAppLink className="min-h-[48px] px-2 text-white" onClick={() => closeMenu(false)}>WhatsApp</WhatsAppLink>
+            <EnquiryButton className="min-h-[48px] px-3" onClickCapture={() => closeMenu(false)}>Book</EnquiryButton>
           </div>
         </div>
       )}

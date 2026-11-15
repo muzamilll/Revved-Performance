@@ -18,6 +18,7 @@ import { trackEvent } from "../../lib/analytics";
 import { lockScroll } from "../../lib/scroll-lock";
 import { site } from "../../data/site";
 import { buttonStyles } from "../ui/Button";
+import { WhatsAppLink } from "../ui/actions";
 import { cn } from "../../lib/utils";
 
 type Errors = Partial<Record<"choiceId" | "reg" | "postcode" | "timing" | "date", string>>;
@@ -39,12 +40,12 @@ function todayIso(): string {
 
 function validate(values: EnquiryValues, choices: EnquiryChoice[]): Errors {
   const errors: Errors = {};
-  if (!choices.some((c) => c.id === values.choiceId)) errors.choiceId = "Choose a service or offer.";
+  if (!choices.some((c) => c.id === values.choiceId)) errors.choiceId = "Choose a job.";
   if (!values.reg.trim()) errors.reg = "Enter your registration.";
   else if (!isPlausibleReg(values.reg)) errors.reg = "That doesn't look like a registration. Use letters and numbers only.";
   if (!values.postcode.trim()) errors.postcode = "Enter the postcode where the car will be.";
   else if (!isPlausiblePostcode(values.postcode)) errors.postcode = "Enter a UK postcode, such as RM1 3AB.";
-  if (!values.timing) errors.timing = "Choose when you'd like us, or pick Just a quote.";
+  if (!values.timing) errors.timing = "Choose when you'd like us, or pick Just a price.";
   else if (values.timing === "date") {
     if (!values.date) errors.date = "Choose a date.";
     else if (values.date < todayIso()) errors.date = "Choose today or a later date.";
@@ -198,7 +199,7 @@ export function EnquirySheet({ choices, visible, step, setStep, values, setValue
           <div className="min-w-0 flex-1 px-1">
             <p className="text-[12px] font-bold uppercase tracking-[0.14em] text-plum">Step {step} of 2</p>
             <h2 id={`${id}-title`} ref={headingRef} tabIndex={-1} className="truncate text-[19px] font-semibold tracking-[-0.01em] outline-none">
-              {step === 1 ? "Request details" : "Review request"}
+              {step === 1 ? "Request a booking" : "Check and send"}
             </h2>
           </div>
           <button
@@ -215,12 +216,13 @@ export function EnquirySheet({ choices, visible, step, setStep, values, setValue
           {step === 1 ? (
             <form onSubmit={goToReview} noValidate className="flex flex-col gap-6">
               <p className="text-[15px] leading-relaxed text-ink-soft">
-                Get started in a minute. We confirm your car&apos;s compatibility, the full price and availability on WhatsApp. Nothing is paid online.
+                About a minute. Nothing is paid online. Just a question instead?{" "}
+                <WhatsAppLink plain icon={false} className="font-semibold text-plum underline underline-offset-2">Ask on WhatsApp</WhatsAppLink>.
               </p>
 
               {/* Service or offer */}
               <div>
-                <label htmlFor={`${id}-choiceId`} className={labelClass}>Service or offer</label>
+                <label htmlFor={`${id}-choiceId`} className={labelClass}>Job</label>
                 <div className="relative mt-2">
                   <select
                     id={`${id}-choiceId`}
@@ -338,7 +340,7 @@ export function EnquirySheet({ choices, visible, step, setStep, values, setValue
                     {errors.date && <p id={`${id}-date-error`} className={errorClass}>{errors.date}</p>}
                   </div>
                 )}
-                <p className="mt-3 text-sm text-ink-soft">A preference, not a booking. We confirm availability with you.</p>
+                <p className="mt-3 text-sm text-ink-soft">We&apos;ll reply with a time that suits you.</p>
               </fieldset>
 
               {/* Notes */}
@@ -359,7 +361,7 @@ export function EnquirySheet({ choices, visible, step, setStep, values, setValue
               </div>
 
               <button type="submit" className={buttonStyles("primary", "w-full min-h-[56px] cursor-pointer text-[16px]")}>
-                Review request
+                Check my request
                 <ArrowRight className="h-5 w-5" aria-hidden="true" />
               </button>
             </form>
@@ -379,7 +381,7 @@ export function EnquirySheet({ choices, visible, step, setStep, values, setValue
                 </div>
                 <dl className="divide-y divide-line px-4 text-[15px]">
                   <div className="grid grid-cols-[6.5rem_minmax(0,1fr)] gap-3 py-3.5">
-                    <dt className="text-ink-soft">Service</dt>
+                    <dt className="text-ink-soft">Job</dt>
                     <dd className="font-semibold">{choice?.label}</dd>
                   </div>
                   <div className="grid grid-cols-[6.5rem_minmax(0,1fr)] items-center gap-3 py-3.5">
@@ -403,7 +405,7 @@ export function EnquirySheet({ choices, visible, step, setStep, values, setValue
                     </div>
                   )}
                   <div className="grid grid-cols-[6.5rem_minmax(0,1fr)] gap-3 py-3.5">
-                    <dt className="text-ink-soft">Pricing basis</dt>
+                    <dt className="text-ink-soft">Price</dt>
                     <dd>
                       {choice?.basis}
                       {choice?.note && <span className="mt-2 block text-[13px] leading-relaxed text-ink-soft">{choice.note}</span>}
@@ -413,7 +415,7 @@ export function EnquirySheet({ choices, visible, step, setStep, values, setValue
               </div>
 
               <p className="text-[15px] leading-relaxed text-ink-soft">
-                WhatsApp opens with this request written out. Press Send, and Revved confirms your car&apos;s compatibility, the full price and availability. You pay on the day, when the job is done.
+                WhatsApp opens with this written out. Press Send and we&apos;ll reply with the price for your car and a time. You pay on the day, when the job is done.
               </p>
 
               <a
@@ -426,7 +428,7 @@ export function EnquirySheet({ choices, visible, step, setStep, values, setValue
                 }}
                 className={buttonStyles("primary", "w-full min-h-[56px] text-[16px]")}
               >
-                Continue to WhatsApp
+                Send on WhatsApp
                 <ArrowRight className="h-5 w-5" aria-hidden="true" />
               </a>
 

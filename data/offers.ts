@@ -42,7 +42,7 @@ export const offers: Offer[] = [
     kind: "bundle",
     title: "ECU + TCU Stage 1 bundle",
     tagline: "Engine and gearbox remapped in one visit.",
-    description: "A Stage 1 engine remap and a DSG / gearbox remap together, so the gearbox is re-tuned to match the remapped engine.",
+    description: "A Stage 1 engine remap and a DSG / gearbox remap in one visit, so the gearbox is re-tuned to match the engine. Both come with the health check before and after and the lifetime software warranty.",
     serviceSlugs: [
       "stage-1-remap",
       "dsg-gearbox-remap"
@@ -63,16 +63,17 @@ export const offers: Offer[] = [
     seoTitle: "ECU + TCU Stage 1 Remap Bundle",
     seoDescription: "Stage 1 engine remap plus DSG / gearbox remap in one visit for £325. Mobile across East London & Essex.",
     whatsappMessage: "Hi Revved, I'm interested in the ECU + TCU Stage 1 bundle.",
-    eligibility: "For cars with a DSG or automatic gearbox Revved can remap. We confirm eligibility from your registration on WhatsApp.",
-    // What changes with the bundle. A description of the work, not a test result.
-    comparison: [
-      { label: "Engine", before: "Factory settings", after: "Stage 1 file written for your engine" },
-      { label: "Gearbox", before: "Factory shift points", after: "Re-tuned to match the remapped engine" },
-      { label: "Health check", before: "None", after: "Before and after the remap" },
-      { label: "Warranty", before: "None", after: "Lifetime software warranty (T&Cs apply)" },
-      { label: "Price", before: "£400 booked separately", after: "£325" }
-    ],
-    note: "Send us your reg and we'll send you the expected gains for your car."
+    eligibility: "For cars with a DSG or automatic gearbox we can remap. Your registration tells us if yours qualifies.",
+    // The bundle is about the saving. Both remaps include the health check before and after either way.
+    saving: {
+      headline: "Save at least £75.",
+      parts: [
+        { label: "Stage 1 remap (OBD)", price: "from £250" },
+        { label: "DSG / gearbox remap", price: "£150" }
+      ],
+      separately: "from £400"
+    },
+    note: "Send your reg and we'll send you the expected gains for your car."
   },
   {
     // PROPOSAL. Preview only until Rayyan agrees: change status to "active" to publish it.

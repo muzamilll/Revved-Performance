@@ -12,7 +12,7 @@ const PAY_ON_THE_DAY = {
 
 const WHERE_IS_IT_DONE = {
   question: "Where is the work done?",
-  answer: "At your home or workplace across East London & Essex. Tell us whether the car is on a driveway, in a private car park or on the street, and we confirm the location suits the work.",
+  answer: "At your home or workplace across East London & Essex. Let us know whether the car is on a driveway, in a private car park or on the street.",
 };
 
 export const careCategories: CareCategory[] = [
@@ -26,15 +26,15 @@ export const careCategories: CareCategory[] = [
     heroTitle: "A new car battery, fitted at your door.",
     heroIntro: "We bring the battery to your home or work and fit it there. Battery call-outs run day and night.",
     heroPrice: "From £99 fitted",
-    heroPriceNote: "3-year warranty. The price for your car is agreed before you book.",
+    heroPriceNote: "3-year warranty. Battery call-outs day and night.",
     jobsHeading: "Battery jobs and prices",
     jobs: [
       {
         id: "battery-replacement",
         name: "Battery replacement",
         price: "From £99 fitted",
-        basis: "From £99 fitted, with a 3-year warranty. The price for your car's battery is confirmed on WhatsApp before you book.",
-        description: "A new battery supplied and fitted, with a 3-year warranty. If your car needs the battery registered, that is included in your confirmed quote.",
+        basis: "From £99 fitted, with a 3-year warranty. The exact price depends on the battery your car takes.",
+        description: "A new battery supplied and fitted, with a 3-year warranty. Battery registration is included if your car needs it.",
       },
       {
         id: "emergency-jump-start",
@@ -75,7 +75,7 @@ export const careCategories: CareCategory[] = [
     faqs: [
       {
         question: "How much is a new battery?",
-        answer: "From £99 fitted. The price depends on the battery your car takes, so we confirm it on WhatsApp before you book.",
+        answer: "From £99 fitted. The exact price depends on the battery your car takes, and you'll know it before we come out.",
       },
       {
         question: "What warranty comes with a new battery?",
@@ -83,11 +83,11 @@ export const careCategories: CareCategory[] = [
       },
       {
         question: "Does my car need battery registration?",
-        answer: "Some cars need a new battery registered to the car. If yours does, it is included in the quote we confirm with you.",
+        answer: "Some cars need a new battery registered to the car. If yours does, it is included in your price.",
       },
       {
         question: "Can you come out at night?",
-        answer: "Yes. Battery call-outs run day and night. Send your postcode and we confirm how soon we can reach you.",
+        answer: "Yes. Battery call-outs run day and night. Send your postcode and we'll tell you how soon we can be there.",
       },
       PAY_ON_THE_DAY,
     ],
@@ -99,19 +99,19 @@ export const careCategories: CareCategory[] = [
     name: "Servicing",
     cardSummary: "Minor and major servicing at your home or work.",
     cardPrice: "Labour from £50 plus parts",
-    cardPriceNote: "Full price agreed before you book",
+    cardPriceNote: "Parts priced for your car",
     primaryJobId: "minor-service",
     heroTitle: "Your car serviced where it's parked.",
     heroIntro: "A minor or major service at your home or work across East London & Essex, 7am to midnight.",
     heroPrice: "Labour from £50 plus parts",
-    heroPriceNote: "Parts depend on your car. The full price is agreed before you book.",
+    heroPriceNote: "Parts depend on your car. Major service £70 plus parts.",
     jobsHeading: "Service options and prices",
     jobs: [
       {
         id: "minor-service",
         name: "Minor service",
         price: "Labour £50 plus parts",
-        basis: "Labour £50 plus parts. The full price for your car is confirmed on WhatsApp before you book.",
+        basis: "Labour £50 plus parts for your car.",
         description: "The regular service between major ones.",
         includes: ["Oil and oil filter", "Safety check", "Fluid top-ups", "Service light reset"],
       },
@@ -119,7 +119,7 @@ export const careCategories: CareCategory[] = [
         id: "major-service",
         name: "Major service",
         price: "Labour £70 plus parts",
-        basis: "Labour £70 plus parts. The full price for your car is confirmed on WhatsApp before you book.",
+        basis: "Labour £70 plus parts for your car.",
         description: "Everything in a minor service, plus the items below.",
         includes: ["Air filter", "Cabin pollen filter", "Spark plugs", "Washer fluid"],
       },
@@ -127,7 +127,7 @@ export const careCategories: CareCategory[] = [
     faqs: [
       {
         question: "Is the labour price the full price?",
-        answer: "No. Labour is £50 for a minor service and £70 for a major service. Parts depend on your car, and we confirm the full price on WhatsApp before you book.",
+        answer: "No. Labour is £50 for a minor service and £70 for a major service. Parts depend on your car, and you'll know the full price before we come out.",
       },
       {
         question: "Minor or major: which do I need?",
@@ -144,26 +144,26 @@ export const careCategories: CareCategory[] = [
     name: "Brakes",
     cardSummary: "Brake pad replacement at your location.",
     cardPrice: "Labour £100 plus parts",
-    cardPriceNote: "Full price agreed before you book",
+    cardPriceNote: "Pads priced for your car",
     primaryJobId: "brake-pads",
     heroTitle: "Brake pads replaced at your door.",
     heroIntro: "New brake pads fitted at your home or work across East London & Essex, 7am to midnight.",
     heroPrice: "Labour £100 plus parts",
-    heroPriceNote: "Pads are priced for your car. The full price is agreed before you book.",
+    heroPriceNote: "Pads are priced for your car.",
     jobsHeading: "Brake work and prices",
     jobs: [
       {
         id: "brake-pads",
         name: "Brake pads",
         price: "Labour £100 plus parts",
-        basis: "Labour £100 plus parts. The full price for your car is confirmed on WhatsApp before you book.",
+        basis: "Labour £100 plus parts for your car.",
         description: "New brake pads supplied and fitted where the car is parked.",
       },
     ],
     faqs: [
       {
         question: "Is £100 the full price?",
-        answer: "No. £100 is the labour. The pads are priced for your car, and we confirm the full price on WhatsApp before you book.",
+        answer: "No. £100 is the labour. The pads are priced for your car, and you'll know the full price before we come out.",
       },
       {
         question: "What should I tell you about my brakes?",
@@ -182,6 +182,7 @@ export const careCategories: CareCategory[] = [
     cardPrice: "Checks from £65",
     cardPriceNote: "Fixed prices",
     primaryJobId: "vehicle-diagnostics",
+    heroLabel: "Diagnostic checks",
     heroTitle: "Find out what your car is telling you.",
     heroIntro: "Diagnostic checks at your home or work across East London & Essex. We scan the car and explain what we find.",
     heroPrice: "Checks from £65",
@@ -238,11 +239,11 @@ export function getCareCategory(slug: string): CareCategory | undefined {
 export const howItWorks: { title: string; text: string }[] = [
   {
     title: "Tell us the job",
-    text: "Choose the service, add your registration and postcode. It takes about a minute.",
+    text: "Pick the job and add your registration and postcode. It takes about a minute.",
   },
   {
-    title: "We confirm on WhatsApp",
-    text: "We check your car's compatibility, the full price and availability, and agree it with you.",
+    title: "We reply on WhatsApp",
+    text: "With the price for your car and a time that suits you.",
   },
   {
     title: "We come to you",

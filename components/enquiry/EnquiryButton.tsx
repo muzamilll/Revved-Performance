@@ -7,7 +7,7 @@ import { EnquiryTiming } from "../../lib/enquiry";
 import { cn } from "../../lib/utils";
 
 interface EnquiryButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onClick"> {
-  // The service or offer to preselect (an enquiry choice id). Omit for a general "Get a quote".
+  // The service or offer to preselect (an enquiry choice id). Omit to let the customer choose.
   choice?: string;
   timing?: EnquiryTiming;
   variant?: "primary" | "secondary" | "ghost";
@@ -26,7 +26,7 @@ export function EnquiryButton({ choice, timing, variant = "primary", plain, clas
       className={plain ? cn("cursor-pointer", className) : buttonStyles(variant, cn("cursor-pointer", className))}
       {...props}
     >
-      {children ?? "Get a quote"}
+      {children ?? "Request a booking"}
     </button>
   );
 }

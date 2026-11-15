@@ -5,6 +5,7 @@ import { site } from "../data/site";
 import { getSiteUrl } from "../lib/seo";
 import { Header } from "../components/layout/Header";
 import { Footer } from "../components/layout/Footer";
+import { Wordmark } from "../components/layout/Logo";
 import { BottomBar } from "../components/layout/BottomBar";
 import { EnquiryProvider } from "../components/enquiry/EnquiryProvider";
 import { ConsentBanner } from "../components/consent/ConsentBanner";
@@ -66,7 +67,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#572439",
+  themeColor: "#693C56",
 };
 
 export default function RootLayout({
@@ -75,8 +76,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${anton.variable} ${oldStandard.variable}`}>
+    <html lang="en" className={`${inter.variable} ${anton.variable} ${oldStandard.variable}`} suppressHydrationWarning>
       <body className="min-h-screen flex flex-col">
+        {/* First visit in a session only: mark later views so the loader is skipped */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(sessionStorage.getItem("rp-seen")){document.documentElement.classList.add("no-loader")}else{sessionStorage.setItem("rp-seen","1")}}catch(e){}`,
+          }}
+        />
+        <div id="boot-loader" aria-hidden="true">
+          <div className="boot-mark">
+            <div className="boot-line"><span /><span /><span /><span /></div>
+            <Wordmark tone="plum" className="boot-word text-[30px]" />
+          </div>
+        </div>
         <EnquiryProvider choices={getEnquiryChoices()}>
           <Header />
           <main className="flex-1 flex flex-col">{children}</main>

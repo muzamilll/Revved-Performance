@@ -1,7 +1,6 @@
 import { careCategories } from "../../data/care";
-import { services } from "../../data/services";
 import { offers } from "../../data/offers";
-import { emissionsDisclaimer, formatServicePrice } from "../../data/performance";
+import { remapJobs } from "../../data/performance";
 import { formatOfferPrice, getOffersForDisplay } from "../offers";
 import { normaliseReg } from "../vehicle";
 
@@ -20,8 +19,6 @@ export type EnquiryChoice = {
 
 export const NOT_SURE_ID = "not-sure";
 
-const WHATSAPP_CONFIRM = "Confirmed for your car on WhatsApp before you book.";
-
 export function getEnquiryChoices(): EnquiryChoice[] {
   const care: EnquiryChoice[] = careCategories.flatMap((category) =>
     category.jobs.map((job) => ({
@@ -33,27 +30,19 @@ export function getEnquiryChoices(): EnquiryChoice[] {
     }))
   );
 
-  const performance: EnquiryChoice[] = services
-    .filter((s) => s.status === "active" && s.category === "ecu-remapping")
-    .map((s) => {
-      const each = s.slug === "remap-add-ons" || s.slug === "emissions-add-ons" ? " each" : "";
-      return {
-        id: s.slug,
-        label: s.name,
-        group: "Performance",
-        basis: s.emissionsRelated
-          ? `${formatServicePrice(s, each)}, by enquiry. We confirm suitability for your vehicle before agreeing any work.`
-          : `${formatServicePrice(s, each)}. ${WHATSAPP_CONFIRM}`,
-        note: s.emissionsRelated ? emissionsDisclaimer : undefined,
-        track: { service: s.slug },
-      };
-    });
+  const performance: EnquiryChoice[] = remapJobs.map((job) => ({
+    id: job.id,
+    label: job.name,
+    group: "Performance",
+    basis: `${job.price}. The exact price depends on your car.`,
+    track: { service: job.id },
+  }));
 
   const offerChoices: EnquiryChoice[] = getOffersForDisplay(offers).map((o) => ({
     id: `offer-${o.slug}`,
     label: o.title,
     group: "Offers",
-    basis: `${formatOfferPrice(o)}. ${o.eligibility ?? WHATSAPP_CONFIRM}`,
+    basis: o.eligibility ? `${formatOfferPrice(o)}. ${o.eligibility}` : `${formatOfferPrice(o)}.`,
     track: { offer: o.slug },
   }));
 
@@ -66,7 +55,7 @@ export function getEnquiryChoices(): EnquiryChoice[] {
       label: "Not sure. I'll describe the problem",
       messageLabel: "Not sure yet (see notes)",
       group: "Something else",
-      basis: "We recommend the right job and confirm its price on WhatsApp before you book.",
+      basis: "Describe what's happening in the notes and we'll recommend the right job and its price.",
       track: {},
     },
   ];
@@ -79,7 +68,7 @@ export const TIMING_OPTIONS: { id: EnquiryTiming; label: string }[] = [
   { id: "today", label: "Today" },
   { id: "tomorrow", label: "Tomorrow" },
   { id: "date", label: "Pick a date" },
-  { id: "quote", label: "Just a quote" },
+  { id: "quote", label: "Just a price" },
 ];
 
 export type EnquiryValues = {
@@ -113,7 +102,7 @@ export function describeTiming(values: Pick<EnquiryValues, "timing" | "date">): 
     case "today": return "Today";
     case "tomorrow": return "Tomorrow";
     case "date": return values.date ? formatEnquiryDate(values.date) : "A specific date";
-    case "quote": return "Just a quote for now";
+    case "quote": return "Just a price for now";
     default: return "";
   }
 }
@@ -140,9 +129,9 @@ export function isPlausiblePostcode(postcode: string): boolean {
 export function buildEnquiryMessage(values: EnquiryValues, choice: EnquiryChoice | undefined): string {
   const quoteOnly = values.timing === "quote";
   const lines = [
-    quoteOnly ? "Hi Revved, I'd like a quote." : "Hi Revved, I'd like to arrange a visit.",
+    quoteOnly ? "Hi Revved, I'd like a price." : "Hi Revved, I'd like to book a visit.",
     "",
-    `Service: ${choice ? choice.messageLabel ?? choice.label : "Not sure yet"}`,
+    `Job: ${choice ? choice.messageLabel ?? choice.label : "Not sure yet"}`,
     `Registration: ${formatReg(values.reg)}`,
     `Postcode: ${formatPostcode(values.postcode)}`,
     `When: ${describeTiming(values)}`,

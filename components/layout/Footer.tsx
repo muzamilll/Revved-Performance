@@ -38,10 +38,10 @@ const columns: { heading: string; links: { label: string; href: string }[] }[] =
   {
     heading: "Performance",
     links: [
-      { label: "Stage 1 remap", href: "/services/stage-1-remap" },
-      { label: "Stage 2 remap", href: "/services/stage-2-remap" },
-      { label: "Gearbox remap", href: "/services/dsg-gearbox-remap" },
-      { label: "Remap add-ons", href: "/services/remap-add-ons" },
+      { label: "All remaps", href: "/performance" },
+      { label: "Stage 1 remap", href: "/performance#stage-1-remap" },
+      { label: "Stage 2 remap", href: "/performance#stage-2-remap" },
+      { label: "Gearbox remap", href: "/performance#dsg-gearbox-remap" },
       { label: "Software warranty terms", href: "/terms" },
     ],
   },
@@ -65,7 +65,7 @@ export function Footer() {
   ].filter((c) => c.href);
 
   return (
-    <footer className="mt-auto bg-cream text-ink border-t border-line">
+    <footer className="mt-auto bg-cream text-ink">
       <div className="mx-auto w-full max-w-[1440px] px-6 md:px-8 lg:px-12 pt-12 lg:pt-16">
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-10">
           <div className="col-span-2 lg:col-span-1">
@@ -80,7 +80,7 @@ export function Footer() {
             >
               {site.phoneDisplay}
             </a>
-            <ul className="mt-2 flex flex-wrap gap-2" aria-label="Contact Revved">
+            <ul className="mt-2 flex flex-wrap gap-2" aria-label="Ways to reach Revved">
               {contacts.map(({ label, href, icon: Icon, external, onClick }) => (
                 <li key={label}>
                   <a
