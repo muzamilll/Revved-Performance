@@ -7,7 +7,7 @@ import { CareCategory } from "../types";
 
 const PAY_ON_THE_DAY = {
   question: "When do I pay?",
-  answer: "On the day, when the job is done. Nothing is paid online.",
+  answer: "On the day, when the job is done.",
 };
 
 const WHERE_IS_IT_DONE = {
@@ -21,12 +21,12 @@ export const careCategories: CareCategory[] = [
     name: "Batteries",
     cardSummary: "Replacement, testing and help when your car won't start.",
     cardPrice: "Replacement from £99 fitted",
-    cardPriceNote: "3-year warranty",
+    cardPriceNote: "3-year warranty, free car checks",
     primaryJobId: "battery-replacement",
     heroTitle: "A new car battery, fitted at your door.",
     heroIntro: "We bring the battery to your home or work and fit it there. Battery call-outs run day and night.",
     heroPrice: "From £99 fitted",
-    heroPriceNote: "3-year warranty. Battery call-outs day and night.",
+    heroPriceNote: "3-year warranty, plus free checks on charging, coolant, tyres, lights and wipers.",
     jobsHeading: "Battery jobs and prices",
     jobs: [
       {
@@ -34,7 +34,14 @@ export const careCategories: CareCategory[] = [
         name: "Battery replacement",
         price: "From £99 fitted",
         basis: "From £99 fitted, with a 3-year warranty. The exact price depends on the battery your car takes.",
-        description: "A new battery supplied and fitted, with a 3-year warranty. Battery registration is included if your car needs it.",
+        description: "A new battery supplied and fitted, with a 3-year warranty. Battery registration is included if your car needs it, and we check the rest of the car over for free while we're there.",
+        includes: [
+          "Free charging-system check",
+          "Free coolant and antifreeze check",
+          "Free tyre tread and pressure check",
+          "Free lights and wipers check",
+          "Free screenwash top-up",
+        ],
       },
       {
         id: "emergency-jump-start",

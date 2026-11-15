@@ -11,6 +11,7 @@ export function JobRow({
   price,
   description,
   includes,
+  note,
   tone = "cream",
   anchor,
 }: {
@@ -19,6 +20,7 @@ export function JobRow({
   price: string;
   description: string;
   includes?: string[];
+  note?: string;           // small print under the job, e.g. the emissions disclaimer
   tone?: "cream" | "dark";
   anchor?: string;
 }) {
@@ -56,6 +58,7 @@ export function JobRow({
             </ul>
           </details>
         )}
+        {note && <p className={cn("mt-3 max-w-xl text-[13px] leading-relaxed", dark ? "text-white/65" : "text-ink-soft")}>{note}</p>}
       </div>
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3 sm:flex-col sm:flex-nowrap sm:items-end">
         <p className="rounded-sm bg-plate px-2.5 py-1 text-[18px] font-bold leading-tight tracking-[-0.01em] text-ink whitespace-nowrap">{price}</p>

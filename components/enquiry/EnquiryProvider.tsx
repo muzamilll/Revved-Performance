@@ -13,7 +13,7 @@ import { EnquirySheet } from "./EnquirySheet";
 type OpenOptions = { timing?: EnquiryTiming };
 
 type EnquiryContextValue = {
-  // Opens the enquiry. Pass a choice id (a service or offer) to preselect it.
+  // Opens the booking form. Pass a job id to add that job to the booking.
   openEnquiry: (choiceId?: string, options?: OpenOptions) => void;
   isOpen: boolean;
 };
@@ -46,7 +46,8 @@ export function EnquiryProvider({ choices, children }: { choices: EnquiryChoice[
       openerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
       setValues((v) => ({
         ...v,
-        choiceId: choice ? choice.id : v.choiceId,
+        // Add the job if it isn't already in the booking; keep whatever else was chosen
+        choiceIds: choice && !v.choiceIds.includes(choice.id) ? [...v.choiceIds, choice.id] : v.choiceIds,
         timing: options?.timing ?? v.timing,
       }));
       setStep(1);

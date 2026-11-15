@@ -15,7 +15,6 @@ import { TrackView } from "../../components/analytics/TrackView";
 import { PageHero, HeroPriceBox } from "../../components/sections/PageHero";
 import { Band, BandHeader, cardClass } from "../../components/sections/Band";
 import { JobRow } from "../../components/sections/JobRow";
-import { PowerCurve } from "../../components/sections/PerformanceSection";
 import { FaqSection, FinalCall } from "../../components/sections/shared";
 import { cn } from "../../lib/utils";
 
@@ -70,7 +69,6 @@ export default function PerformancePage() {
       />
 
       <section className="relative isolate overflow-hidden bg-dark py-16 text-cream lg:py-24">
-        <PowerCurve className="-right-28 top-10 -z-10 w-[440px] opacity-[0.14] lg:right-8 lg:w-[620px] lg:opacity-[0.18]" />
         <div className="mx-auto w-full max-w-[1440px] px-6 md:px-8 lg:px-12">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)] lg:gap-14">
             <BandHeader tone="dark" eyebrow="Remaps" title="Remaps and prices" className="mb-0 lg:mb-0 lg:block" />

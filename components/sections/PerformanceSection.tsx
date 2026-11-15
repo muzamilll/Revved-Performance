@@ -2,20 +2,8 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { EnquiryButton } from "../enquiry/EnquiryButton";
 import { BandHeader, cardClass, cardInteractive } from "./Band";
-import { performancePrices, performanceTrust } from "../../data/performance";
+import { addOnsSummary, performancePrices, performanceTrust } from "../../data/performance";
 import { cn } from "../../lib/utils";
-
-// Curve watermark: a power curve, the one decorative mark Performance keeps
-export function PowerCurve({ className }: { className?: string }) {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 620 300" fill="none" className={cn("pointer-events-none absolute", className)}>
-      <path d="M0 290 C 120 280, 200 240, 290 150 S 440 40, 520 34 S 590 60, 620 90" stroke="#FFD500" strokeWidth="2.5" />
-      <path d="M0 296 C 140 270, 240 200, 330 150 S 480 110, 620 130" stroke="#E3C2D3" strokeWidth="1.5" />
-      <circle cx="520" cy="34" r="6" fill="#FFD500" />
-      <circle cx="520" cy="34" r="14" stroke="#FFD500" strokeWidth="1" />
-    </svg>
-  );
-}
 
 // Home page Performance section. Same structure, cards and buttons as the rest of the page;
 // it moves from brand plum (the offer above it) into deep plum.
@@ -26,7 +14,6 @@ export function PerformanceSection() {
       className="relative isolate overflow-hidden bg-dark py-16 text-cream lg:py-24"
       style={{ backgroundImage: "linear-gradient(to bottom, #693C56 0, #150B12 22rem)" }}
     >
-      <PowerCurve className="-right-32 top-16 -z-10 w-[360px] opacity-[0.16] lg:right-6 lg:top-10 lg:w-[460px] lg:opacity-[0.2]" />
       <div className="mx-auto w-full max-w-[1440px] px-6 md:px-8 lg:px-12">
         <BandHeader
           tone="dark"
@@ -59,7 +46,9 @@ export function PerformanceSection() {
           ))}
         </ul>
 
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <p className="mt-5 max-w-3xl text-[14px] leading-relaxed text-white/70">{addOnsSummary}</p>
+
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
           <EnquiryButton choice="stage-1-remap" className="min-h-[56px] px-7 text-[16px]" />
           <Link
             href="/performance"

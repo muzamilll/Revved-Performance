@@ -74,36 +74,5 @@ export const offers: Offer[] = [
       separately: "from £400"
     },
     note: "Send your reg and we'll send you the expected gains for your car."
-  },
-  {
-    // PROPOSAL. Preview only until Rayyan agrees: change status to "active" to publish it.
-    id: "winter-ready-check",
-    slug: "winter-ready-check",
-    status: "preview",
-    indexable: false,
-    kind: "bundle",
-    title: "Winter Ready Check",
-    tagline: "One visit to get the car ready for the cold.",
-    description: null,
-    serviceSlugs: [],
-    includes: [
-      "Battery health and cold-start test",
-      "Charging-system check",
-      "Coolant and antifreeze strength",
-      "Tyre tread and pressures",
-      "Lights and wipers check",
-      "Winter screenwash top-up",
-      "£20 off a new battery fitted on the same visit"
-    ],
-    price: { amount: 45, from: false },
-    discount: null,
-    startDate: null,
-    endDate: null,
-    showCountdown: false,
-    featured: false,
-    terms: null,
-    seoTitle: null,
-    seoDescription: null,
-    whatsappMessage: "Hi Revved, I'm interested in the Winter Ready Check."
   }
 ];

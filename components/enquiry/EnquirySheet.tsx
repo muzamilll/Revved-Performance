@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ArrowLeft, ArrowRight, Pencil, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Pencil, Plus, X } from "lucide-react";
 import {
   EnquiryChoice,
   EnquiryValues,
@@ -21,7 +21,7 @@ import { buttonStyles } from "../ui/Button";
 import { WhatsAppLink } from "../ui/actions";
 import { cn } from "../../lib/utils";
 
-type Errors = Partial<Record<"choiceId" | "reg" | "postcode" | "timing" | "date", string>>;
+type Errors = Partial<Record<"jobs" | "reg" | "postcode" | "timing" | "date", string>>;
 
 interface EnquirySheetProps {
   choices: EnquiryChoice[];
@@ -40,7 +40,7 @@ function todayIso(): string {
 
 function validate(values: EnquiryValues, choices: EnquiryChoice[]): Errors {
   const errors: Errors = {};
-  if (!choices.some((c) => c.id === values.choiceId)) errors.choiceId = "Choose a job.";
+  if (!values.choiceIds.some((cid) => choices.some((c) => c.id === cid))) errors.jobs = "Add at least one job.";
   if (!values.reg.trim()) errors.reg = "Enter your registration.";
   else if (!isPlausibleReg(values.reg)) errors.reg = "That doesn't look like a registration. Use letters and numbers only.";
   if (!values.postcode.trim()) errors.postcode = "Enter the postcode where the car will be.";
@@ -66,7 +66,14 @@ export function EnquirySheet({ choices, visible, step, setStep, values, setValue
   const [sent, setSent] = React.useState(false);
   const id = React.useId();
 
-  const choice = choices.find((c) => c.id === values.choiceId);
+  // The jobs in this booking, in the order they were added
+  const selected = values.choiceIds.flatMap((cid) => choices.filter((c) => c.id === cid));
+  const addJob = (cid: string) => {
+    if (!cid) return;
+    setValues((v) => (v.choiceIds.includes(cid) ? v : { ...v, choiceIds: [...v.choiceIds, cid] }));
+    setErrors((e) => ({ ...e, jobs: undefined }));
+  };
+  const removeJob = (cid: string) => setValues((v) => ({ ...v, choiceIds: v.choiceIds.filter((x) => x !== cid) }));
   const groups = React.useMemo(() => {
     const map = new Map<string, EnquiryChoice[]>();
     choices.forEach((c) => map.set(c.group, [...(map.get(c.group) ?? []), c]));
@@ -143,7 +150,7 @@ export function EnquirySheet({ choices, visible, step, setStep, values, setValue
     e.preventDefault();
     const found = validate(values, choices);
     setErrors(found);
-    const firstError = (["choiceId", "reg", "postcode", "timing", "date"] as const).find((k) => found[k]);
+    const firstError = (["jobs", "reg", "postcode", "timing", "date"] as const).find((k) => found[k]);
     if (firstError) {
       const target = firstError === "timing" ? `${id}-timing-asap` : `${id}-${firstError}`;
       document.getElementById(target)?.focus();
@@ -155,7 +162,7 @@ export function EnquirySheet({ choices, visible, step, setStep, values, setValue
     setStep(2);
   };
 
-  const whatsappUrl = buildWhatsAppUrl(buildEnquiryMessage(values, choice));
+  const whatsappUrl = buildWhatsAppUrl(buildEnquiryMessage(values, selected));
 
   return (
     <div className="fixed inset-0 z-[60]" onKeyDown={onKeyDown}>
@@ -216,36 +223,65 @@ export function EnquirySheet({ choices, visible, step, setStep, values, setValue
           {step === 1 ? (
             <form onSubmit={goToReview} noValidate className="flex flex-col gap-6">
               <p className="text-[15px] leading-relaxed text-ink-soft">
-                About a minute. Nothing is paid online. Just a question instead?{" "}
+                Add every job you need. Just a question instead?{" "}
                 <WhatsAppLink plain icon={false} className="font-semibold text-plum underline underline-offset-2">Ask on WhatsApp</WhatsAppLink>.
               </p>
 
-              {/* Service or offer */}
-              <div>
-                <label htmlFor={`${id}-choiceId`} className={labelClass}>Job</label>
-                <div className="relative mt-2">
-                  <select
-                    id={`${id}-choiceId`}
-                    value={choice ? values.choiceId : ""}
-                    onChange={(e) => set("choiceId", e.target.value)}
-                    aria-invalid={!!errors.choiceId}
-                    aria-describedby={errors.choiceId ? `${id}-choiceId-error` : undefined}
-                    className={cn(inputClass, "appearance-none pr-11 font-medium", errors.choiceId && "border-[#A4161A]")}
-                  >
-                    <option value="" disabled>Choose one</option>
-                    {groups.map(([group, items]) => (
-                      <optgroup key={group} label={group}>
-                        {items.map((c) => (
-                          <option key={c.id} value={c.id}>{c.label}</option>
-                        ))}
-                      </optgroup>
+              {/* Jobs: as many as the customer wants */}
+              <fieldset aria-describedby={errors.jobs ? `${id}-jobs-error` : undefined}>
+                <legend className={labelClass}>{selected.length > 1 ? `Jobs (${selected.length})` : "Job"}</legend>
+                {selected.length > 0 && (
+                  <ul className="mt-2 divide-y divide-line overflow-hidden rounded-md border-[1.5px] border-ink/20 bg-white">
+                    {selected.map((c) => (
+                      <li key={c.id} className="flex items-center gap-3 py-1.5 pl-4 pr-1.5">
+                        <span className="min-w-0 flex-1">
+                          <span className="block text-[16px] font-semibold leading-snug">{c.label}</span>
+                          {c.price && <span className="block text-[14px] text-ink-soft">{c.price}</span>}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => removeJob(c.id)}
+                          aria-label={`Remove ${c.label}`}
+                          className="inline-flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-md text-ink-soft hover:bg-ink/5 hover:text-ink"
+                        >
+                          <X className="h-5 w-5" aria-hidden="true" />
+                        </button>
+                      </li>
                     ))}
+                  </ul>
+                )}
+                <div className="relative mt-2">
+                  <label htmlFor={`${id}-jobs`} className="sr-only">{selected.length ? "Add another job" : "Choose a job"}</label>
+                  <select
+                    id={`${id}-jobs`}
+                    value=""
+                    onChange={(e) => addJob(e.target.value)}
+                    aria-invalid={!!errors.jobs}
+                    className={cn(
+                      inputClass,
+                      "cursor-pointer appearance-none pl-11 pr-11 font-semibold",
+                      selected.length ? "border-dashed text-plum" : "",
+                      errors.jobs && "border-[#A4161A]"
+                    )}
+                  >
+                    <option value="" disabled>{selected.length ? "Add another job" : "Choose a job"}</option>
+                    {groups.map(([group, items]) => {
+                      const available = items.filter((c) => !values.choiceIds.includes(c.id));
+                      if (available.length === 0) return null;
+                      return (
+                        <optgroup key={group} label={group}>
+                          {available.map((c) => (
+                            <option key={c.id} value={c.id}>{c.price ? `${c.label} · ${c.price}` : c.label}</option>
+                          ))}
+                        </optgroup>
+                      );
+                    })}
                   </select>
+                  <Plus aria-hidden="true" className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-plum" />
                   <svg aria-hidden="true" viewBox="0 0 24 24" className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
                 </div>
-                {choice && <p className="mt-2 text-sm leading-relaxed text-ink-soft">{choice.basis}</p>}
-                {errors.choiceId && <p id={`${id}-choiceId-error`} className={errorClass}>{errors.choiceId}</p>}
-              </div>
+                {errors.jobs && <p id={`${id}-jobs-error`} className={errorClass}>{errors.jobs}</p>}
+              </fieldset>
 
               {/* Registration, as a number plate */}
               <div>
@@ -380,9 +416,19 @@ export function EnquirySheet({ choices, visible, step, setStep, values, setValue
                   </button>
                 </div>
                 <dl className="divide-y divide-line px-4 text-[15px]">
-                  <div className="grid grid-cols-[6.5rem_minmax(0,1fr)] gap-3 py-3.5">
-                    <dt className="text-ink-soft">Job</dt>
-                    <dd className="font-semibold">{choice?.label}</dd>
+                  <div className="py-3.5">
+                    <dt className="text-ink-soft">{selected.length > 1 ? `Jobs (${selected.length})` : "Job"}</dt>
+                    <dd>
+                      <ul className="mt-2 flex flex-col gap-3">
+                        {selected.map((c) => (
+                          <li key={c.id}>
+                            <span className="block font-semibold">{c.label}</span>
+                            <span className="block text-[14px] leading-relaxed text-ink-soft">{c.basis}</span>
+                            {c.note && <span className="mt-1 block text-[13px] leading-relaxed text-ink-soft">{c.note}</span>}
+                          </li>
+                        ))}
+                      </ul>
+                    </dd>
                   </div>
                   <div className="grid grid-cols-[6.5rem_minmax(0,1fr)] items-center gap-3 py-3.5">
                     <dt className="text-ink-soft">Registration</dt>
@@ -404,13 +450,6 @@ export function EnquirySheet({ choices, visible, step, setStep, values, setValue
                       <dd className="whitespace-pre-wrap break-words">{values.notes.trim()}</dd>
                     </div>
                   )}
-                  <div className="grid grid-cols-[6.5rem_minmax(0,1fr)] gap-3 py-3.5">
-                    <dt className="text-ink-soft">Price</dt>
-                    <dd>
-                      {choice?.basis}
-                      {choice?.note && <span className="mt-2 block text-[13px] leading-relaxed text-ink-soft">{choice.note}</span>}
-                    </dd>
-                  </div>
                 </dl>
               </div>
 
@@ -423,7 +462,7 @@ export function EnquirySheet({ choices, visible, step, setStep, values, setValue
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => {
-                  trackEvent("whatsapp_click", choice?.track);
+                  trackEvent("whatsapp_click", { jobs: selected.map((c) => c.id).join(",") });
                   setSent(true);
                 }}
                 className={buttonStyles("primary", "w-full min-h-[56px] text-[16px]")}

@@ -4,14 +4,17 @@ import { Service } from "../types";
 // Performance: ECU and gearbox remapping. Prices come from data/services.ts, the one price list,
 // so the home page, the Performance page and the booking form always agree.
 
+export const emissionsDisclaimer =
+  "Emissions add-ons may affect your vehicle's road legality, insurance or warranty. It is your responsibility to check before going ahead.";
+
 export function formatServicePrice(service: Service, suffix = ""): string {
   if (!service.price) return "By enquiry";
   return `${service.price.from ? "From " : ""}£${service.price.amount}${suffix}`;
 }
 
-const EACH = new Set(["remap-add-ons"]);
+const EACH = new Set(["remap-add-ons", "emissions-add-ons"]);
 
-// Every remap service on the site, in order (emissions add-ons are switched off in services.ts)
+// Every remap service on the site, in order
 export const remapServices = services.filter((s) => s.status === "active" && s.category === "ecu-remapping");
 
 export const remapJobs = remapServices.map((s) => ({
@@ -20,6 +23,7 @@ export const remapJobs = remapServices.map((s) => ({
   price: formatServicePrice(s, EACH.has(s.slug) ? " each" : ""),
   description: s.shortDescription ?? "",
   includes: s.includedItems ?? undefined,
+  note: s.emissionsRelated ? emissionsDisclaimer : undefined,
 }));
 
 // The four headline prices shown on the home page
@@ -50,3 +54,6 @@ export const performanceTrust: { title: string; text: string }[] = [
     text: "On every remap. Terms and conditions apply.",
   },
 ];
+
+// The add-ons line on the home page
+export const addOnsSummary = "Add-ons from £50 each: pops and bangs, speed limiter removal, launch control, and AdBlue, EGR, swirl flap or DPF delete (off-road use).";

@@ -129,18 +129,19 @@ export const services: Service[] = [
     slug: "emissions-add-ons",
     name: "Emissions Add-Ons (Off-Road Use)",
     category: "ecu-remapping",
-    status: "draft", // off the site pending Rayyan's decision,
+    status: "active",
     indexable: false,
     price: { amount: 50, from: false },
     launchPrice: null,
     priceOptions: undefined,
-    shortDescription: "Enquiry only. We confirm suitability and legality for your vehicle before agreeing any work.",
+    shortDescription: "AdBlue, EGR, swirl flap or DPF delete, added to a remap. For off-road use. £50 each.",
     plainEnglish: null,
     technicalDetail: null,
     includedItems: [
       "AdBlue delete",
-      "DPF delete",
-      "EGR delete"
+      "EGR delete",
+      "Swirl flap delete",
+      "DPF delete"
     ],
     emissionsRelated: true,
     faqs: [],

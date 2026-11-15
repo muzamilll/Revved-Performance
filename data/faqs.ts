@@ -19,7 +19,7 @@ export const faqs: FAQ[] = [
     id: "when-to-pay",
     group: "booking",
     question: "When do I pay?",
-    answer: "On the day, when the job is done. Nothing is paid online.",
+    answer: "On the day, when the job is done.",
   },
   {
     id: "talk-to-someone",

@@ -4,14 +4,15 @@ import { remapJobs } from "../../data/performance";
 import { formatOfferPrice, getOffersForDisplay } from "../offers";
 import { normaliseReg } from "../vehicle";
 
-// Everything the enquiry can be about. Built on the server (the root layout) and handed to
-// the enquiry as a prop, because preview-only offers depend on a server-side environment value. Any button on the site opens the enquiry
-// with one of these ids preselected.
+// Everything that can be booked. Built on the server (the root layout) and handed to the
+// booking form as a prop. Any button on the site opens the form with its job added;
+// the customer can add as many more jobs as they like.
 export type EnquiryChoice = {
   id: string;
   label: string;
   messageLabel?: string;   // wording used in the WhatsApp message when it differs from the label
   group: string;
+  price: string;           // short price shown next to the job in the form
   basis: string;           // pricing basis shown on the review step: a published price, never a personalised one
   note?: string;
   track: { service?: string; offer?: string };
@@ -25,6 +26,7 @@ export function getEnquiryChoices(): EnquiryChoice[] {
       id: job.id,
       label: job.name,
       group: category.name,
+      price: job.price,
       basis: job.basis,
       track: { service: job.id },
     }))
@@ -34,7 +36,9 @@ export function getEnquiryChoices(): EnquiryChoice[] {
     id: job.id,
     label: job.name,
     group: "Performance",
-    basis: `${job.price}. The exact price depends on your car.`,
+    price: job.price,
+    basis: job.price.startsWith("From") ? `${job.price}. The exact price depends on your car.` : `${job.price}.`,
+    note: job.note,
     track: { service: job.id },
   }));
 
@@ -42,6 +46,7 @@ export function getEnquiryChoices(): EnquiryChoice[] {
     id: `offer-${o.slug}`,
     label: o.title,
     group: "Offers",
+    price: formatOfferPrice(o),
     basis: o.eligibility ? `${formatOfferPrice(o)}. ${o.eligibility}` : `${formatOfferPrice(o)}.`,
     track: { offer: o.slug },
   }));
@@ -55,6 +60,7 @@ export function getEnquiryChoices(): EnquiryChoice[] {
       label: "Not sure. I'll describe the problem",
       messageLabel: "Not sure yet (see notes)",
       group: "Something else",
+      price: "",
       basis: "Describe what's happening in the notes and we'll recommend the right job and its price.",
       track: {},
     },
@@ -72,7 +78,7 @@ export const TIMING_OPTIONS: { id: EnquiryTiming; label: string }[] = [
 ];
 
 export type EnquiryValues = {
-  choiceId: string;
+  choiceIds: string[];     // every job in the booking, in the order added
   reg: string;
   postcode: string;
   timing: EnquiryTiming | "";
@@ -81,7 +87,7 @@ export type EnquiryValues = {
 };
 
 export const EMPTY_ENQUIRY: EnquiryValues = {
-  choiceId: "",
+  choiceIds: [],
   reg: "",
   postcode: "",
   timing: "",
@@ -126,16 +132,17 @@ export function isPlausiblePostcode(postcode: string): boolean {
 }
 
 // The readable request that is prefilled in WhatsApp. The customer presses Send there.
-export function buildEnquiryMessage(values: EnquiryValues, choice: EnquiryChoice | undefined): string {
+export function buildEnquiryMessage(values: EnquiryValues, selected: EnquiryChoice[]): string {
   const quoteOnly = values.timing === "quote";
-  const lines = [
-    quoteOnly ? "Hi Revved, I'd like a price." : "Hi Revved, I'd like to book a visit.",
-    "",
-    `Job: ${choice ? choice.messageLabel ?? choice.label : "Not sure yet"}`,
+  const names = selected.map((c) => c.messageLabel ?? c.label);
+  const lines = [quoteOnly ? "Hi Revved, I'd like a price." : "Hi Revved, I'd like to book a visit.", ""];
+  if (names.length === 1) lines.push(`Job: ${names[0]}`);
+  else lines.push("Jobs:", ...names.map((n) => `- ${n}`));
+  lines.push(
     `Registration: ${formatReg(values.reg)}`,
     `Postcode: ${formatPostcode(values.postcode)}`,
     `When: ${describeTiming(values)}`,
-  ];
+  );
   const notes = values.notes.trim();
   if (notes) lines.push(`Notes: ${notes}`);
   return lines.join("\n");
