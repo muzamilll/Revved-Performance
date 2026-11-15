@@ -28,6 +28,17 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - `public/` - Static assets (`images/`, `logo/`)
 - `docs/` - Project documentation and checklists
 
+## Redesign (branch `redesign/car-care-and-performance`)
+
+The brief is `docs/redesign-brief.md`. Round 1 is built on this branch:
+
+- `data/care.ts`: the four car care categories (Batteries, Servicing, Brakes, Diagnostics), their jobs and prices. Each category has a page at `/<slug>`.
+- `data/offers.ts`: offers. `status: "preview"` marks a proposal: it shows on Vercel preview builds only and stays off the live site until it is changed to `"active"`.
+- `data/work.ts`: job photos and reviews for "Recent work". While empty, the section shows marked slots on previews and is left off the live site.
+- `lib/enquiry/`: the two-step enquiry. Every service or offer button is an `<EnquiryButton choice="...">`, which opens the enquiry with that choice selected and ends in a prefilled WhatsApp message. No lookup API, payments or calendar.
+- `app/fonts/`: Anton, Inter and Old Standard TT, self-hosted. The build does not fetch from Google.
+- Colour rule and tokens: top of `app/globals.css`.
+
 ## Managing Content
 
 **How to add a service or an offer:**

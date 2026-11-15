@@ -29,7 +29,7 @@ export default function TermsPage() {
   const email = site.social.email;
 
   return (
-    <Section>
+    <Section className="theme-cream">
       <Container className="max-w-3xl text-muted leading-relaxed">
         <h1 className="text-4xl md:text-5xl font-heading font-extrabold text-white uppercase tracking-tight mb-6">Terms &amp; Conditions</h1>
         <p>

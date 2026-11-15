@@ -2,199 +2,208 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
-import { ChevronRight, Mail, Menu, Phone, X } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { ChevronRight, Menu, Phone, X } from "lucide-react";
 import { Logo } from "./Logo";
-import { WhatsAppButton } from "../ui/WhatsAppButton";
-import { about } from "../../data/about";
+import { EnquiryButton } from "../enquiry/EnquiryButton";
+import { careCategories } from "../../data/care";
 import { site } from "../../data/site";
 import { getPhoneUrl } from "../../lib/whatsapp";
 import { trackEvent } from "../../lib/analytics";
+import { lockScroll } from "../../lib/scroll-lock";
 import { cn } from "../../lib/utils";
 
+const careLinks = careCategories.map((c) => ({ label: c.name, href: `/${c.slug}` }));
+const otherLinks = [
+  { label: "Performance", href: "/#performance" },
+  { label: "Offers", href: "/offers" },
+];
+
+const MENU_MS = 220;
+
 export function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
-  const [hiddenOnScroll, setHiddenOnScroll] = React.useState(false);
-  const [atTop, setAtTop] = React.useState(true);
   const pathname = usePathname();
-  // True only in the browser, so the portal never renders during SSR/hydration
-  const isClient = React.useSyncExternalStore(() => () => {}, () => true, () => false);
+  const [menuMounted, setMenuMounted] = React.useState(false);
+  const [menuVisible, setMenuVisible] = React.useState(false);
+  const [scrolled, setScrolled] = React.useState(false);
+  const menuButtonRef = React.useRef<HTMLButtonElement>(null);
+  const closeButtonRef = React.useRef<HTMLButtonElement>(null);
+  const timer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // On home page, we can link to hash directly. On other pages, we prepend '/'.
-  const isHome = pathname === "/";
-  const getHashLink = (hash: string) => (isHome ? hash : `/${hash}`);
-
-  const navLinks = [
-    { label: "Services", href: "/services" },
-    { label: "Offers", href: "/offers" },
-    { label: "How it works", href: getHashLink("#how-it-works") },
-  ];
-
-  if (about) {
-    navLinks.push({ label: "About", href: getHashLink("#about") });
-  }
-
-  // Close mobile menu on route change
-  React.useEffect(() => {
-    // eslint-disable-next-line
-    setMobileMenuOpen(false);
-  }, [pathname]);
-
-  // Smart header: hide while scrolling down, show again only when scrolling up (or near the top).
-  // Only the mobile styles act on hiddenOnScroll (max-lg:), so desktop is unchanged.
-  React.useEffect(() => {
-    let lastY = window.scrollY;
-    const onScroll = () => {
-      const y = window.scrollY;
-      const delta = y - lastY;
-      setAtTop(y < 10);
-      if (y < 80 || delta < -4) setHiddenOnScroll(false);
-      else if (delta > 4) setHiddenOnScroll(true);
-      lastY = y;
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
-
-  const isHidden = hiddenOnScroll && !mobileMenuOpen;
-
-  // On the homepage the logo takes you back to the top of the page
-  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!isHome) return;
-    e.preventDefault();
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+  const openMenu = () => {
+    if (timer.current) clearTimeout(timer.current);
+    setMenuMounted(true);
+    requestAnimationFrame(() => requestAnimationFrame(() => setMenuVisible(true)));
   };
 
-  // Over the homepage hero the header is see-through until the page scrolls
-  const isTransparent = isHome && atTop && !mobileMenuOpen;
+  const closeMenu = React.useCallback((restoreFocus = true) => {
+    setMenuVisible(false);
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    timer.current = setTimeout(() => {
+      setMenuMounted(false);
+      if (restoreFocus) menuButtonRef.current?.focus({ preventScroll: true });
+    }, reduceMotion ? 0 : MENU_MS);
+  }, []);
 
-  // Stop the page scrolling behind the open menu, and let Escape close it
+  React.useEffect(() => () => {
+    if (timer.current) clearTimeout(timer.current);
+  }, []);
+
+  // A hairline under the header once the page has scrolled, so it reads as a separate layer
   React.useEffect(() => {
-    if (!mobileMenuOpen) return;
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMobileMenuOpen(false);
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // While the menu is open: lock the page, focus the Close button, let Escape close it
+  React.useEffect(() => {
+    if (!menuMounted) return;
+    const unlock = lockScroll();
+    closeButtonRef.current?.focus({ preventScroll: true });
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeMenu();
+    };
     window.addEventListener("keydown", onKey);
     return () => {
-      document.body.style.overflow = prevOverflow;
+      unlock();
       window.removeEventListener("keydown", onKey);
     };
-  }, [mobileMenuOpen]);
+  }, [menuMounted, closeMenu]);
+
+  const isCurrent = (href: string) => !href.includes("#") && pathname === href;
 
   return (
-    <>
     <header
-      onFocusCapture={() => setHiddenOnScroll(false)}
       className={cn(
-        "fixed top-0 inset-x-0 z-40 border-b transition-[transform,background-color,border-color] duration-300 ease-out motion-reduce:transition-none",
-        isTransparent ? "bg-transparent border-transparent" : "bg-background/80 backdrop-blur-md border-border",
-        isHidden && "max-lg:-translate-y-full"
+        "sticky top-0 z-40 bg-plum-hero text-white transition-shadow duration-200 motion-reduce:transition-none",
+        scrolled && "shadow-[0_1px_0_rgba(255,255,255,0.1),0_8px_24px_rgba(11,6,9,0.25)]"
       )}
     >
-      <div className="max-w-[1440px] mx-auto px-6 md:px-8 lg:px-12 h-20 flex items-center justify-between">
-        <Logo onClick={handleLogoClick} />
+      <div className="mx-auto flex h-14 w-full max-w-[1440px] items-center justify-between gap-4 px-6 md:px-8 lg:h-[72px] lg:px-12">
+        <Logo tone="plum" />
 
-        <nav className="hidden lg:flex flex-1 items-center justify-center gap-6 xl:gap-8">
-          {navLinks.map((link) => (
+        {/* Desktop navigation */}
+        <nav aria-label="Main" className="hidden lg:flex items-center gap-1">
+          {[...careLinks, ...otherLinks].map((link) => (
             <Link
-              key={link.label}
+              key={link.href}
               href={link.href}
-              className="whitespace-nowrap text-sm font-medium uppercase tracking-wider text-muted hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
+              aria-current={isCurrent(link.href) ? "page" : undefined}
+              className={cn(
+                "inline-flex min-h-[44px] items-center rounded-md px-2 text-[12px] font-semibold uppercase tracking-[0.1em] whitespace-nowrap transition-colors xl:px-3 xl:tracking-[0.14em] hover:text-plate aria-[current=page]:text-plate",
+                link.label === "Performance" ? "text-plum-tint" : "text-white"
+              )}
             >
               {link.label}
             </Link>
           ))}
         </nav>
-        
-        <div className="hidden lg:flex items-center">
-          <WhatsAppButton label="Get a quote" className="uppercase tracking-wider font-bold" />
+
+        <div className="hidden lg:flex items-center gap-2">
+          <a
+            href={getPhoneUrl()}
+            onClick={() => trackEvent("phone_click")}
+            className="hidden xl:inline-flex min-h-[44px] items-center gap-2 rounded-md px-3 text-[15px] font-semibold whitespace-nowrap hover:text-plate"
+          >
+            <Phone className="h-4 w-4" aria-hidden="true" />
+            {site.phoneDisplay}
+          </a>
+          <EnquiryButton className="min-h-[44px] px-4 text-[14px] whitespace-nowrap xl:px-5">Get a quote</EnquiryButton>
         </div>
 
+        {/* Mobile: one compact menu button. Call and Get a quote live in the bottom bar. */}
         <button
-          className="lg:hidden -mr-2 p-2.5 text-white hover:text-accent-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
-          onClick={() => setMobileMenuOpen(true)}
-          aria-label="Open menu"
-          aria-expanded={mobileMenuOpen}
+          ref={menuButtonRef}
+          type="button"
+          onClick={openMenu}
+          aria-expanded={menuMounted}
+          aria-controls="site-menu"
+          className="lg:hidden -mr-2 inline-flex h-11 cursor-pointer items-center gap-2 rounded-md px-2.5 text-[13px] font-semibold uppercase tracking-[0.12em]"
         >
-          <Menu className="w-7 h-7" />
+          Menu
+          <Menu className="h-6 w-6" aria-hidden="true" />
         </button>
       </div>
 
-      {/* Portalled to <body>: the header's backdrop-blur would otherwise trap this fixed overlay inside the header bar */}
-      {isClient && createPortal(
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, x: "100%" }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: "100%" }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-              className="lg:hidden fixed inset-0 z-50 bg-background flex flex-col"
-              role="dialog"
-              aria-modal="true"
-              aria-label="Menu"
-            >
-              <div className="h-20 px-6 flex items-center justify-between border-b border-border flex-shrink-0">
-                <Logo onClick={() => setMobileMenuOpen(false)} />
-                <button
-                  className="-mr-2 p-2.5 text-white hover:text-accent-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
-                  onClick={() => setMobileMenuOpen(false)}
-                  aria-label="Close menu"
-                >
-                  <X className="w-7 h-7" />
-                </button>
-              </div>
-
-              <nav className="flex-1 flex flex-col px-6 pt-4 pb-[max(env(safe-area-inset-bottom),1.5rem)] overflow-y-auto">
-                <ul>
-                  {navLinks.map((link) => (
-                    <li key={link.label} className="border-b border-border">
-                      <Link
-                        href={link.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center justify-between py-5 text-2xl font-heading font-bold uppercase tracking-wide text-white hover:text-accent-light transition-colors"
-                      >
-                        {link.label}
-                        <ChevronRight className="w-6 h-6 text-accent-light" aria-hidden="true" />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mt-auto pt-10 flex flex-col gap-3">
-                  <WhatsAppButton label="Get a quote" className="w-full h-14 uppercase tracking-widest font-bold" />
-                  <a
-                    href={getPhoneUrl()}
-                    onClick={() => trackEvent("phone_click")}
-                    className="w-full h-14 inline-flex items-center justify-center gap-2 rounded-md border border-muted/40 text-white font-bold uppercase tracking-widest hover:border-white transition-colors"
-                  >
-                    <Phone className="w-5 h-5" aria-hidden="true" />
-                    Call {site.phoneDisplay}
-                  </a>
-                  {site.social.email && (
-                    <a
-                      href={`mailto:${site.social.email}`}
-                      className="mt-2 inline-flex items-center justify-center gap-2 text-muted hover:text-white transition-colors"
-                    >
-                      <Mail className="w-4 h-4" aria-hidden="true" />
-                      {site.social.email}
-                    </a>
-                  )}
-                </div>
-              </nav>
-            </motion.div>
+      {menuMounted && (
+        <div
+          id="site-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu"
+          className={cn(
+            "lg:hidden fixed inset-0 z-50 flex flex-col bg-plum-hero text-white transition-[opacity,transform] duration-[220ms] ease-out motion-reduce:transition-none",
+            menuVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
           )}
-        </AnimatePresence>,
-        document.body
+        >
+          <div className="flex h-14 shrink-0 items-center justify-between px-6 md:px-8">
+            <Logo tone="plum" onClick={() => closeMenu(false)} />
+            <button
+              ref={closeButtonRef}
+              type="button"
+              onClick={() => closeMenu()}
+              className="-mr-2 inline-flex h-11 cursor-pointer items-center gap-2 rounded-md px-2.5 text-[13px] font-semibold uppercase tracking-[0.12em]"
+            >
+              Close
+              <X className="h-6 w-6" aria-hidden="true" />
+            </button>
+          </div>
+
+          <nav aria-label="Main" className="flex-1 overflow-y-auto overscroll-contain px-6 pb-6 md:px-8">
+            <p className="pt-5 pb-1 text-[12px] font-bold uppercase tracking-[0.18em] text-plum-tint">Services</p>
+            <ul>
+              {careLinks.map((link) => (
+                <li key={link.href} className="border-b border-white/15">
+                  <Link
+                    href={link.href}
+                    onClick={() => closeMenu(false)}
+                    aria-current={isCurrent(link.href) ? "page" : undefined}
+                    className="flex min-h-[56px] items-center justify-between text-[22px] font-semibold tracking-[-0.01em] aria-[current=page]:text-plate"
+                  >
+                    {link.label}
+                    <ChevronRight className="h-5 w-5 text-plum-tint" aria-hidden="true" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <p className="pt-7 pb-1 text-[12px] font-bold uppercase tracking-[0.18em] text-plum-tint">Tuning and offers</p>
+            <ul>
+              {otherLinks.map((link) => (
+                <li key={link.href} className="border-b border-white/15">
+                  <Link
+                    href={link.href}
+                    onClick={() => closeMenu(false)}
+                    aria-current={isCurrent(link.href) ? "page" : undefined}
+                    className="flex min-h-[56px] items-center justify-between text-[22px] font-semibold tracking-[-0.01em] aria-[current=page]:text-plate"
+                  >
+                    {link.label}
+                    <ChevronRight className="h-5 w-5 text-plum-tint" aria-hidden="true" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <p className="pt-7 text-[15px] leading-relaxed text-mist">
+              {site.serviceAreaSummary}, {site.hoursDisplay}. Battery call-outs run day and night.
+            </p>
+          </nav>
+
+          <div className="grid shrink-0 grid-cols-2 gap-3 border-t border-white/15 px-6 pt-3 pb-[max(env(safe-area-inset-bottom),0.75rem)] md:px-8">
+            <a
+              href={getPhoneUrl()}
+              onClick={() => trackEvent("phone_click")}
+              className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-md border-[1.5px] border-white text-[15px] font-bold"
+            >
+              <Phone className="h-[18px] w-[18px]" aria-hidden="true" />
+              Call
+            </a>
+            <EnquiryButton className="min-h-[48px] px-3" onClickCapture={() => closeMenu(false)}>Get a quote</EnquiryButton>
+          </div>
+        </div>
       )}
     </header>
-    {/* The header is fixed, so reserve its height on every page except home, where the hero sits behind it */}
-    {!isHome && <div className="h-20" aria-hidden="true" />}
-    </>
   );
 }

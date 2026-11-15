@@ -1,48 +1,55 @@
 "use client";
 
 import * as React from "react";
-import { motion, useReducedMotion } from "motion/react";
 import { cn } from "../../lib/utils";
 
 interface RevealProps extends React.HTMLAttributes<HTMLDivElement> {
-  delay?: number;
-  priority?: boolean;
+  delay?: number; // seconds
+  priority?: boolean; // accepted for older callers; above-the-fold content is never hidden anyway
 }
 
-export const Reveal = React.forwardRef<HTMLDivElement, RevealProps>(
-  ({ children, delay = 0, priority = false, className, ...props }, ref) => {
-    const shouldReduceMotion = useReducedMotion();
+// Subtle section reveal: fades and rises a section as it scrolls into view.
+// The content is in the HTML and visible by default. It is only hidden (and then revealed)
+// once JavaScript has confirmed the section is still below the screen, so nothing depends
+// on JavaScript to be readable, and visitors who prefer reduced motion get no animation.
+export function Reveal({ children, delay = 0, priority: _priority, className, style, ...props }: RevealProps) {
+  void _priority;
+  const ref = React.useRef<HTMLDivElement>(null);
+  const [state, setState] = React.useState<"static" | "pending" | "shown">("static");
 
-    if (shouldReduceMotion) {
-      return (
-        <div ref={ref} className={className} {...props}>
-          {children}
-        </div>
-      );
-    }
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Already on screen (or above it): leave it alone
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.92) return;
 
-    // If it's a priority reveal (above the fold), we might not want to hide it initially,
-    // or we use motion's initial state so SSR renders it, then client animates.
-    // However, the rule states "never hide the hero until JavaScript loads".
-    // A safe approach for SSR is to let it render normally, but we can animate it from its normal position if needed,
-    // or use Framer Motion's ability to hydrate safely.
-    // Framer Motion's `initial` is applied on the server. If we hide it (`opacity: 0`), it's hidden without JS.
-    // To solve this, for priority items, we don't fade them in from 0 on the server.
-    
-    return (
-      <motion.div
-        ref={ref}
-        initial={priority ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.5, delay, ease: "easeOut" }}
-        className={cn(className)}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        {...(props as any)}
-      >
-        {children}
-      </motion.div>
+    setState("pending");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setState("shown");
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "0px 0px -8% 0px" }
     );
-  }
-);
-Reveal.displayName = "Reveal";
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        state !== "static" && "transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+        state === "pending" && "opacity-0 translate-y-3",
+        className
+      )}
+      style={delay ? { ...style, transitionDelay: `${delay}s` } : style}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}

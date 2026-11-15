@@ -24,7 +24,8 @@ export type Service = {
 export type Offer = {
   id: string;
   slug: string;
-  status: "active" | "draft";
+  // "preview" = a proposal: shown on preview builds only, hidden on the live site until approved
+  status: "active" | "preview" | "draft";
   indexable: boolean;
   kind: "included" | "bundle" | "discount";
   title: string;
@@ -42,6 +43,39 @@ export type Offer = {
   seoTitle: string | null;
   seoDescription: string | null;
   whatsappMessage: string | null;
+  eligibility?: string;               // who the offer is for
+  // "What changes" table. A description of the work, never a test result.
+  comparison?: { label: string; before: string; after: string }[];
+  note?: string;                      // line shown under the comparison
+};
+
+// A single car care job with its published price
+export type CareJob = {
+  id: string;                         // also the enquiry choice id
+  name: string;
+  price: string;                      // as displayed, e.g. "From £99 fitted" or "Labour £50 plus parts"
+  basis: string;                      // pricing basis shown on the enquiry review step
+  description: string;
+  includes?: string[];
+};
+
+// One of the four car care categories. Each has its own landing page.
+export type CareCategory = {
+  slug: "batteries" | "servicing" | "brakes" | "diagnostics";
+  name: string;
+  cardSummary: string;                // home page card
+  cardPrice: string;
+  cardPriceNote: string;
+  primaryJobId: string;               // preselected by the category's main button
+  heroTitle: string;
+  heroIntro: string;
+  heroPrice: string;
+  heroPriceNote: string;
+  jobsHeading: string;
+  jobs: CareJob[];
+  faqs: { question: string; answer: string }[];
+  seoTitle: string;
+  seoDescription: string;
 };
 
 export type Location = {
@@ -112,6 +146,7 @@ export type SiteData = {
   baseTown: string;
   phoneDisplay: string;
   openingHours: { days: string[]; opens: string; closes: string };
+  hoursDisplay: string;               // hours as written in page copy
   serviceAreaSummary: string;
   homeTitle: string;
   homeDescription: string;

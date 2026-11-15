@@ -111,7 +111,7 @@ export const services: Service[] = [
     price: { amount: 50, from: false },
     launchPrice: null,
     priceOptions: undefined,
-    shortDescription: "50 pounds per add-on",
+    shortDescription: "£50 per add-on, added to any remap.",
     plainEnglish: null,
     technicalDetail: null,
     includedItems: [
@@ -131,7 +131,7 @@ export const services: Service[] = [
     category: "ecu-remapping",
     status: "active",
     indexable: false,
-    price: null,
+    price: { amount: 50, from: false },
     launchPrice: null,
     priceOptions: undefined,
     shortDescription: "Enquiry only. We confirm suitability and legality for your vehicle before agreeing any work.",

@@ -40,10 +40,10 @@ export function ConsentBanner() {
       aria-modal="false"
       aria-labelledby="consent-title"
       className={cn(
-        "fixed z-50 left-4 right-4 md:right-auto md:left-8 md:bottom-8 md:w-[26rem]",
-        // On phones, sit above the fixed WhatsApp bar rather than over it
-        "bottom-[calc(max(env(safe-area-inset-bottom),0.75rem)+4.5rem)]",
-        "max-h-[calc(100dvh-10rem)] md:max-h-[calc(100dvh-4rem)] overflow-y-auto",
+        "fixed z-50 left-4 right-4 md:right-auto md:left-8 md:w-[26rem] lg:bottom-8",
+        // Below desktop width, sit above the fixed Call / Get a quote bar rather than over it
+        "bottom-[calc(max(env(safe-area-inset-bottom),0.625rem)+4.5rem)]",
+        "max-h-[calc(100dvh-10rem)] lg:max-h-[calc(100dvh-4rem)] overflow-y-auto",
         "bg-surface/95 backdrop-blur-md border border-white/10 rounded-lg p-5 md:p-6",
         "shadow-[0_20px_60px_-20px_rgba(0,0,0,0.8)]"
       )}

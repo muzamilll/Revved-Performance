@@ -13,7 +13,7 @@ export function OfferCard({ offer, services }: OfferCardProps) {
   const savings = getOfferSavings(offer, services);
 
   return (
-    <TrackedLink href={`/offers/${offer.slug}`} className="block group h-full" event="offer_click" properties={{ offer: offer.slug }}>
+    <TrackedLink href={`/offers#${offer.slug}`} className="block group h-full" event="offer_click" properties={{ offer: offer.slug }}>
       <Card className="h-full flex flex-col transition-all group-hover:border-accent/50 group-hover:glow-plum relative overflow-hidden bg-surface">
         <div className="absolute top-0 right-0 w-32 h-32 bg-accent opacity-5 blur-3xl rounded-full"></div>
         

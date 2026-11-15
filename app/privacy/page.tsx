@@ -32,7 +32,7 @@ export default function PrivacyPage() {
   const email = site.social.email;
 
   return (
-    <Section>
+    <Section className="theme-cream">
       <Container className="max-w-3xl text-muted leading-relaxed">
         <h1 className="text-4xl md:text-5xl font-heading font-extrabold text-white uppercase tracking-tight mb-6">Privacy Policy</h1>
         <p className="mb-8">Last updated: 12 October 2026</p>

@@ -12,8 +12,7 @@ import { locations } from "../../../data/locations";
 import { Container, Section, SectionHeading } from "../../../components/layout/layout-primitives";
 import { Badge } from "../../../components/ui/ui-primitives";
 import { ServicePrice, PriceOptionLabel, getLaunchPrice } from "../../../components/ui/ServicePrice";
-import { WhatsAppButton } from "../../../components/ui/WhatsAppButton";
-import { VehicleLookup } from "../../../components/home/VehicleLookup";
+import { EnquiryButton } from "../../../components/enquiry/EnquiryButton";
 import { OfferCard } from "../../../components/home/OfferCard";
 import { Accordion } from "../../../components/ui/Accordion";
 import { TrackView } from "../../../components/analytics/TrackView";
@@ -149,11 +148,10 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               <ServicePrice service={service} />
             </div>
             
-            {/* WhatsApp CTA directly in hero for Meta ads */}
-            <WhatsAppButton 
-              className="w-full sm:w-auto text-lg h-12"
-              message={service.whatsappMessage || `Hi Revved, I'd like a quote for ${service.name}.`}
-            />
+            {/* Quote button directly in the hero for Meta ads: opens the enquiry with this service selected */}
+            <EnquiryButton choice={service.slug} className="w-full sm:w-auto min-h-[52px] px-7 text-[16px]">
+              Get a quote
+            </EnquiryButton>
           </div>
 
           {/* Price Options if available */}
@@ -214,8 +212,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       <Section className="py-16 border-b border-border glow-plum bg-surface/10">
         <Container className="max-w-3xl text-center">
           <h2 className="text-2xl font-heading font-bold text-white mb-4 uppercase">Is my car suitable?</h2>
-          <p className="text-muted mb-8">Enter your registration to check if we can perform this service on your specific engine.</p>
-          <VehicleLookup />
+          <p className="text-muted mb-8">Send us your registration and we&apos;ll confirm on WhatsApp whether this service suits your car.</p>
+          <EnquiryButton choice={service.slug} className="min-h-[52px] px-7 text-[16px]">Check my car</EnquiryButton>
         </Container>
       </Section>
 
@@ -271,10 +269,9 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           <h2 className="text-3xl font-heading font-bold text-white mb-4">Book this service</h2>
           <p className="text-muted mb-8 text-lg">Send us your registration and we&apos;ll confirm the exact price and availability.</p>
           <div className="flex justify-center">
-            <WhatsAppButton 
-              className="w-full sm:w-auto h-14 px-8 text-lg"
-              message={service.whatsappMessage || `Hi Revved, I'd like a quote for ${service.name}.`}
-            />
+            <EnquiryButton choice={service.slug} className="w-full sm:w-auto min-h-[56px] px-8 text-[16px]">
+              Get a quote
+            </EnquiryButton>
           </div>
           <div className="mt-6">
             <a href={getPhoneUrl()} className="text-muted hover:text-white underline underline-offset-4">

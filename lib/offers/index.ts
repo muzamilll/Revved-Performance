@@ -1,4 +1,5 @@
 import { Offer, Service } from "../../types";
+import { isPreviewBuild } from "../env";
 
 export function isOfferLive(offer: Offer, today: Date = new Date()): boolean {
   if (offer.status !== "active") return false;
@@ -49,4 +50,19 @@ export function getOfferSavings(offer: Offer, services: Service[]): number | nul
   
   const savings = totalFixedPrice - offer.price.amount;
   return savings > 0 ? savings : null;
+}
+
+// Offers for the Offers page and the enquiry: active offers everywhere, plus
+// "preview" proposals on preview builds only (never on the live site).
+export function getOffersForDisplay(offers: Offer[], today: Date = new Date()): Offer[] {
+  const preview = isPreviewBuild();
+  return offers.filter(offer => {
+    if (offer.status === "preview") return preview;
+    return isOfferLive(offer, today);
+  });
+}
+
+export function formatOfferPrice(offer: Offer): string {
+  if (!offer.price) return "Price on request";
+  return `${offer.price.from ? "From " : ""}£${offer.price.amount}`;
 }

@@ -5,7 +5,7 @@ import { getVisibleOffers } from "../../lib/offers";
 import { Container, Section, SectionHeading } from "../../components/layout/layout-primitives";
 import { ServiceGroups } from "../../components/services/ServiceGroups";
 import { OfferCard } from "../../components/home/OfferCard";
-import { WhatsAppButton } from "../../components/ui/WhatsAppButton";
+import { EnquiryButton } from "../../components/enquiry/EnquiryButton";
 import { getPhoneUrl } from "../../lib/whatsapp";
 import { Reveal } from "../../components/ui/Reveal";
 import { Breadcrumbs } from "../../components/ui/Breadcrumbs";
@@ -68,7 +68,7 @@ export default function ServicesPage() {
               <h2 className="text-3xl font-heading font-bold text-white mb-6">Not sure what you need?</h2>
               <p className="text-lg text-muted mb-8">Send us your registration and we will advise you on the best service for your vehicle.</p>
               <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-                <WhatsAppButton className="w-full sm:w-auto h-14 px-8 text-lg" message="Hi Revved, I'm not sure which service I need. My registration is ______." />
+                <EnquiryButton choice="not-sure" className="w-full sm:w-auto min-h-[56px] px-8 text-[16px]">Get a quote</EnquiryButton>
               </div>
               <div className="mt-6">
                 <a href={getPhoneUrl()} className="text-muted hover:text-white underline underline-offset-4">

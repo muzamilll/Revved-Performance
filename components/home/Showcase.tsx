@@ -61,7 +61,7 @@ export default function Showcase() {
                 </div>
                 <h3 className="text-xl font-heading font-bold text-white mb-2">Performance Tune</h3>
                 <p className="text-muted mb-6 flex-1">
-                  Want more power and sharper response? A full calibration with dyno testing.
+                  Want more power and sharper response? A Stage 1 file written for your engine.
                 </p>
                 <div className="flex items-end justify-between mt-auto pt-6 border-t border-thin/50">
                   <PriceTag price={{ amount: 250, from: true }} />

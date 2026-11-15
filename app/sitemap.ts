@@ -1,7 +1,6 @@
 import { MetadataRoute } from "next";
 import { services } from "../data/services";
-import { offers } from "../data/offers";
-import { getVisibleOffers } from "../lib/offers";
+import { careCategories } from "../data/care";
 import { absoluteUrl, isItemIndexable } from "../lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -14,6 +13,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "weekly",
     priority: 1,
   });
+
+  // Car care category pages
+  for (const category of careCategories) {
+    routes.push({
+      url: absoluteUrl(`/${category.slug}`),
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    });
+  }
 
   // Services list
   routes.push({
@@ -39,19 +48,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: absoluteUrl(`/services/${service.slug}`),
         lastModified: new Date(),
         changeFrequency: "monthly",
-        priority: 0.7,
-      });
-    }
-  }
-
-  // Individual offers
-  const visibleOffers = getVisibleOffers(offers, activeServices);
-  for (const offer of visibleOffers) {
-    if (isItemIndexable(offer)) {
-      routes.push({
-        url: absoluteUrl(`/offers/${offer.slug}`),
-        lastModified: new Date(),
-        changeFrequency: "weekly",
         priority: 0.7,
       });
     }

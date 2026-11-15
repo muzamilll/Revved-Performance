@@ -1,23 +1,40 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Oswald } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { site } from "../data/site";
 import { getSiteUrl } from "../lib/seo";
 import { Header } from "../components/layout/Header";
 import { Footer } from "../components/layout/Footer";
-import { PersistentCTA } from "../components/layout/PersistentCTA";
+import { BottomBar } from "../components/layout/BottomBar";
+import { EnquiryProvider } from "../components/enquiry/EnquiryProvider";
 import { ConsentBanner } from "../components/consent/ConsentBanner";
 import { AnalyticsScripts } from "../components/analytics/AnalyticsScripts";
+import { getEnquiryChoices } from "../lib/enquiry";
 
-const inter = Inter({
-  subsets: ["latin"],
+// All three families are self-hosted (app/fonts). Nothing is fetched from Google at build or run time.
+const inter = localFont({
+  src: "./fonts/inter-latin-wght-normal.woff2",
+  weight: "100 900",
+  style: "normal",
   variable: "--font-inter",
   display: "swap",
 });
 
-const oswald = Oswald({
-  subsets: ["latin"],
-  variable: "--font-oswald",
+// Poster lettering: the hero headline, the Performance headline, the final band and the wordmark
+const anton = localFont({
+  src: "./fonts/anton-latin-400-normal.woff2",
+  weight: "400",
+  style: "normal",
+  variable: "--font-anton",
+  display: "swap",
+});
+
+// Small italic accents
+const oldStandard = localFont({
+  src: "./fonts/old-standard-tt-latin-400-italic.woff2",
+  weight: "400",
+  style: "italic",
+  variable: "--font-old-standard",
   display: "swap",
 });
 
@@ -38,10 +55,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: site.homeTitle,
     description: site.homeDescription,
-    url: '/',
+    url: "/",
     siteName: site.name,
-    locale: 'en_GB',
-    type: 'website',
+    locale: "en_GB",
+    type: "website",
   },
 };
 
@@ -49,6 +66,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  themeColor: "#572439",
 };
 
 export default function RootLayout({
@@ -57,14 +75,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${oswald.variable} scroll-smooth`}>
-      <body className="text-text antialiased min-h-screen flex flex-col relative">
-        <Header />
-        <main className="flex-1 flex flex-col relative z-10">
-          {children}
-        </main>
-        <Footer />
-        <PersistentCTA />
+    <html lang="en" className={`${inter.variable} ${anton.variable} ${oldStandard.variable}`}>
+      <body className="min-h-screen flex flex-col">
+        <EnquiryProvider choices={getEnquiryChoices()}>
+          <Header />
+          <main className="flex-1 flex flex-col">{children}</main>
+          <Footer />
+          <BottomBar />
+        </EnquiryProvider>
         <ConsentBanner />
         <AnalyticsScripts />
       </body>

@@ -1,99 +1,96 @@
 @import "tailwindcss";
 
+/*
+  Colour rule: a section's colour follows its job.
+  - Plum: brand moments (hero, promise band, final call).
+  - Cream: information to read (services, prices, questions, areas).
+  - Dark: the Performance section and pages only.
+  - Plate yellow: small and selective (main buttons, selected states, prices, the reg plate).
+*/
 @theme {
-  --color-brand-carbon: #09090B;
+  --color-plum: #693C56;
+  --color-plum-hero: #572439;      /* measured on hero-road.png, top */
+  --color-plum-hero-end: #4B2131;  /* measured on hero-road.png, bottom */
+  --color-plum-light: #B06C8E;     /* PERFORMANCE in the wordmark on dark */
+  --color-plum-tint: #D9A9C2;      /* small labels on dark or plum */
+  --color-cream: #F4F2F0;
+  --color-cream-deep: #ECE7E3;
+  --color-dark: #150B12;
+  --color-deep: #0B0609;
+  --color-plate: #FFD500;
+  --color-ink: #1A1418;            /* text on cream */
+  --color-ink-soft: #5E5559;       /* secondary text on cream */
+  --color-line: #C9C1BC;           /* borders on cream */
+  --color-line-dark: #45283A;      /* borders on dark */
+  --color-mist: #CFC6CB;           /* secondary text on dark or plum */
+
+  /* Names the existing (pre-redesign) pages use. They stay dark until round 2. */
+  --color-brand-carbon: #150B12;
   --color-brand-plum: #693C56;
-  --color-brand-plum-light: #9B607D;
+  --color-brand-plum-light: #B06C8E;
   --color-brand-offwhite: #F4F2F0;
-  --color-brand-gunmetal: #25252A;
-  --color-brand-silver: #A7A7AA;
+  --color-brand-gunmetal: #24131E;
+  --color-brand-silver: #CFC6CB;
 
   --color-background: var(--color-brand-carbon);
   --color-surface: var(--color-brand-gunmetal);
-  --color-border: var(--color-brand-gunmetal);
+  --color-border: var(--color-line-dark);
   --color-text: var(--color-brand-offwhite);
   --color-muted: var(--color-brand-silver);
   --color-accent: var(--color-brand-plum);
-  /* Plum for text on dark backgrounds: brand plum is too dark to read (2.2:1), this tint passes AA (5.7:1) */
-  --color-accent-light: #B07A95;
+  --color-accent-light: var(--color-plum-tint);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-heading: var(--font-oswald), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-anton), "Arial Narrow", Impact, sans-serif;
+  --font-accent: var(--font-old-standard), Georgia, serif;
+  /* Existing pages ask for font-heading; headings there are Inter now, Anton is kept for poster lettering */
+  --font-heading: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
-  html, body {
-    @apply text-text font-sans antialiased selection:bg-accent selection:text-white;
-  }
-
-  /* Solid base colour lives on <html>; <body> stays transparent so the fixed
-     atmosphere and grain layers below can show through the page. */
   html {
-    @apply bg-background;
-  }
-
-  /* Atmosphere: very faint plum light top-right and bottom-left, gunmetal falloff
-     through the middle. Fixed, so it reads as a lit space the page scrolls over. */
-  body::before,
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-  }
-
-  body::before {
-    background:
-      radial-gradient(ellipse 70% 55% at 90% 0%, color-mix(in oklab, var(--color-brand-plum) 16%, transparent), transparent 70%),
-      radial-gradient(ellipse 60% 50% at 0% 100%, color-mix(in oklab, var(--color-brand-plum) 9%, transparent), transparent 70%),
-      radial-gradient(ellipse 90% 70% at 50% 45%, color-mix(in oklab, var(--color-brand-gunmetal) 45%, transparent), transparent 75%);
-  }
-
-  /* Film grain: one small SVG noise tile, fixed, so it costs nothing while scrolling */
-  body::after {
-    opacity: 0.06;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 160px 160px;
-  }
-
-  /* Keep anchor targets (#how-it-works, #about…) clear of the sticky header */
-  html {
+    @apply bg-background text-text font-sans antialiased;
+    /* Keep anchor targets clear of the sticky header */
     scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply selection:bg-plate selection:text-ink;
+  }
+
+  /* One visible focus style everywhere, readable on plum, cream and dark */
+  :focus-visible {
+    outline: 2px solid var(--color-plate);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px var(--color-ink);
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
   }
 }
 
 @layer utilities {
-  .bg-noise {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  /* Cream scope for pages written with the dark-page class names (legal pages):
+     the same utilities resolve to ink-on-cream inside this wrapper. */
+  .theme-cream {
+    --color-white: var(--color-ink);
+    --color-text: var(--color-ink);
+    --color-muted: var(--color-ink-soft);
+    --color-accent-light: var(--color-plum);
+    --color-surface: #FFFFFF;
+    --color-border: var(--color-line);
+    --color-background: var(--color-cream);
+    background-color: var(--color-cream);
+    color: var(--color-ink);
   }
 
-  /* Section tones: alternate these so sections read as bands of light rather than one flat canvas.
-     All translucent, so the atmosphere and grain carry through. */
-  .section-tone-raised {
-    background: linear-gradient(180deg,
-      color-mix(in oklab, var(--color-brand-gunmetal) 38%, transparent) 0%,
-      color-mix(in oklab, var(--color-brand-gunmetal) 10%, transparent) 100%);
-    box-shadow: inset 0 1px 0 color-mix(in oklab, var(--color-brand-offwhite) 4%, transparent);
-  }
-
-  .section-tone-glow {
-    background:
-      radial-gradient(ellipse 55% 60% at 50% 0%, color-mix(in oklab, var(--color-brand-plum) 13%, transparent), transparent 70%),
-      linear-gradient(180deg, color-mix(in oklab, var(--color-brand-gunmetal) 14%, transparent), transparent 60%);
-  }
-
-  .section-tone-sunk {
-    background: linear-gradient(180deg,
-      color-mix(in oklab, var(--color-brand-carbon) 75%, transparent) 0%,
-      color-mix(in oklab, var(--color-brand-carbon) 35%, transparent) 100%);
-    box-shadow: inset 0 12px 24px -12px color-mix(in oklab, var(--color-brand-carbon) 90%, transparent);
-  }
-
+  /* Used by the existing pages; kept so they render as before */
   .glow-plum {
     box-shadow: 0 0 20px 0 rgba(105, 60, 86, 0.4);
   }
-  
+
   .glow-plum-hover:hover {
     box-shadow: 0 0 20px 0 rgba(105, 60, 86, 0.6);
   }
@@ -103,54 +100,55 @@
     border-color: var(--color-border);
   }
 
-  .text-glow {
-    text-shadow: 0 0 10px rgba(244, 242, 240, 0.3);
-  }
-  
-  .text-glow-accent {
-    text-shadow: 0 0 15px rgba(105, 60, 86, 0.8);
-  }
-
   .bg-gradient-cinematic {
-    background: linear-gradient(180deg, rgba(9, 9, 11, 0) 0%, rgba(9, 9, 11, 0.9) 80%, rgba(9, 9, 11, 1) 100%);
+    background: linear-gradient(180deg, rgba(21, 11, 18, 0) 0%, rgba(21, 11, 18, 0.9) 80%, rgba(21, 11, 18, 1) 100%);
   }
 
-  .bg-gradient-accent {
-    background: linear-gradient(90deg, var(--color-brand-plum) 0%, var(--color-brand-plum-light) 100%);
+  /* Oversized outlined word behind the Performance heading */
+  .text-outline-plate {
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(255, 213, 0, 0.16);
   }
 
-  .text-gradient-accent {
-    background: linear-gradient(90deg, var(--color-brand-plum-light) 0%, #FFFFFF 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  /* Hero artwork: soften the top and (from tablet width, where it sits to the right) the left edge into the hero plum */
+  .hero-art-mask {
+    mask-image: linear-gradient(to bottom, transparent 0, #000 9%, #000 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 9%, #000 100%);
   }
 
-  .animate-marquee {
-    animation: marquee 30s linear infinite;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .animate-marquee {
-      animation: none;
+  @media (min-width: 640px) {
+    .hero-art-mask {
+      mask-image:
+        linear-gradient(to right, transparent 0, #000 22%, #000 100%),
+        linear-gradient(to bottom, transparent 0, #000 12%, #000 100%);
+      -webkit-mask-image:
+        linear-gradient(to right, transparent 0, #000 22%, #000 100%),
+        linear-gradient(to bottom, transparent 0, #000 12%, #000 100%);
+      mask-composite: intersect;
+      -webkit-mask-composite: source-in;
     }
-  }
-
-  .mask-edges {
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   }
 }
 
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+/* Hero entrance: one coordinated rise, content first, artwork last.
+   Runs from CSS alone, so nothing waits for JavaScript. */
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes hero-art {
+  from { opacity: 0; transform: translateY(18px) scale(1.015); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-rise {
+    animation: hero-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--i, 0) * 80ms);
+  }
+
+  .hero-art {
+    animation: hero-art 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+  }
 }
