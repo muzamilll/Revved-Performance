@@ -128,6 +128,21 @@ must work well.
   the left, artwork on the right, never stretched or heavily cropped.
 - No outlined photo cutouts.
 
+## 5a. Trust lines (decided 24 Nov)
+
+The generic bar ("Price agreed before you book, At your home or work...") is
+replaced. Each landing page gets its own line, so the same promise is not
+repeated on every page. Facts only; nothing Rayyan has not confirmed.
+
+| Page | Trust line |
+|---|---|
+| Home | No lift to the garage. No waiting room. No lost day. |
+| Batteries (and battery job pages) | 24/7 call-outs · 3-year battery warranty · Registered to your car on the spot |
+| Servicing (and job pages) | Done on your driveway · Service light reset included · Price confirmed before we start |
+| Brakes (and job pages) | Fitted where the car is parked · Safety check after every job · Price confirmed before we start |
+| Diagnostics (and job pages) | Warning lights read where the car is · Pre-purchase checks at the seller's · Explained in plain English |
+| Performance (and remap pages) | Top Gear Tuning agent · Health check before and after · Lifetime software warranty |
+
 ## 6. Performance
 
 Keep the Performance section from the redesign mock: plum glow from the top,
@@ -180,7 +195,7 @@ with a battery replacement.
 | Performance, Stage 1, Stage 2, gearbox (restyled existing pages) | 2 |
 | Guides list and article layout, plus first three articles | 2 |
 | About Revved (company voice: no individual named; company details, Top Gear Tuning agency) | 2 |
-| For garages (trade page, linked from the footer) | 2 |
+| Revved for business (trade page at /business, linked from the footer) | 2 |
 
 **Home page, in order:** header; hero; promise band; car care services
 (cream), with the dead-battery line; featured offer teaser; Performance (dark);
@@ -188,24 +203,54 @@ recent work (real photos and reviews, no mention of Google); areas (cream);
 questions; final call (plum); footer with links, contact icons and the
 registered company line.
 
-First guides: how long a car battery lasts; minor or major service; what a
-Stage 1 remap changes.
+First guides: see "Guides (blogs)" below for the order.
 
-**For garages (trade page).** Backs up the garage outreach and catches garages
-searching for mobile tuning help. Linked in the footer, not the main menu.
+**Revved for business (trade page), replacing "For garages".** Decided 24 Nov.
+"Jobs garages turn away" was too narrow. The page now matches the partner
+pilot plan, so the website and the outreach say the same thing. Route
+`/business`; `/for-garages` redirects to it. Linked in the footer, not the main
+menu.
 
-- Headline: "Tuning and diagnostics for your garage. We come to your workshop."
-- What we do for garages: Stage 1 remaps, DSG and gearbox tunes, DPF work,
-  coding and diagnostics: jobs a garage turns away or sends elsewhere today.
-- How it works: the garage books Revved, Revved comes to the workshop, the
-  customer stays the garage's customer, trade jobs are paid the same day.
-- Trade rates on request. No trade prices on the page.
+- Headline: "Your mobile specialist, on call." Sub-line: "Tuning, diagnostics,
+  batteries and servicing for businesses across East London & Essex. We come
+  to your premises."
+- A section for each business type in the pilot plan:
+  - Independent garages and MOT centres: tuning, DPF and coding they don't
+    have the kit for. They book Revved at a trade price and bill their own
+    customer; the customer stays theirs.
+  - Used-car dealers: diagnostics and pre-sale checks, batteries on forecourt
+    stock, DPF cleans before sale. A trade account.
+  - PCO hire fleets: servicing, brakes and batteries that keep rental cars
+    earning. A trade account. Car care only, no remaps.
+  - Detailers and tyre shops: refer a customer who needs a battery, a service
+    or a remap; Revved quotes, does the job and handles aftercare; the partner
+    earns a fee on completed, paid jobs.
+- Three ways to work together, as in the pilot plan: book us at a trade price,
+  refer a customer and earn a fee, or recommend each other.
+- Trade rates and referral fees on request. No prices on the page.
 - One action: "Become a trade partner", opening WhatsApp with "Trade enquiry"
-  filled in.
+  and the business type filled in.
 - A short section at the bottom: "Car clubs and creators: let's work
-  together", same WhatsApp button. No separate page yet.
+  together", same WhatsApp button.
 - Search terms to target: mobile remapping for garages, trade ECU remapping
-  East London, garage DPF and coding specialist.
+  East London, mobile mechanic for car dealers, fleet servicing East London.
+
+**Guides (blogs), decided 24 Nov.** Each guide answers something people search
+when they are about to book, and ends with the matching service and a booking
+button. Not generic articles. Search volumes are not checked yet (no Semrush
+API units); confirm with Search Console data after launch. Order to write:
+
+1. DPF warning light: what it means and what to do.
+2. Car won't start: battery, starter or alternator?
+3. Is ECU remapping safe for my engine?
+4. Does a remap affect my car insurance?
+5. Stage 1 vs Stage 2 remap: what's the difference?
+6. Pre-purchase inspection: what to check before buying a used car.
+7. Minor or major service: which does my car need?
+8. How long does a car battery last?
+
+These replace the earlier first three (battery life, minor or major service,
+what a Stage 1 changes), which move down the list.
 
 ## 9. Services and prices
 
@@ -262,7 +307,9 @@ a smooth enquiry-sheet transition. Keep normal scrolling, fast interaction and
 
 ## 12. Still to come
 
-- From Rayyan: battery prices by type, the 90-minute postcodes, parts and labour
+- From Rayyan: what Software Solutions (£149) is for compared with the £50
+  emissions add-ons (working idea: rename it "Coding & ECU software (no
+  remap)", with "Already booking a remap? Add-ons are £50 each"), battery prices by type, the 90-minute postcodes, parts and labour
   warranty, street parking, the bundle comparison (see Offers).
 - Refined hero image; a battery photo.
 - Real job photos for Recent work: Mercedes C63 AMG, BMW 530d M Sport and
