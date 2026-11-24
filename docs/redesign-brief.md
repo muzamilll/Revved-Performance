@@ -260,6 +260,40 @@ API units); confirm with Search Console data after launch. Order to write:
 These replace the earlier first three (battery life, minor or major service,
 what a Stage 1 changes), which move down the list.
 
+**Areas we cover (decided 24 Nov).** The old row of 20 town chips made it look
+as if Revved only goes to those towns. Rayyan's rule: anywhere within 20 miles
+of Ilford (IG1). Further out: ask on WhatsApp.
+
+- Headline: "Anywhere within 20 miles of Ilford." Keep "East London. Essex.
+  Your door." as the line above or below it.
+- A simple radius graphic (Ilford in the middle, a 20-mile circle) instead of
+  only chips.
+- Towns grouped by region (on phones, each region folds open), so people find
+  their own town. All are within 20 miles in a straight line:
+  - East London: Barking, Dagenham, East Ham, Beckton, Stratford, West Ham,
+    Leyton, Leytonstone, Walthamstow, Wanstead, Woodford, Redbridge, Hainault,
+    Chingford, Bow, Poplar, Canary Wharf, Hackney, Shoreditch, Stoke Newington.
+  - Romford and Havering: Romford, Collier Row, Gidea Park, Harold Wood,
+    Hornchurch, Elm Park, Upminster, Rainham.
+  - Essex: Chigwell, Buckhurst Hill, Loughton, Theydon Bois, Abridge, Epping,
+    Ongar, Waltham Abbey, Harlow, Brentwood, Shenfield, Ingatestone,
+    Billericay, Basildon, Wickford, Grays, Chafford Hundred, Lakeside,
+    Purfleet, South Ockendon, Tilbury, Stanford-le-Hope.
+  - North London and Hertfordshire: Tottenham, Edmonton, Enfield, Wood Green,
+    Palmers Green, Southgate, Barnet, Islington, Camden, Cheshunt, Hoddesdon,
+    Hertford, Ware, Hatfield, Potters Bar.
+  - Central, South East London and Kent: City of London, Westminster,
+    Greenwich, Woolwich, Thamesmead, Eltham, Lewisham, Catford, Peckham,
+    Brixton, Welling, Bexleyheath, Erith, Sidcup, Bromley, Orpington, Croydon,
+    Dartford, Bluewater, Swanley, Gravesend.
+  - West London: Wembley, Ealing, Harrow, Richmond, Kingston, Wimbledon.
+- Closing line with a WhatsApp button: "Not on the list, or a bit further out?
+  Ask us on WhatsApp and we'll tell you straight away."
+- Everywhere else the site mentions coverage, it says "within 20 miles of
+  Ilford", not a short town list.
+- Later (local SEO): a page for each main town, starting with Romford,
+  Ilford, Barking, Dagenham, Hornchurch, Brentwood and Basildon.
+
 ## 9. Services and prices
 
 Prices as agreed with Rayyan on 22 Nov 2026. The price sheet (linked at the top)
