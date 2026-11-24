@@ -112,6 +112,56 @@ must work well.
   line patterns across backgrounds.
 - Website copy is straight. Social copy is funny and cheeky.
 
+## 4a. Personality: photo world, Lemonade's structure (decided 24 Nov)
+
+Reference: lemonade.com/car. We keep real photos for heroes and page headers
+(car work is trusted when it looks real) and borrow Lemonade's page structure
+and small touches of personality. We do not copy its drawn illustration style.
+Every item below is built in code; none needs an AI image.
+
+- **"If..." cards** (home, after the promise band). People recognise their
+  situation before they know the service name. Four cards, each linking to the
+  matching page:
+  - "If your car won't start" -> Batteries
+  - "If a warning light comes on" -> Diagnostics (mention the DPF light)
+  - "If you're buying a used car" -> Pre-purchase inspection
+  - "If you want more power" -> Performance
+  One short line under each heading. Icons from one existing line-icon set
+  (one hand, same stroke weight), in plum with a single yellow detail. No mixed
+  icon styles, no emoji.
+- **Small labels.** Little yellow tags on cards and prices, used sparingly:
+  "24/7", "At your door", "Same day". Facts only, nothing Rayyan has not
+  confirmed.
+- **Handwritten notes.** At most two on the home page, e.g. "yes, on your
+  driveway" with a small hand-drawn arrow. Use one self-hosted handwriting font.
+  Decorative only: real information never lives in a note. Hidden from screen
+  readers (aria-hidden).
+- **WhatsApp chat strip ("How it works").** A phone showing a short chat that
+  appears message by message as it scrolls into view:
+  1. Customer: "Car won't start, I'm in Romford"
+  2. Revved: "No problem. Send your reg and we'll confirm the price."
+  3. Revved: "On our way."
+  4. Revved: "All done. New battery fitted, 3-year warranty."
+  Built in HTML/CSS, not a screenshot. Label it as an example. No ETAs or
+  times we can't promise. Ends with the WhatsApp button.
+- **Coverage map (areas section).** A simple drawn map: Ilford pin in the
+  centre, a 20-mile ring, town names placed roughly in their direction. Plum
+  lines on cream, yellow Ilford pin. The ring draws on scroll. Sits above the
+  grouped town list in "Areas we cover"; the list stays as real text for
+  search.
+- **"Good to know" questions.** Questions as a grid of cards on desktop (one
+  column on phones) instead of a plain accordion, if it reads better. Keep the
+  FAQ structured data.
+- **Skyline closing band (final call).** Layered East London rooftop
+  silhouettes (terraces, a chimney stack, streetlights, one car) in deepening
+  plums at dusk. Layers move at slightly different speeds on scroll on
+  desktop; static on phones and with reduced motion. "Request a booking"
+  button in yellow on top. Simple flat shapes in SVG; if it looks clip-arty,
+  swap for a flat image Muzamil supplies.
+
+Restraint rule: Lemonade works because the page is calm and the colour is
+rare. Yellow stays for buttons, prices, tags and the Ilford pin.
+
 ## 5. Hero
 
 - Message: "We come to you. You get on with your day." with services and
@@ -139,7 +189,7 @@ repeated on every page. Facts only; nothing Rayyan has not confirmed.
 | Page | Trust line |
 |---|---|
 | Home | No lift to the garage. No waiting room. No lost day. |
-| Batteries (and battery job pages) | 24/7 call-outs · 3-year battery warranty · Registered to your car on the spot |
+| Batteries (and battery job pages) | 24/7 call-outs · 3-year battery warranty · Fitted at your door |
 | Servicing (and job pages) | Done on your driveway · Service light reset included · Price confirmed before we start |
 | Brakes (and job pages) | Fitted where the car is parked · Safety check after every job · Price confirmed before we start |
 | Diagnostics (and job pages) | Warning lights read where the car is · Pre-purchase checks at the seller's · Explained in plain English |
@@ -205,11 +255,12 @@ with a battery replacement.
 | About Revved (company voice: no individual named; company details, Top Gear Tuning agency) | 2 |
 | Revved for business (trade page at /business, linked from the footer) | 2 |
 
-**Home page, in order:** header; hero; promise band; car care services
-(cream), with the dead-battery line; featured offer teaser; Performance (dark);
-recent work (real photos and reviews, no mention of Google); areas (cream);
-questions; final call (plum); footer with links, contact icons and the
-registered company line.
+**Home page, in order:** header; hero; promise band; "If..." cards; car care
+services (cream), with the dead-battery line; WhatsApp chat strip ("How it
+works"); featured offer teaser; Performance (dark); recent work (real photos
+and reviews, no mention of Google); areas with the coverage map (cream);
+questions ("Good to know"); skyline final call (plum); footer with links,
+contact icons and the registered company line. See 4a.
 
 First guides: see "Guides (blogs)" below for the order.
 
