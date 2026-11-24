@@ -1,13 +1,13 @@
 import { FAQ } from "../types";
 
-// Home page questions. Kept to what Revved has confirmed; the parts and labour
+// Home page questions. Kept to what Revved has confirmed; the parts
 // warranty and the street parking answer are added when Rayyan supplies them.
 export const faqs: FAQ[] = [
   {
     id: "full-price",
     group: "booking",
     question: "Is the price I see the full price?",
-    answer: "Fixed prices are shown as fixed. Labour prices exclude parts, and you'll know the full price for your car before we come out.",
+    answer: "Prices shown without \"from\" are fixed. Where it says \"from\", your price depends on your car and is agreed before we start.",
   },
   {
     id: "request-is-not-booking",

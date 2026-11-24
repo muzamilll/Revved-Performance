@@ -8,7 +8,7 @@ export const services: Service[] = [
     category: "ecu-remapping",
     status: "active",
     indexable: true,
-    price: { amount: 250, from: true },
+    price: { amount: 179, from: true },
     launchPrice: 200,
     priceOptions: undefined,
     shortDescription: "More power and sharper response, tuned through your car's diagnostic (OBD) port. No parts removed.",
@@ -33,7 +33,7 @@ export const services: Service[] = [
     category: "ecu-remapping",
     status: "active",
     indexable: true,
-    price: { amount: 350, from: true },
+    price: { amount: 259, from: true },
     launchPrice: 300,
     priceOptions: undefined,
     shortDescription: "For ECUs that can't be tuned through the OBD port. We take the ECU out and program it directly on the bench.",
@@ -148,6 +148,32 @@ export const services: Service[] = [
     seoTitle: null,
     seoDescription: null,
     whatsappMessage: "Hi Revved, I'd like to enquire about emissions add-ons for my car."
+  },
+  {
+    // On its own, without a remap. Price from the WhatsApp catalogue, 22 Nov.
+    // To check with Rayyan: how its EGR, DPF, AdBlue and swirl flap solutions differ from the £50 emissions add-ons.
+    slug: "software-solutions",
+    name: "Software Solutions",
+    category: "ecu-remapping",
+    status: "active",
+    indexable: false,
+    price: { amount: 149, from: false },
+    launchPrice: null,
+    priceOptions: undefined,
+    shortDescription: "ECU software work on its own: coding, ECU updates and fault investigation. EGR, DPF, AdBlue and swirl flap solutions for off-road and competition use only.",
+    plainEnglish: null,
+    technicalDetail: null,
+    includedItems: [
+      "Diagnostics",
+      "Coding",
+      "ECU updates",
+      "Fault investigation"
+    ],
+    emissionsRelated: true,
+    faqs: [],
+    seoTitle: null,
+    seoDescription: null,
+    whatsappMessage: null
   },
   {
     slug: "vehicle-diagnostics",

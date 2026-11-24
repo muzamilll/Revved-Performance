@@ -1,6 +1,8 @@
 import { CareCategory } from "../types";
 
-// Everyday car care: the four categories and their published prices (redesign brief, section 9).
+// Everyday car care: the four categories and their published prices.
+// Prices follow the Revved price sheet (Google Sheet on info@revved.uk, 22 Nov 2026).
+// Rayyan's rule: never say "labour" or "plus parts" to customers; show a discreet "from".
 // Each category has a landing page at /<slug>. Each job id is also an enquiry choice.
 // Still to come from Rayyan: battery prices by type, the 90-minute postcodes,
 // the parts and labour warranty, and the street parking answer. Nothing here claims them.
@@ -19,22 +21,22 @@ export const careCategories: CareCategory[] = [
   {
     slug: "batteries",
     name: "Batteries",
-    cardSummary: "Replacement, testing and help when your car won't start.",
-    cardPrice: "Replacement from £99 fitted",
+    cardSummary: "Fitting, testing and help when your car won't start.",
+    cardPrice: "Fitting from £99",
     cardPriceNote: "3-year warranty, free car checks",
     primaryJobId: "battery-replacement",
     heroTitle: "A new car battery, fitted at your door.",
     heroIntro: "We bring the battery to your home or work and fit it there. Battery call-outs run day and night.",
-    heroPrice: "From £99 fitted",
-    heroPriceNote: "3-year warranty, plus free checks on charging, coolant, tyres, lights and wipers.",
+    heroPrice: "From £99",
+    heroPriceNote: "The battery is priced for your car. 3-year warranty, plus free checks on charging, coolant, tyres, lights and wipers.",
     jobsHeading: "Battery jobs and prices",
     jobs: [
       {
         id: "battery-replacement",
-        name: "Battery replacement",
-        price: "From £99 fitted",
-        basis: "From £99 fitted, with a 3-year warranty. The exact price depends on the battery your car takes.",
-        description: "A new battery supplied and fitted, with a 3-year warranty. Battery registration is included if your car needs it, and we check the rest of the car over for free while we're there.",
+        name: "Battery fitting",
+        price: "From £99",
+        basis: "From £99. The battery is priced for your car and agreed before we start. 3-year warranty.",
+        description: "A new battery supplied and fitted at your door, with a 3-year warranty. We check the rest of the car over for free while we're there.",
         includes: [
           "Free charging-system check",
           "Free coolant and antifreeze check",
@@ -67,8 +69,8 @@ export const careCategories: CareCategory[] = [
       {
         id: "battery-registration",
         name: "Battery registration and BMS reset",
-        price: "£25",
-        basis: "£25.",
+        price: "£40",
+        basis: "£40.",
         description: "Registers a new battery with the car's battery management system.",
       },
       {
@@ -82,7 +84,7 @@ export const careCategories: CareCategory[] = [
     faqs: [
       {
         question: "How much is a new battery?",
-        answer: "From £99 fitted. The exact price depends on the battery your car takes, and you'll know it before we come out.",
+        answer: "Fitting is from £99, and the battery is priced for your car. You'll know the full price before we start.",
       },
       {
         question: "What warranty comes with a new battery?",
@@ -90,7 +92,7 @@ export const careCategories: CareCategory[] = [
       },
       {
         question: "Does my car need battery registration?",
-        answer: "Some cars need a new battery registered to the car. If yours does, it is included in your price.",
+        answer: "Some cars need a new battery registered to the car. If yours does, registration and BMS reset is £40, and we'll tell you before we start.",
       },
       {
         question: "Can you come out at night?",
@@ -99,78 +101,93 @@ export const careCategories: CareCategory[] = [
       PAY_ON_THE_DAY,
     ],
     seoTitle: "Mobile Car Battery Replacement, East London & Essex",
-    seoDescription: "Car battery replacement at your home or work across East London & Essex. From £99 fitted with a 3-year warranty. Battery call-outs day and night.",
+    seoDescription: "Car battery fitting at your home or work across East London & Essex, from £99 with a 3-year warranty. Battery call-outs day and night.",
   },
   {
     slug: "servicing",
     name: "Servicing",
-    cardSummary: "Minor and major servicing at your home or work.",
-    cardPrice: "Labour from £50 plus parts",
-    cardPriceNote: "Parts priced for your car",
+    cardSummary: "Minor and major servicing and DPF cleaning at your home or work.",
+    cardPrice: "From £50",
+    cardPriceNote: "Minor and major services, plus DPF",
     primaryJobId: "minor-service",
     heroTitle: "Your car serviced where it's parked.",
-    heroIntro: "A minor or major service at your home or work across East London & Essex, 7am to midnight.",
-    heroPrice: "Labour from £50 plus parts",
-    heroPriceNote: "Parts depend on your car. Major service £70 plus parts.",
+    heroIntro: "A minor or major service, or a DPF clean, at your home or work across East London & Essex, 7am to midnight.",
+    heroPrice: "From £50",
+    heroPriceNote: "Your price depends on your car and is agreed before we start.",
     jobsHeading: "Service options and prices",
     jobs: [
       {
         id: "minor-service",
         name: "Minor service",
-        price: "Labour £50 plus parts",
-        basis: "Labour £50 plus parts for your car.",
+        price: "From £50",
+        basis: "From £50. Your price depends on your car and is agreed before we start.",
         description: "The regular service between major ones.",
-        includes: ["Oil and oil filter", "Safety check", "Fluid top-ups", "Service light reset"],
+        includes: ["Oil and oil filter change", "Safety check", "Fluid top-ups", "Service light reset"],
       },
       {
         id: "major-service",
         name: "Major service",
-        price: "Labour £70 plus parts",
-        basis: "Labour £70 plus parts for your car.",
+        price: "From £70",
+        basis: "From £70. Your price depends on your car and is agreed before we start.",
         description: "Everything in a minor service, plus the items below.",
-        includes: ["Air filter", "Cabin pollen filter", "Spark plugs", "Washer fluid"],
+        includes: ["Everything in a minor service", "Engine air filter", "Cabin pollen filter", "Spark plugs", "Washer fluid top-up"],
+      },
+      {
+        id: "dpf-service",
+        name: "DPF service",
+        price: "£120",
+        basis: "£120.",
+        description: "For a diesel with a DPF warning light or a blocked particulate filter. We clean it and run a forced regeneration where it's parked.",
+        includes: [
+          "DPF diagnostics",
+          "Soot and filter check",
+          "Clean and forced regeneration",
+          "Sensor checks",
+          "Adaptations reset",
+          "Road test",
+        ],
       },
     ],
     faqs: [
       {
-        question: "Is the labour price the full price?",
-        answer: "No. Labour is £50 for a minor service and £70 for a major service. Parts depend on your car, and you'll know the full price before we come out.",
+        question: "How much will my service cost?",
+        answer: "A minor service is from £50 and a major service from £70. Your price depends on your car and is agreed before we start.",
       },
       {
         question: "Minor or major: which do I need?",
-        answer: "A major service includes everything in a minor service and adds the air filter, cabin pollen filter, spark plugs and washer fluid. If you're not sure, tell us when the car was last serviced in your request.",
+        answer: "A major service includes everything in a minor service and adds the engine air filter, cabin pollen filter, spark plugs and a washer fluid top-up. If you're not sure, tell us when the car was last serviced in your request.",
       },
       WHERE_IS_IT_DONE,
       PAY_ON_THE_DAY,
     ],
-    seoTitle: "Mobile Car Servicing, East London & Essex",
-    seoDescription: "Minor and major car servicing at your home or work across East London & Essex. Labour from £50 plus parts, full price agreed before you book.",
+    seoTitle: "Mobile Car Servicing and DPF Cleaning, East London & Essex",
+    seoDescription: "Minor and major car servicing from £50 and DPF cleaning at your home or work across East London & Essex. Price agreed before we start.",
   },
   {
     slug: "brakes",
     name: "Brakes",
     cardSummary: "Brake pad replacement at your location.",
-    cardPrice: "Labour £100 plus parts",
-    cardPriceNote: "Pads priced for your car",
+    cardPrice: "From £100",
+    cardPriceNote: "Fitted where the car is parked",
     primaryJobId: "brake-pads",
     heroTitle: "Brake pads replaced at your door.",
     heroIntro: "New brake pads fitted at your home or work across East London & Essex, 7am to midnight.",
-    heroPrice: "Labour £100 plus parts",
-    heroPriceNote: "Pads are priced for your car.",
+    heroPrice: "From £100",
+    heroPriceNote: "Your price depends on your car and is agreed before we start.",
     jobsHeading: "Brake work and prices",
     jobs: [
       {
         id: "brake-pads",
         name: "Brake pads",
-        price: "Labour £100 plus parts",
-        basis: "Labour £100 plus parts for your car.",
+        price: "From £100",
+        basis: "From £100. Your price depends on your car and is agreed before we start.",
         description: "New brake pads supplied and fitted where the car is parked.",
       },
     ],
     faqs: [
       {
-        question: "Is £100 the full price?",
-        answer: "No. £100 is the labour. The pads are priced for your car, and you'll know the full price before we come out.",
+        question: "How much are new brake pads?",
+        answer: "From £100. Your price depends on your car and is agreed before we start.",
       },
       {
         question: "What should I tell you about my brakes?",
@@ -180,7 +197,7 @@ export const careCategories: CareCategory[] = [
       PAY_ON_THE_DAY,
     ],
     seoTitle: "Mobile Brake Pad Replacement, East London & Essex",
-    seoDescription: "Brake pads replaced at your home or work across East London & Essex. Labour £100 plus parts, full price agreed before you book.",
+    seoDescription: "Brake pads replaced at your home or work across East London & Essex, from £100. Price agreed before we start.",
   },
   {
     slug: "diagnostics",

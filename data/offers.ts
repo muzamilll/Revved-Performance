@@ -53,7 +53,7 @@ export const offers: Offer[] = [
       "Health check before and after",
       "Lifetime software warranty (terms and conditions apply)"
     ],
-    price: { amount: 325, from: false },
+    price: { amount: 329, from: false },
     discount: null,
     startDate: null,
     endDate: null,
@@ -61,18 +61,11 @@ export const offers: Offer[] = [
     featured: true,
     terms: null,
     seoTitle: "ECU + TCU Stage 1 Remap Bundle",
-    seoDescription: "Stage 1 engine remap plus DSG / gearbox remap in one visit for £325. Mobile across East London & Essex.",
+    seoDescription: "Stage 1 engine remap plus DSG / gearbox remap in one visit for £329. Mobile across East London & Essex.",
     whatsappMessage: "Hi Revved, I'm interested in the ECU + TCU Stage 1 bundle.",
     eligibility: "For cars with a DSG or automatic gearbox we can remap. Your registration tells us if yours qualifies.",
-    // The bundle is about the saving. Both remaps include the health check before and after either way.
-    saving: {
-      headline: "Save at least £75.",
-      parts: [
-        { label: "Stage 1 remap (OBD)", price: "from £250" },
-        { label: "DSG / gearbox remap", price: "£150" }
-      ],
-      separately: "from £400"
-    },
+    // No "booked separately" price or saving until Rayyan decides the bundle (brief, 24 Nov):
+    // at current prices Stage 1 OBD (£179) plus a gearbox remap (£150) is also £329.
     note: "Send your reg and we'll send you the expected gains for your car."
   }
 ];

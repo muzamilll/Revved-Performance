@@ -14,7 +14,7 @@ import { cn } from "../../lib/utils";
 
 export const metadata: Metadata = {
   title: "Offers",
-  description: "Current Revved Performance offers, including the ECU + TCU Stage 1 bundle for £325. Mobile across East London & Essex.",
+  description: "Current Revved Performance offers, including the ECU + TCU Stage 1 bundle for £329. Mobile across East London & Essex.",
   alternates: { canonical: "/offers" },
 };
 
