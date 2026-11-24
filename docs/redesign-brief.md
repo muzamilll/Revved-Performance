@@ -115,7 +115,8 @@ must work well.
 ## 5. Hero
 
 - Message: "We come to you. You get on with your day." with services and
-  coverage easy to see.
+  coverage easy to see. Both lines in white (decided 24 Nov), so the promise
+  stands out against the plum.
 - Image: the rolled-road concept (a road rolling up to a British house at
   dusk, silver car on the driveway, plum background). File:
   `public/images/hero-road.png` once added. A refined version is coming: fixed
@@ -178,7 +179,7 @@ with a battery replacement.
 | One page per individual service | 2 |
 | Performance, Stage 1, Stage 2, gearbox (restyled existing pages) | 2 |
 | Guides list and article layout, plus first three articles | 2 |
-| About Revved (company details, Rayyan, Top Gear Tuning agency) | 2 |
+| About Revved (company voice: no individual named; company details, Top Gear Tuning agency) | 2 |
 | For garages (trade page, linked from the footer) | 2 |
 
 **Home page, in order:** header; hero; promise band; car care services
