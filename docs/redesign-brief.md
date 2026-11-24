@@ -1,6 +1,6 @@
 # Revved Performance redesign brief
 
-Last updated 15 November 2026. This is the reference for improving the site on
+Last updated 24 November 2026. This is the reference for improving the site on
 the `redesign/car-care-and-performance` branch. The live site on `main` is the
 old tuning-only version and stays untouched until the redesign is approved.
 
@@ -13,7 +13,9 @@ Related:
 
 - Brand kit: https://claude.ai/artifact/Do7yPdDT31A25nJ5X1pguj
 - Social templates: https://claude.ai/artifact/ELuhiijpxYgpnyCZTtdwru
-- Price sheet for Rayyan: https://claude.ai/artifact/4otvnF74eRdqoVQj8K3jW7
+- Price sheet (source of truth for prices, Google Sheet on info@revved.uk):
+  https://docs.google.com/spreadsheets/d/1hZ4v0JXgwYDXe2qCKzzn1Wu9hWq94WybHnRGV95zGZA/edit
+  (the older Claude price sheet artifact is out of date; do not use it)
 - Earlier design mock (superseded where this brief differs):
   https://claude.ai/artifact/RoQ3kzJxPZiSYJkA4r74ug
 
@@ -38,7 +40,8 @@ London & Essex, 7am to midnight. Battery call-outs run day and night.
 
 The site prepares a WhatsApp message. The customer presses Send in WhatsApp,
 and Revved confirms vehicle compatibility, the full price and availability.
-Nothing is paid online.
+Payment is taken on the day. (The line "Nothing is paid online" was removed
+from the site on 15 Nov.)
 
 **Step 1: Request details**
 
@@ -58,12 +61,17 @@ Rules:
 
 - Any service or offer button anywhere on the site opens the enquiry with that
   choice preselected.
-- No add-ons step. Required work (such as battery registration) is included in
-  the confirmed quote.
+- One enquiry can hold several jobs (added 15 Nov): add, remove and review
+  each with its price; the WhatsApp message lists them all.
+- No add-ons step. Remap and emissions add-ons are bookable items of their own
+  (emissions add-ons carry the road-legality note).
 - No outside services: no vehicle lookup API, database, payments or live
   calendar. Never show an identified car or a personalised price.
 - Wording: "Price agreed before you book", never "fixed price upfront" next to a
-  labour-only price. "Get started in a minute", not "Booked in a minute".
+  labour-only price. Never say "labour" in customer-facing copy: show a
+  discreet "from" before the price instead (Rayyan's decision, 22 Nov). Where
+  parts are extra, say "Your price depends on your car and is agreed before we
+  start". "Get started in a minute", not "Booked in a minute".
   Payment is on the day, when the job is done.
 
 ## 3. Mobile first, working on desktop
@@ -134,7 +142,7 @@ A dedicated page, linked in the navigation. Each offer's button opens the
 enquiry with that offer selected. The home page shows one compact
 featured-offer teaser linking here.
 
-**ECU + TCU Stage 1 bundle: £325 (fixed)**
+**ECU + TCU Stage 1 bundle: £329 (fixed, updated by Rayyan 22 Nov)**
 
 - Stage 1 ECU remap.
 - DSG / gearbox TCU remap.
@@ -150,23 +158,15 @@ featured-offer teaser linking here.
 | Gearbox | Factory shift points | Re-tuned to match the remapped engine |
 | Health check | None | Before and after the remap |
 | Warranty | None | Lifetime software warranty (T&Cs apply) |
-| Price | £400 booked separately | £325 |
 
 - Line under it: "Send us your reg and we'll send you the expected gains for
   your car." (Rayyan checks the Top Gear Tuning portal.)
+- Open question for Rayyan: at current prices, Stage 1 OBD (£179) plus a
+  gearbox remap (£150) also comes to £329, so the bundle shows no saving. Do
+  not show a "booked separately" price until he decides.
 
-**Winter Ready Check: £45 (proposal, preview only until Rayyan agrees)**
-
-- Battery health and cold-start test.
-- Charging-system check.
-- Coolant and antifreeze strength.
-- Tyre tread and pressures.
-- Lights and wipers check.
-- Winter screenwash top-up.
-- £20 off a new battery fitted on the same visit.
-
-Keep this offer hidden on the live site until approved (a status flag in the
-offers data).
+The Winter Ready Check offer was dropped on 15 Nov. Its checks are now free
+with a battery replacement.
 
 ## 8. Pages
 
@@ -179,6 +179,7 @@ offers data).
 | Performance, Stage 1, Stage 2, gearbox (restyled existing pages) | 2 |
 | Guides list and article layout, plus first three articles | 2 |
 | About Revved (company details, Rayyan, Top Gear Tuning agency) | 2 |
+| For garages (trade page, linked from the footer) | 2 |
 
 **Home page, in order:** header; hero; promise band; car care services
 (cream), with the dead-battery line; featured offer teaser; Performance (dark);
@@ -189,28 +190,51 @@ registered company line.
 First guides: how long a car battery lasts; minor or major service; what a
 Stage 1 remap changes.
 
+**For garages (trade page).** Backs up the garage outreach and catches garages
+searching for mobile tuning help. Linked in the footer, not the main menu.
+
+- Headline: "Tuning and diagnostics for your garage. We come to your workshop."
+- What we do for garages: Stage 1 remaps, DSG and gearbox tunes, DPF work,
+  coding and diagnostics: jobs a garage turns away or sends elsewhere today.
+- How it works: the garage books Revved, Revved comes to the workshop, the
+  customer stays the garage's customer, trade jobs are paid the same day.
+- Trade rates on request. No trade prices on the page.
+- One action: "Become a trade partner", opening WhatsApp with "Trade enquiry"
+  filled in.
+- A short section at the bottom: "Car clubs and creators: let's work
+  together", same WhatsApp button. No separate page yet.
+- Search terms to target: mobile remapping for garages, trade ECU remapping
+  East London, garage DPF and coding specialist.
+
 ## 9. Services and prices
 
-| Service | Price |
-|---|---|
-| Battery replacement | From £99 fitted; 3-year warranty |
-| Battery health check | £20 |
-| Emergency jump-start | £45 |
-| Alternator and charging-system check | £35 |
-| Battery registration and BMS reset | £25 |
-| Starting-system diagnosis | £40 |
-| Minor service | Labour £50 plus parts |
-| Major service | Labour £70 plus parts |
-| Brake pads | Labour £100 plus parts |
-| Full vehicle health check | £75 |
-| Pre-purchase inspection | £99 |
-| Pre-MOT check | £65 |
-| Stage 1 remap (OBD) | From £250 |
-| Stage 1 remap (bench) | From £350 |
-| Stage 2 remap | From £300 |
-| Gearbox (DSG / TCU) remap | £150 |
-| Remap add-ons | £50 each |
-| Emissions add-ons (off-road use, by enquiry) | £50 each |
+Prices as agreed with Rayyan on 22 Nov 2026. The price sheet (linked at the top)
+wins if anything here differs. "From" prices are labour; parts are agreed
+before the job.
+
+| Service | Price shown | Note |
+|---|---|---|
+| Battery fitting | From £99 | Battery priced for the car on WhatsApp; 3-year warranty on the battery |
+| Battery registration and BMS reset | £40 | Separate from fitting |
+| Battery health check | £20 | |
+| Emergency jump-start | £45 | 24/7 |
+| Alternator and charging-system check | £35 | |
+| Starting-system diagnosis | £40 | |
+| Minor service | From £50 | Parts extra, agreed before the job |
+| Major service | From £70 | Parts extra, agreed before the job |
+| Brake pads | From £100 | Parts extra, agreed before the job |
+| DPF service | £120 | |
+| Full vehicle health check | £75 | |
+| Pre-purchase inspection | £99 | |
+| Pre-MOT check | £65 | A diagnostic check, not an MOT |
+| Stage 1 remap (OBD) | From £179 | Was £250 |
+| Stage 1 remap (bench) | From £259 | Was £350 |
+| ECU + TCU Stage 1 bundle | £329 | See Offers |
+| Stage 2 remap | From £300 | Bench unlock included |
+| Gearbox (DSG / TCU) remap | £150 | |
+| Software solutions | £149 | Coding, ECU updates, fault investigation; EGR, DPF, AdBlue and swirl flap solutions, off-road and competition use only |
+| Remap add-ons | £50 each | |
+| Emissions add-ons (off-road use, by enquiry) | £50 each | |
 
 Minor service: oil and oil filter, safety check, fluid top-ups, service light
 reset. Major service adds air filter, cabin pollen filter, spark plugs and
@@ -238,8 +262,11 @@ a smooth enquiry-sheet transition. Keep normal scrolling, fast interaction and
 ## 12. Still to come
 
 - From Rayyan: battery prices by type, the 90-minute postcodes, parts and labour
-  warranty, street parking, agreement on the Winter Ready Check.
-- Refined hero image; a battery photo; real job photos.
+  warranty, street parking, the bundle comparison (see Offers).
+- Refined hero image; a battery photo.
+- Real job photos for Recent work: Mercedes C63 AMG, BMW 530d M Sport and
+  Peugeot Partner are in Google Drive (content > Ready to post, folders 03-05).
+  Do not show customers' number plates.
 - The two reviews: wording and first names.
 
 ## 13. After the site
@@ -248,3 +275,19 @@ A 90-day plan covering Meta ads, garage referral partnerships, content and
 local SEO, with weekly numbers: ad spend and cost per lead, quotes and jobs
 booked, average job value, new reviews, garages contacted and referred jobs,
 pages and guides published.
+
+Parked ideas, to pick up once the site is live (so Revved does not rely on ads
+alone):
+
+- Niche campaigns. First idea: a Driver Deal for Uber and PCO drivers, who lose
+  money every hour the car is off the road. Car care only, not remaps. Other
+  niches: tradespeople with vans, delivery drivers.
+- Blogs and guides that answer real searches: dead battery, DPF warning light,
+  is remapping safe, remapping and insurance, Stage 1 vs Stage 2, pre-purchase
+  checklist, mobile mechanic vs garage, mobile remapping for garages. Check
+  search volumes first.
+
+## 14. Hosting
+
+The live site is on Vercel's free Hobby plan, which does not allow commercial
+use. Move it (Cloudflare, or a paid Vercel plan) before or at launch.
