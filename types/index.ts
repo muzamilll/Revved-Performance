@@ -71,7 +71,8 @@ export type CareCategory = {
   cardPrice: string;
   cardPriceNote: string;
   primaryJobId: string;               // preselected by the category's main button
-  heroLabel?: string;                 // label over the hero price, when it isn't the main job's name
+  heroLabel?: string;
+  trustLine: string[];                // the page's own trust line (brief 5a)                 // label over the hero price, when it isn't the main job's name
   heroTitle: string;
   heroIntro: string;
   heroPrice: string;

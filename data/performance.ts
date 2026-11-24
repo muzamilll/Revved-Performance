@@ -29,6 +29,9 @@ export const remapJobs = remapServices.map((s) => ({
   indexable: s.indexable,
 }));
 
+// Trust line for the Performance page and every remap page (brief 5a)
+export const performanceTrustLine = ["Top Gear Tuning agent", "Health check before and after", "Lifetime software warranty"];
+
 // The four headline prices shown on the home page
 const homeItems: { slug: string; label: string; note: string }[] = [
   { slug: "stage-1-remap", label: "Stage 1 (OBD)", note: "Through the diagnostic port" },
@@ -59,4 +62,4 @@ export const performanceTrust: { title: string; text: string }[] = [
 ];
 
 // The add-ons line on the home page
-export const addOnsSummary = "Add-ons from £50 each: pops and bangs, speed limiter removal, launch control, and AdBlue, EGR, swirl flap or DPF delete (off-road use).";
+export const addOnsSummary = "Remap add-ons £50 each: pops and bangs, speed limiter removal and launch control.";

@@ -14,6 +14,6 @@ export const about = {
   values: [
     { title: "Your price first", text: "You know what you'll pay before we start. No surprises at the end." },
     { title: "Done where you are", text: "Home, work or the seller's driveway. 7am to midnight, every day." },
-    { title: "Proper kit", text: "Professional diagnostic and programming equipment, the same tools a dealer uses." },
+    { title: "Proper kit", text: "Professional Alientech programming tools and proper diagnostic equipment on every job." },
   ],
 };

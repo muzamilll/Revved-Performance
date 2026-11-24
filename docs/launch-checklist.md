@@ -1,5 +1,14 @@
 # Launch Checklist
 
+## Redesign launch (merge of `redesign/car-care-and-performance` into `main`)
+
+- [ ] Every redirect in `next.config.ts` switched to `permanent: true`
+- [ ] Site moved to Cloudflare (Vercel Hobby does not allow commercial use)
+- [ ] Clarity project ID and Search Console / Bing verification codes set
+- [ ] Rayyan has confirmed anything the site states about postcodes, warranty and street parking
+
+## Original launch checklist
+
 - [ ] Domain bought and set as `NEXT_PUBLIC_SITE_URL`
 - [ ] Hosting plan suitable for commercial use (check Vercel's terms)
 - [ ] Privacy and cookie text added (BLOCKS LAUNCH: Text not provided yet)

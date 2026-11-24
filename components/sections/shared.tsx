@@ -8,13 +8,13 @@ import { cn } from "../../lib/utils";
 
 export { Eyebrow, Heading };
 
-// The trust row. It sits along the bottom edge of each page hero, in the same plum,
-// divided by a hairline, so it reads as part of the hero rather than a separate strip.
+// The page's trust line (brief 5a): each landing page has its own, so the same promise
+// isn't repeated everywhere. It sits along the bottom of the hero, divided by a hairline.
 export function PromiseRow({ items, className }: { items: string[]; className?: string }) {
   return (
     <ul
       aria-label="Our promises"
-      className={cn("mt-10 grid grid-cols-2 gap-x-5 gap-y-3 border-t border-white/15 pt-5 text-[12px] font-bold uppercase leading-snug tracking-[0.12em] text-white lg:mt-14 lg:grid-cols-4 lg:gap-6 lg:pt-6", className)}
+      className={cn("mt-10 flex flex-col gap-3 border-t border-white/15 pt-5 text-[12px] font-bold uppercase leading-snug tracking-[0.12em] text-white sm:flex-row sm:flex-wrap sm:gap-x-10 lg:mt-14 lg:pt-6", className)}
     >
       {items.map((item) => (
         <li key={item} className="flex items-start gap-2.5">

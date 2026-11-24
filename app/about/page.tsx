@@ -21,12 +21,6 @@ export default function AboutPage() {
         chip={site.serviceAreaSummary}
         title={about.title}
         intro={<p>{about.intro}</p>}
-        promises={[
-          "Price agreed before we start",
-          "At your home or work",
-          "Top Gear Tuning agent",
-          "Registered UK company",
-        ]}
       />
 
       <Band>

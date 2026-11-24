@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { remapJobs, performanceTrust } from "../../data/performance";
+import { remapJobs, performanceTrust, performanceTrustLine } from "../../data/performance";
 import { remapFaqs } from "../../data/warranty";
 import { offers } from "../../data/offers";
 import { site } from "../../data/site";
@@ -60,12 +60,7 @@ export default function PerformancePage() {
             <WhatsAppLink className="w-full min-h-[48px] text-white" />
           </HeroPriceBox>
         }
-        promises={[
-          "Custom Top Gear Tuning file",
-          "Health check before and after",
-          "Lifetime software warranty",
-          "Pay on the day, when the job is done",
-        ]}
+        promises={performanceTrustLine}
       />
 
       <section className="relative isolate overflow-hidden bg-dark py-16 text-cream lg:py-24">

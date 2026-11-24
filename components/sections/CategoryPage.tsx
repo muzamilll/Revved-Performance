@@ -78,12 +78,7 @@ export function CategoryPage({ category }: { category: CareCategory }) {
             <WhatsAppLink className="w-full min-h-[48px] text-white" />
           </HeroPriceBox>
         }
-        promises={[
-          "Price agreed before you book",
-          "At your home or work",
-          batteries ? "3-year battery warranty" : `${site.hoursDisplay}, every day`,
-          "Pay on the day, when the job is done",
-        ]}
+        promises={category.trustLine}
       />
 
       <Band>

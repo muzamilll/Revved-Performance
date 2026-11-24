@@ -49,8 +49,9 @@ const columns: { heading: string; links: { label: string; href: string }[] }[] =
     heading: "Revved",
     links: [
       { label: "About Revved", href: "/about" },
+      { label: "Guides", href: "/guides" },
       { label: "Offers", href: "/offers" },
-      { label: "For garages", href: "/for-garages" },
+      { label: "Revved for business", href: "/business" },
       { label: "Areas we cover", href: "/#areas" },
       { label: "Questions", href: "/#questions" },
     ],

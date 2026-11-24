@@ -120,12 +120,6 @@ export default function OffersPage() {
         crumb="Offers"
         title="Offers"
         intro={<p>Fixed prices on jobs that go well together, at your home or work.</p>}
-        promises={[
-          "Fixed offer prices",
-          "At your home or work",
-          "Lifetime software warranty on remaps",
-          "Pay on the day, when the job is done",
-        ]}
       />
 
       <Band>

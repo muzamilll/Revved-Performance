@@ -4,8 +4,9 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       // Offers live on one page and remaps on /performance; old links land on the right page.
-      // Temporary (307) while the redesign is under review, so it can still be changed.
+      // Temporary (307) while the redesign is under review. AT LAUNCH: set every permanent: true (308).
       { source: "/offers/:slug", destination: "/offers", permanent: false },
+      { source: "/for-garages", destination: "/business", permanent: false },
       // The old services pages: each service now has one home
       { source: "/services", destination: "/performance", permanent: false },
       { source: "/services/pre-purchase-inspection", destination: "/diagnostics/pre-purchase-inspection", permanent: false },

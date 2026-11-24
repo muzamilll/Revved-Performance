@@ -30,6 +30,7 @@ export function ServicePage({
   faqs,
   siblings,
   path,
+  trustLine,
 }: {
   job: ServicePageJob;
   tone: "plum" | "dark";
@@ -38,6 +39,7 @@ export function ServicePage({
   faqs: { question: string; answer: string }[];
   siblings: (ServicePageJob & { href: string })[];
   path: string;
+  trustLine: string[];
 }) {
   const dark = tone === "dark";
   const amount = Number(job.price.replace(/[^0-9.]/g, "")) || undefined;
@@ -81,12 +83,7 @@ export function ServicePage({
             <WhatsAppLink className="w-full min-h-[48px] text-white" />
           </HeroPriceBox>
         }
-        promises={[
-          "Price agreed before you book",
-          "At your home or work",
-          `${site.hoursDisplay}, every day`,
-          "Pay on the day, when the job is done",
-        ]}
+        promises={trustLine}
       />
 
       {(job.includes?.length || job.note) && (

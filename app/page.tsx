@@ -26,12 +26,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-const promises = [
-  "Price agreed before you book",
-  "At your home or work",
-  "3-year battery warranty",
-  "Pay on the day, when the job is done",
-];
+const trustLine = ["No lift to the garage", "No waiting room", "No lost day"];
 
 export default function Home() {
   // The featured offer is always a published one, never a preview-only proposal
@@ -114,7 +109,7 @@ export default function Home() {
                 <span className="hero-rise whitespace-nowrap font-display text-[clamp(2.25rem,calc((100vw-3rem)/6.75),6rem)] lg:text-[clamp(4.5rem,7.4vw,6.75rem)] uppercase leading-[0.96] tracking-[0.005em]" style={{ "--i": 1 } as React.CSSProperties}>
                   We come to you.
                 </span>
-                <span className="hero-rise font-accent text-[clamp(1.55rem,7.2vw,2.75rem)] italic leading-[1.1] text-plum-tint" style={{ "--i": 2 } as React.CSSProperties}>
+                <span className="hero-rise font-accent text-[clamp(1.55rem,7.2vw,2.75rem)] italic leading-[1.1] text-white" style={{ "--i": 2 } as React.CSSProperties}>
                   You get on with your day.
                 </span>
               </h1>
@@ -154,7 +149,7 @@ export default function Home() {
         </Container>
 
         <Container className="relative z-10 pb-8 lg:pb-10">
-          <PromiseRow items={promises} className="mt-0 lg:mt-0" />
+          <PromiseRow items={trustLine} className="mt-0 lg:mt-0" />
         </Container>
       </section>
 

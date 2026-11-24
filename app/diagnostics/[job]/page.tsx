@@ -35,6 +35,7 @@ export default async function Page({ params }: { params: Promise<{ job: string }
       faqs={category.faqs}
       siblings={category.jobs.filter((j) => j.id !== job.id).map((j) => ({ ...j, href: `/diagnostics/${j.id}` }))}
       path={`/diagnostics/${job.id}`}
+      trustLine={category.trustLine}
     />
   );
 }

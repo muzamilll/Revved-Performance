@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { remapJobs } from "../../../data/performance";
+import { remapJobs, performanceTrustLine } from "../../../data/performance";
 import { remapFaqs } from "../../../data/warranty";
 import { ServicePage } from "../../../components/sections/ServicePage";
 
@@ -36,6 +36,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       faqs={remapFaqs}
       siblings={remapJobs.filter((j) => j.id !== job.id).map((j) => ({ ...j, href: `/performance/${j.id}` }))}
       path={`/performance/${job.id}`}
+      trustLine={performanceTrustLine}
     />
   );
 }
