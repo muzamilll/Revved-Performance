@@ -11,32 +11,16 @@ export function PerformanceSection() {
   return (
     <section
       id="performance"
-      data-perf=""
       className="relative isolate overflow-hidden bg-dark py-16 text-cream lg:py-24"
       style={{ backgroundImage: "linear-gradient(to bottom, #693C56 0, #150B12 22rem)" }}
     >
-      {/* Oversized outlined word, behind the heading. Drifts with the scroll on desktop. */}
+      {/* Oversized outlined word, behind the heading. Static: no scroll effects. */}
       <div
         aria-hidden="true"
-        data-perf-word=""
         className="pointer-events-none absolute -left-2 top-6 -z-10 select-none whitespace-nowrap font-display text-[clamp(4.5rem,19vw,17rem)] uppercase leading-none text-transparent [-webkit-text-stroke:1.5px_rgba(255,213,0,0.14)] lg:top-10"
       >
         Performance
       </div>
-
-      {/* Power curve: draws as the section scrolls in */}
-      <svg
-        aria-hidden="true"
-        data-perf-curve=""
-        viewBox="0 0 620 300"
-        fill="none"
-        className="pointer-events-none absolute -right-24 top-16 -z-10 w-[300px] opacity-30 sm:right-0 lg:right-12 lg:top-6 lg:w-[400px]"
-      >
-        <path pathLength={1} d="M0 290 C 120 280, 200 240, 290 150 S 440 40, 520 34 S 590 60, 620 90" stroke="#FFD500" strokeWidth="2.5" />
-        <path pathLength={1} d="M0 296 C 140 270, 240 200, 330 150 S 480 110, 620 130" stroke="#E3C2D3" strokeWidth="1.5" />
-        <circle cx="520" cy="34" r="6" fill="#FFD500" />
-        <circle cx="520" cy="34" r="14" stroke="#FFD500" strokeWidth="1" />
-      </svg>
 
       <div className="mx-auto w-full max-w-[1440px] px-6 md:px-8 lg:px-12">
         <BandHeader

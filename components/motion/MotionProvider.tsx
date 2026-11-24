@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 // All motion on the site, in one place, with GSAP:
 //   - the hero entrance (.hero-rise, .hero-art), held until the first-visit loader lifts
 //   - section reveals ([data-reveal]), started just before a section reaches the screen
-//   - the Performance section ([data-perf]): the power curve draws and the outlined word drifts
 // GSAP is loaded after the page is interactive, so it never delays the booking form.
 // Visitors who prefer reduced motion get everything in place, with no movement.
 
@@ -61,35 +60,6 @@ export function MotionProvider() {
               scrollTrigger: { trigger: el, start: "top bottom+=80", once: true },
             }
           );
-        });
-
-        // Performance: the power curve draws, the outlined word drifts (desktop only)
-        gsap.utils.toArray<HTMLElement>("[data-perf]").forEach((section) => {
-          const paths = section.querySelectorAll<SVGPathElement>("[data-perf-curve] path");
-          const dots = section.querySelectorAll<SVGCircleElement>("[data-perf-curve] circle");
-          const word = section.querySelector<HTMLElement>("[data-perf-word]");
-
-          gsap.set(paths, { strokeDasharray: 1, strokeDashoffset: 1 });
-          gsap.set(dots, { opacity: 0, scale: 0.4, transformOrigin: "50% 50%" });
-
-          if (mobile) {
-            const tl = gsap.timeline({ scrollTrigger: { trigger: section, start: "top 75%", once: true } });
-            tl.to(paths, { strokeDashoffset: 0, duration: 1.2, stagger: 0.15, ease: "power2.out" })
-              .to(dots, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, "-=0.25");
-          } else {
-            const tl = gsap.timeline({
-              scrollTrigger: { trigger: section, start: "top 80%", end: "top 20%", scrub: 0.6 },
-            });
-            tl.to(paths, { strokeDashoffset: 0, stagger: 0.1, ease: "none" })
-              .to(dots, { opacity: 1, scale: 1, ease: "none", duration: 0.15 });
-            if (word) {
-              gsap.fromTo(
-                word,
-                { xPercent: 3 },
-                { xPercent: -5, ease: "none", scrollTrigger: { trigger: section, start: "top bottom", end: "bottom top", scrub: true } }
-              );
-            }
-          }
         });
       });
 

@@ -85,7 +85,7 @@ export function BandHeader({
 export const cardClass: Record<Tone, string> = {
   cream: "rounded-xl border border-line bg-white",
   plum: "rounded-xl border border-white/15 bg-white/[0.07]",
-  dark: "rounded-xl border border-white/10 bg-white/[0.05] backdrop-blur-[6px]",
+  dark: "rounded-xl border border-white/10 bg-white/[0.05]",
 };
 
 // Press and hover feedback for cards that are links or buttons
