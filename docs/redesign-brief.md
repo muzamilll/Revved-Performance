@@ -117,6 +117,8 @@ must work well.
 - Message: "We come to you. You get on with your day." with services and
   coverage easy to see. Both lines in white (decided 24 Nov), so the promise
   stands out against the plum.
+- The link under the buttons reads "Want more power? See Performance"
+  (decided 24 Nov).
 - Image: the rolled-road concept (a road rolling up to a British house at
   dusk, silver car on the driveway, plum background). File:
   `public/images/hero-road.png` once added. A refined version is coming: fixed
@@ -149,6 +151,12 @@ Keep the Performance section from the redesign mock: plum glow from the top,
 the oversized outlined PERFORMANCE word, "More from your car.", three glass
 trust cards, the dyno-curve watermark graphic, prices, and the emissions
 disclaimer. Only adjust it for mobile and consistency.
+
+The emissions add-ons stay listed on the Performance page (decided 24 Nov).
+Point remap ads at `/performance/stage-1-remap`, not `/performance`.
+
+Rayyan confirmed (24 Nov) that the original ECU software is always saved
+before a remap, so the car can go back to standard. The site may say so.
 
 Do not use the prototype's ECU + TCU graphic or "Better. Together." layout.
 
