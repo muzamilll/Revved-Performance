@@ -29,7 +29,7 @@ export function PromiseRow({ items, className }: { items: string[]; className?: 
 export function HowItWorks() {
   return (
     <Band className="border-t border-line">
-      <BandHeader eyebrow="How it works" title="Booked in a minute." />
+      <BandHeader eyebrow="How it works" title="Get started in a minute." />
       <ol className="grid gap-4 lg:grid-cols-3 lg:gap-5">
         {howItWorks.map((item, i) => (
           <li key={item.title} className={cn(cardClass.cream, "flex gap-4 p-6 lg:flex-col lg:gap-3 lg:p-7")}>

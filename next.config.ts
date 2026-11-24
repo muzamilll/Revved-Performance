@@ -8,10 +8,10 @@ const nextConfig: NextConfig = {
       { source: "/offers/:slug", destination: "/offers", permanent: false },
       // The old services pages: each service now has one home
       { source: "/services", destination: "/performance", permanent: false },
-      { source: "/services/vehicle-diagnostics", destination: "/diagnostics", permanent: false },
-      { source: "/services/pre-purchase-inspection", destination: "/diagnostics", permanent: false },
-      { source: "/services/pre-mot-check", destination: "/diagnostics", permanent: false },
-      { source: "/services/:slug", destination: "/performance", permanent: false },
+      { source: "/services/pre-purchase-inspection", destination: "/diagnostics/pre-purchase-inspection", permanent: false },
+      { source: "/services/pre-mot-check", destination: "/diagnostics/pre-mot-check", permanent: false },
+      { source: "/services/vehicle-diagnostics", destination: "/diagnostics/vehicle-diagnostics", permanent: false },
+      { source: "/services/:slug", destination: "/performance/:slug", permanent: false },
     ];
   },
 };

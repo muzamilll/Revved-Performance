@@ -168,11 +168,3 @@ export type SiteData = {
     email: string;
   };
 };
-
-export type AboutData = {
-  heading: string;
-  body: string;
-  personName: string | null;
-  role: string | null;
-  photo: { src: string; alt: string } | null;
-} | null;

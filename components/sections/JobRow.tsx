@@ -1,4 +1,5 @@
 import * as React from "react";
+import Link from "next/link";
 import { Check, ChevronDown } from "lucide-react";
 import { EnquiryButton } from "../enquiry/EnquiryButton";
 import { cn } from "../../lib/utils";
@@ -14,6 +15,7 @@ export function JobRow({
   note,
   tone = "cream",
   anchor,
+  href,
 }: {
   id: string;
   name: string;
@@ -23,6 +25,7 @@ export function JobRow({
   note?: string;           // small print under the job, e.g. the emissions disclaimer
   tone?: "cream" | "dark";
   anchor?: string;
+  href?: string;           // the job's own page
 }) {
   const dark = tone === "dark";
   return (
@@ -34,7 +37,13 @@ export function JobRow({
       )}
     >
       <div className="min-w-0">
-        <h3 className="text-[20px] font-semibold tracking-[-0.01em]">{name}</h3>
+        <h3 className="text-[20px] font-semibold tracking-[-0.01em]">
+          {href ? (
+            <Link href={href} className="underline decoration-1 underline-offset-4 decoration-current/30 hover:decoration-current">{name}</Link>
+          ) : (
+            name
+          )}
+        </h3>
         <p className={cn("mt-1.5 max-w-xl text-[15px] leading-relaxed", dark ? "text-white/75" : "text-ink-soft")}>{description}</p>
         {includes && includes.length > 0 && (
           <details className="group mt-3">

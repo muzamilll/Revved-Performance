@@ -24,6 +24,9 @@ export const remapJobs = remapServices.map((s) => ({
   description: s.shortDescription ?? "",
   includes: s.includedItems ?? undefined,
   note: s.emissionsRelated ? emissionsDisclaimer : undefined,
+  seoTitle: s.seoTitle,
+  seoDescription: s.seoDescription,
+  indexable: s.indexable,
 }));
 
 // The four headline prices shown on the home page

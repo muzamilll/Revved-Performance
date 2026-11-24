@@ -9,6 +9,7 @@ import { cn } from "../../lib/utils";
 export function PageHero({
   tone = "plum",
   crumb,
+  parents = [],
   chip,
   title,
   intro,
@@ -17,6 +18,7 @@ export function PageHero({
 }: {
   tone?: "plum" | "dark";
   crumb: string;
+  parents?: { label: string; href: string }[];   // breadcrumb steps between Home and this page
   chip?: string;
   title: React.ReactNode;
   intro: React.ReactNode;
@@ -34,10 +36,16 @@ export function PageHero({
     >
       <Container className="pt-5 pb-8 lg:pt-10 lg:pb-12">
         <nav aria-label="Breadcrumb" className="hero-rise text-[13px] text-white/70" style={{ "--i": 0 } as React.CSSProperties}>
-          <ol className="flex items-center gap-2">
+          <ol className="flex min-w-0 items-center gap-2">
             <li><Link href="/" className="inline-flex min-h-[44px] items-center underline-offset-4 hover:text-white hover:underline">Home</Link></li>
+            {parents.map((p) => (
+              <li key={p.href} className="flex items-center gap-2">
+                <span aria-hidden="true">/</span>
+                <Link href={p.href} className="inline-flex min-h-[44px] items-center underline-offset-4 hover:text-white hover:underline">{p.label}</Link>
+              </li>
+            ))}
             <li aria-hidden="true">/</li>
-            <li aria-current="page" className="font-semibold text-white">{crumb}</li>
+            <li aria-current="page" className="min-w-0 truncate font-semibold text-white">{crumb}</li>
           </ol>
         </nav>
 

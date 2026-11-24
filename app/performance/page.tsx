@@ -74,7 +74,7 @@ export default function PerformancePage() {
             <BandHeader tone="dark" eyebrow="Remaps" title="Remaps and prices" className="mb-0 lg:mb-0 lg:block" />
             <ul className="border-b border-white/10">
               {remapJobs.map((job) => (
-                <JobRow key={job.id} anchor={job.id} tone="dark" {...job} />
+                <JobRow key={job.id} anchor={job.id} tone="dark" href={`/performance/${job.id}`} {...job} />
               ))}
             </ul>
           </div>
