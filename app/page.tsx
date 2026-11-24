@@ -128,7 +128,7 @@ export default function Home() {
                 className="hero-rise mt-3 inline-flex min-h-[44px] items-center gap-2 text-[15px] font-semibold text-plate underline-offset-4 hover:underline"
                 style={{ "--i": 5 } as React.CSSProperties}
               >
-                After a remap? See Performance
+                Want more power? See Performance
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </a>
             </div>

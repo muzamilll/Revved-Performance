@@ -76,6 +76,7 @@ export default function BusinessPage() {
       <PageHero
         tone="dark"
         crumb="Revved for business"
+        image={{ name: "business", alt: "Revved Performance working with a business" }}
         chip="Trade"
         title="Your mobile specialist, on call."
         intro={<p>Tuning, diagnostics, batteries and servicing for businesses across {site.serviceAreaSummary}. We come to your premises.</p>}

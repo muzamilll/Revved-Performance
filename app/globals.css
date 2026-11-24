@@ -77,27 +77,34 @@
   }
 }
 
-/* Hero entrance: one coordinated rise, content first, artwork last.
-   Runs from CSS alone, so nothing waits for JavaScript. */
+/* Hero entrance (GSAP, components/motion/MotionProvider.tsx). With JavaScript on, hero
+   elements start hidden and GSAP brings them in once the loader has lifted. If GSAP hasn't
+   started after 2.5s for any reason, CSS shows them anyway, so nothing is ever left hidden.
+   Without JavaScript, or with reduced motion, they are simply visible. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .hero-rise {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  html.js .hero-art {
+    opacity: 0;
+    transform: translateY(18px) scale(1.015);
+  }
+
+  html.js:not(.motion-ready) .hero-rise,
+  html.js:not(.motion-ready) .hero-art {
+    animation: hero-show 0.4s ease-out 2.5s forwards;
+  }
+}
+
+@keyframes hero-show {
+  to { opacity: 1; transform: none; }
+}
+
 @keyframes hero-rise {
   from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: none; }
-}
-
-@keyframes hero-art {
-  from { opacity: 0; transform: translateY(18px) scale(1.015); }
-  to { opacity: 1; transform: none; }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .hero-rise {
-    animation: hero-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
-    animation-delay: calc(var(--i, 0) * 80ms);
-  }
-
-  .hero-art {
-    animation: hero-art 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
-  }
 }
 
 /* Smooth open and close for <details> (questions, "What's included"), where the browser supports it */
@@ -170,31 +177,4 @@ html.no-loader #boot-loader { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
   #boot-loader { display: none; }
-}
-
-/* While the first-visit loader is up, hold the hero entrance until it lifts */
-@media (prefers-reduced-motion: no-preference) {
-  html:not(.no-loader) .hero-rise {
-    animation-delay: calc(0.95s + var(--i, 0) * 80ms);
-  }
-
-  html:not(.no-loader) .hero-art {
-    animation-delay: 1.1s;
-  }
-}
-
-/* Hero artwork: fade its top (and, beside the text, its left edge) into the plum,
-   so small tone differences in the backdrop never show as an edge */
-.hero-art-mask {
-  mask-image: linear-gradient(to bottom, transparent 0, #000 14%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14%);
-}
-
-@media (min-width: 768px) {
-  .hero-art-mask {
-    mask-image: linear-gradient(to right, transparent 0, #000 20%), linear-gradient(to bottom, transparent 0, #000 14%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 20%), linear-gradient(to bottom, transparent 0, #000 14%);
-    mask-composite: intersect;
-    -webkit-mask-composite: source-in;
-  }
 }

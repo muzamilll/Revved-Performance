@@ -10,6 +10,7 @@ import { BottomBar } from "../components/layout/BottomBar";
 import { EnquiryProvider } from "../components/enquiry/EnquiryProvider";
 import { ConsentBanner } from "../components/consent/ConsentBanner";
 import { AnalyticsScripts } from "../components/analytics/AnalyticsScripts";
+import { MotionProvider } from "../components/motion/MotionProvider";
 import { getEnquiryChoices } from "../lib/enquiry";
 
 // All three families are self-hosted (app/fonts). Nothing is fetched from Google at build or run time.
@@ -78,10 +79,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${anton.variable} ${oldStandard.variable}`} suppressHydrationWarning>
       <body className="min-h-screen flex flex-col">
-        {/* First visit in a session only: mark later views so the loader is skipped */}
+        {/* Marks JavaScript as on (for the hero entrance), and skips the loader after the first view in a session */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{if(sessionStorage.getItem("rp-seen")){document.documentElement.classList.add("no-loader")}else{sessionStorage.setItem("rp-seen","1")}}catch(e){}`,
+            __html: `document.documentElement.classList.add("js");try{if(sessionStorage.getItem("rp-seen")){document.documentElement.classList.add("no-loader")}else{sessionStorage.setItem("rp-seen","1")}}catch(e){}`,
           }}
         />
         <div id="boot-loader" aria-hidden="true">
@@ -98,6 +99,7 @@ export default function RootLayout({
         </EnquiryProvider>
         <ConsentBanner />
         <AnalyticsScripts />
+        <MotionProvider />
       </body>
     </html>
   );

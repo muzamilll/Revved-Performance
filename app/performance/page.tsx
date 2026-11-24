@@ -51,6 +51,7 @@ export default function PerformancePage() {
       <PageHero
         tone="dark"
         crumb="Performance"
+        image={{ name: "performance", alt: "ECU remapping at your door with Revved Performance" }}
         chip="Top Gear Tuning agent"
         title="More from your car."
         intro={<p>ECU and gearbox remapping at your home or work, with a file written for your engine and a lifetime software warranty.</p>}

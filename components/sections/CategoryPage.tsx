@@ -69,6 +69,7 @@ export function CategoryPage({ category }: { category: CareCategory }) {
 
       <PageHero
         crumb={category.name}
+        image={{ name: category.slug, alt: `${category.name} at your door with Revved Performance` }}
         chip={batteries ? "Day or night" : site.hoursDisplay}
         title={category.heroTitle}
         intro={<p>{category.heroIntro}</p>}

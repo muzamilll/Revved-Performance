@@ -2,6 +2,7 @@ import * as React from "react";
 import Link from "next/link";
 import { Container } from "../layout/layout-primitives";
 import { PromiseRow } from "./shared";
+import { HeaderImage, hasHeaderSlot } from "./HeaderImage";
 import { cn } from "../../lib/utils";
 
 // The hero for every inner page: breadcrumb, chip, heading, intro, and a price box on the right.
@@ -15,6 +16,7 @@ export function PageHero({
   intro,
   aside,
   promises,
+  image,
 }: {
   tone?: "plum" | "dark";
   crumb: string;
@@ -24,7 +26,24 @@ export function PageHero({
   intro: React.ReactNode;
   aside?: React.ReactNode;
   promises?: string[];
+  image?: { name: string; alt: string };   // page header image (public/images/headers/<name>.webp)
 }) {
+  const withImage = !!image && hasHeaderSlot(image.name);
+  const heading = (
+    <>
+      {chip && (
+        <p className="hero-rise" style={{ "--i": 1 } as React.CSSProperties}>
+          <span className="inline-block rounded-sm bg-plate px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-ink">{chip}</span>
+        </p>
+      )}
+      <h1 className="hero-rise mt-4 max-w-[17ch] text-[clamp(2.25rem,9.4vw,4.25rem)] font-semibold leading-[1.02] tracking-[-0.025em] text-balance" style={{ "--i": 2 } as React.CSSProperties}>
+        {title}
+      </h1>
+      <div className="hero-rise mt-4 max-w-[34rem] text-[17px] leading-relaxed text-white/80 lg:text-[18px]" style={{ "--i": 3 } as React.CSSProperties}>
+        {intro}
+      </div>
+    </>
+  );
   return (
     <section
       className={cn("relative isolate overflow-hidden text-white", tone === "plum" ? "bg-plum" : "bg-dark")}
@@ -49,22 +68,22 @@ export function PageHero({
           </ol>
         </nav>
 
-        <div className={cn("mt-2 grid gap-8 lg:mt-6 lg:items-end lg:gap-16", aside && "lg:grid-cols-[minmax(0,1fr)_minmax(0,25rem)]")}>
-          <div>
-            {chip && (
-              <p className="hero-rise" style={{ "--i": 1 } as React.CSSProperties}>
-                <span className="inline-block rounded-sm bg-plate px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-ink">{chip}</span>
-              </p>
-            )}
-            <h1 className="hero-rise mt-4 max-w-[17ch] text-[clamp(2.25rem,9.4vw,4.25rem)] font-semibold leading-[1.02] tracking-[-0.025em] text-balance" style={{ "--i": 2 } as React.CSSProperties}>
-              {title}
-            </h1>
-            <div className="hero-rise mt-4 max-w-[34rem] text-[17px] leading-relaxed text-white/80 lg:text-[18px]" style={{ "--i": 3 } as React.CSSProperties}>
-              {intro}
+        {withImage ? (
+          // With a header image: text and price box on the left, image on the right.
+          // On phones the price box stays in the first screen and the image follows it.
+          <div className="mt-2 grid gap-8 lg:mt-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] lg:items-center lg:gap-16 xl:grid-cols-[minmax(0,1fr)_minmax(0,32rem)]">
+            <div>
+              {heading}
+              {aside && <div className="hero-rise mt-8 max-w-[25rem]" style={{ "--i": 4 } as React.CSSProperties}>{aside}</div>}
             </div>
+            <HeaderImage name={image!.name} alt={image!.alt} />
           </div>
-          {aside && <div className="hero-rise" style={{ "--i": 4 } as React.CSSProperties}>{aside}</div>}
-        </div>
+        ) : (
+          <div className={cn("mt-2 grid gap-8 lg:mt-6 lg:items-end lg:gap-16", aside && "lg:grid-cols-[minmax(0,1fr)_minmax(0,25rem)]")}>
+            <div>{heading}</div>
+            {aside && <div className="hero-rise" style={{ "--i": 4 } as React.CSSProperties}>{aside}</div>}
+          </div>
+        )}
 
         {promises && <PromiseRow items={promises} />}
       </Container>

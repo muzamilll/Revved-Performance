@@ -20,7 +20,7 @@ const WHERE_IS_IT_DONE = {
 export const careCategories: CareCategory[] = [
   {
     slug: "batteries",
-    trustLine: ["24/7 call-outs", "3-year battery warranty", "Registered to your car on the spot"],
+    trustLine: ["24/7 call-outs", "3-year battery warranty", "Fitted at your door"],
     name: "Batteries",
     cardSummary: "Fitting, testing and help when your car won't start.",
     cardPrice: "Fitting from £99",
