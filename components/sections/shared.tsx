@@ -3,6 +3,7 @@ import { ChevronDown } from "lucide-react";
 import { EnquiryButton } from "../enquiry/EnquiryButton";
 import { WhatsAppLink, CallLink } from "../ui/actions";
 import { Band, BandHeader, Eyebrow, Heading, cardClass } from "./Band";
+import { Skyline } from "./personality";
 import { howItWorks } from "../../data/care";
 import { cn } from "../../lib/utils";
 
@@ -94,9 +95,9 @@ export function FaqSection({
 }
 
 // Final call (plum). One of the two places Anton appears, with the hero.
-export function FinalCall({ choice }: { choice?: string }) {
+export function FinalCall({ choice, skyline }: { choice?: string; skyline?: boolean }) {
   return (
-    <Band tone="plum" className="py-20 lg:py-28">
+    <Band tone="plum" className={cn("isolate overflow-hidden py-20 lg:py-28", skyline && "pb-[240px] sm:pb-[280px] lg:pb-[320px]")} style={skyline ? { backgroundImage: "linear-gradient(to bottom, #693C56 30%, #7E4767 100%)" } : undefined} backdrop={skyline ? <Skyline /> : undefined}>
       <div className="flex flex-col items-center text-center">
         <p className="text-[12px] font-bold uppercase tracking-[0.2em] text-white/70">Your day doesn&apos;t need a detour.</p>
         <h2 className="mt-4 font-display text-[clamp(2.25rem,calc((100vw-3rem)/6.75),7.5rem)] uppercase leading-[0.96] tracking-[0.005em]">

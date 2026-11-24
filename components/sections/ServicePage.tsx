@@ -7,8 +7,7 @@ import { PageHero, HeroPriceBox } from "./PageHero";
 import { Band, BandHeader, cardClass, cardInteractive } from "./Band";
 import { FaqSection, FinalCall, HowItWorks } from "./shared";
 import { site } from "../../data/site";
-import { locations } from "../../data/locations";
-import { absoluteUrl, getSiteUrl } from "../../lib/seo";
+import { absoluteUrl, areaServedLd, getSiteUrl } from "../../lib/seo";
 import { getWhatsAppNumber } from "../../lib/whatsapp";
 import { cn } from "../../lib/utils";
 
@@ -51,7 +50,7 @@ export function ServicePage({
     "description": job.description,
     "url": absoluteUrl(path),
     "provider": { "@type": "AutomotiveBusiness", "@id": `${getSiteUrl()}/#business`, "name": site.name, "telephone": `+${getWhatsAppNumber()}`, "url": getSiteUrl() },
-    "areaServed": locations.map((l) => ({ "@type": "City", "name": l.name })),
+    "areaServed": areaServedLd(),
     ...(amount ? { "offers": { "@type": "Offer", "price": amount, "priceCurrency": "GBP" } } : {}),
   };
   const breadcrumbLd = {

@@ -5,9 +5,8 @@ import { remapJobs, performanceTrust, performanceTrustLine } from "../../data/pe
 import { remapFaqs } from "../../data/warranty";
 import { offers } from "../../data/offers";
 import { site } from "../../data/site";
-import { locations } from "../../data/locations";
 import { formatOfferPrice, getOffersForDisplay } from "../../lib/offers";
-import { absoluteUrl, getSiteUrl } from "../../lib/seo";
+import { absoluteUrl, areaServedLd, getSiteUrl } from "../../lib/seo";
 import { getWhatsAppNumber } from "../../lib/whatsapp";
 import { EnquiryButton } from "../../components/enquiry/EnquiryButton";
 import { WhatsAppLink } from "../../components/ui/actions";
@@ -34,7 +33,7 @@ export default function PerformancePage() {
     "name": "Mobile ECU remapping",
     "url": absoluteUrl("/performance"),
     "provider": { "@type": "AutomotiveBusiness", "@id": `${getSiteUrl()}/#business`, "name": site.name, "telephone": `+${getWhatsAppNumber()}`, "url": getSiteUrl() },
-    "areaServed": locations.map((l) => ({ "@type": "City", "name": l.name })),
+    "areaServed": areaServedLd(),
   };
   const faqLd = {
     "@context": "https://schema.org",

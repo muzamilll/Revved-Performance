@@ -3,10 +3,9 @@ import { ArrowRight } from "lucide-react";
 import { site } from "../data/site";
 import { services } from "../data/services";
 import { offers } from "../data/offers";
-import { locations } from "../data/locations";
 import { faqs } from "../data/faqs";
 import { careCategories } from "../data/care";
-import { absoluteUrl, getSiteUrl } from "../lib/seo";
+import { absoluteUrl, areaServedLd, getSiteUrl } from "../lib/seo";
 import { getWhatsAppNumber } from "../lib/whatsapp";
 import { getOffersForDisplay } from "../lib/offers";
 
@@ -15,7 +14,8 @@ import { Img } from "../components/ui/Img";
 import { EnquiryButton } from "../components/enquiry/EnquiryButton";
 import { WhatsAppLink } from "../components/ui/actions";
 import { FaqSection, FinalCall, PromiseRow } from "../components/sections/shared";
-import { Areas, CareServices, OfferBand, RecentWork } from "../components/sections/home";
+import { CareServices, OfferBand, RecentWork } from "../components/sections/home";
+import { AreasCovered, ChatStrip, IfCards } from "../components/sections/personality";
 import { PerformanceSection } from "../components/sections/PerformanceSection";
 
 export const metadata: Metadata = {
@@ -50,7 +50,7 @@ export default function Home() {
     },
     "telephone": `+${getWhatsAppNumber()}`,
     "priceRange": "££",
-    "areaServed": locations.map(l => ({ "@type": "City", "name": l.name })),
+    "areaServed": areaServedLd(),
     "sameAs": [site.social.instagram, site.social.facebook].filter(Boolean),
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
@@ -153,7 +153,11 @@ export default function Home() {
         </Container>
       </section>
 
+      <IfCards />
+
       <CareServices />
+
+      <ChatStrip />
 
       {featuredOffer && <OfferBand offer={featuredOffer} />}
 
@@ -161,11 +165,11 @@ export default function Home() {
 
       <RecentWork />
 
-      <Areas />
+      <AreasCovered />
 
-      <FaqSection id="questions" title="Before you book." items={faqs} />
+      <FaqSection id="questions" title="Good to know." items={faqs} />
 
-      <FinalCall />
+      <FinalCall skyline />
     </>
   );
 }

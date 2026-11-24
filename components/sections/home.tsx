@@ -6,7 +6,6 @@ import { Img } from "../ui/Img";
 import { CareIcon } from "./CareIcon";
 import { Band, BandHeader, cardClass, cardInteractive } from "./Band";
 import { careCategories } from "../../data/care";
-import { locations } from "../../data/locations";
 import { workPhotos, workReviews } from "../../data/work";
 import { formatOfferPrice } from "../../lib/offers";
 import { isPreviewBuild } from "../../lib/env";
@@ -165,23 +164,6 @@ export function RecentWork() {
           ))}
         </ul>
       )}
-    </Band>
-  );
-}
-
-export function Areas() {
-  return (
-    <Band id="areas" className="border-t border-line">
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,24rem)_minmax(0,1fr)] lg:gap-14">
-        <BandHeader eyebrow="Close to home" title="East London. Essex. Your door." aside="Add your postcode when you book." className="mb-0 lg:mb-0 lg:block [&>div:last-child]:mt-4" />
-        <ul className="flex flex-wrap content-start gap-2" aria-label="Towns we cover">
-          {locations.map((location) => (
-            <li key={location.slug} className="rounded-full border border-line bg-white px-4 py-2 text-[14px] font-medium">
-              {location.name}
-            </li>
-          ))}
-        </ul>
-      </div>
     </Band>
   );
 }

@@ -19,3 +19,13 @@ export function isItemIndexable(item: Service | Offer): boolean {
   if (!item.seoTitle || !item.seoDescription) return false;
   return true;
 }
+
+// Where Revved works: anywhere within 20 miles of Ilford (structured data)
+export function areaServedLd() {
+  return {
+    "@type": "GeoCircle",
+    "geoMidpoint": { "@type": "GeoCoordinates", "latitude": 51.559, "longitude": 0.0741 },
+    "geoRadius": 32187,
+    "description": "Within 20 miles of Ilford, East London and Essex",
+  };
+}

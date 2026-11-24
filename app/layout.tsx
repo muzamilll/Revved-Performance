@@ -40,6 +40,15 @@ const oldStandard = localFont({
   display: "swap",
 });
 
+// Handwritten notes (decorative, at most two on the home page)
+const caveat = localFont({
+  src: "./fonts/caveat-latin-600-normal.woff2",
+  weight: "600",
+  style: "normal",
+  variable: "--font-caveat",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: {
@@ -77,7 +86,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${anton.variable} ${oldStandard.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${anton.variable} ${oldStandard.variable} ${caveat.variable}`} suppressHydrationWarning>
       <body className="min-h-screen flex flex-col">
         {/* Marks JavaScript as on (for the hero entrance), and skips the loader after the first view in a session */}
         <script

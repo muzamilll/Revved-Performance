@@ -10,9 +10,8 @@ import { PageHero, HeroPriceBox } from "./PageHero";
 import { JobRow } from "./JobRow";
 import { cn } from "../../lib/utils";
 import { careCategories } from "../../data/care";
-import { locations } from "../../data/locations";
 import { site } from "../../data/site";
-import { absoluteUrl, getSiteUrl } from "../../lib/seo";
+import { absoluteUrl, areaServedLd, getSiteUrl } from "../../lib/seo";
 import { getWhatsAppNumber } from "../../lib/whatsapp";
 import { CareCategory } from "../../types";
 
@@ -35,7 +34,7 @@ export function CategoryPage({ category }: { category: CareCategory }) {
       "telephone": `+${getWhatsAppNumber()}`,
       "url": getSiteUrl()
     },
-    "areaServed": locations.map(l => ({ "@type": "City", "name": l.name }))
+    "areaServed": areaServedLd()
   };
 
   const breadcrumbLd = {

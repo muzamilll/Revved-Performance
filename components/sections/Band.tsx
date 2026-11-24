@@ -21,6 +21,7 @@ export function Band({
   containerClassName,
   children,
   style,
+  backdrop,
 }: {
   tone?: Tone;
   id?: string;
@@ -29,9 +30,11 @@ export function Band({
   containerClassName?: string;
   children: React.ReactNode;
   style?: React.CSSProperties;
+  backdrop?: React.ReactNode;   // decorative layer behind the content (e.g. the skyline)
 }) {
   return (
     <section id={id} aria-label={label} className={cn("relative py-16 lg:py-24", toneClass[tone], className)} style={style}>
+      {backdrop}
       <Container className={containerClassName}>
         <Reveal>{children}</Reveal>
       </Container>
