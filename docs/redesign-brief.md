@@ -199,8 +199,12 @@ repeated on every page. Facts only; nothing Rayyan has not confirmed.
 
 Keep the Performance section from the redesign mock: plum glow from the top,
 the oversized outlined PERFORMANCE word, "More from your car.", three glass
-trust cards, the dyno-curve watermark graphic, prices, and the emissions
-disclaimer. Only adjust it for mobile and consistency.
+trust cards, prices, and the emissions disclaimer. Only adjust it for mobile
+and consistency.
+
+No power curve on Performance (decided 24 Nov): the animated curve was
+removed because it didn't look good. Don't add a curve graphic, watermark or
+scroll effect back. The real stock-vs-Stage-1 graphs live on social posts.
 
 The emissions add-ons stay listed on the Performance page (decided 24 Nov).
 Point remap ads at `/performance/stage-1-remap`, not `/performance`.
