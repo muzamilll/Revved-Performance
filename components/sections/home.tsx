@@ -3,67 +3,83 @@ import { ArrowRight, MessageCircle } from "lucide-react";
 import { EnquiryButton } from "../enquiry/EnquiryButton";
 import { CallLink, WhatsAppLink } from "../ui/actions";
 import { Img } from "../ui/Img";
-import { CareIcon } from "./CareIcon";
 import { Band, BandHeader, cardClass, cardInteractive } from "./Band";
 import { careCategories } from "../../data/care";
+import { photos, CarePhotoKey } from "../../data/photos";
 import { workPhotos, workReviews } from "../../data/work";
 import { formatOfferPrice } from "../../lib/offers";
 import { isPreviewBuild } from "../../lib/env";
 import { Offer } from "../../types";
 import { cn } from "../../lib/utils";
 
-// Car care: the four categories. Tapping a card opens its page; "Book" opens the booking
-// form with that job selected.
+// Car care: the four categories as photo tiles (real photography, data/photos.ts).
+// Each tile leads with the situation ("If..."), then the service and its "from" price.
+const tileCopy: Record<CarePhotoKey, { line: string; tag?: string; focus?: string }> = {
+  batteries: { line: "If your car won't start", tag: "24/7", focus: "60% 50%" },
+  servicing: { line: "If it's due a service", focus: "62% 50%" },
+  brakes: { line: "If it squeals when you stop", focus: "50% 50%" },
+  diagnostics: { line: "If a warning light comes on", focus: "28% 50%" },
+};
+
 export function CareServices() {
   return (
-    <Band id="services">
-      <BandHeader eyebrow="Everyday car care" title="What needs doing?" aside="Pick a job to see its prices, or book it straight away." />
+    <Band id="services" tone="plum" className="pt-6 lg:pt-10">
+      <BandHeader
+        tone="plum"
+        eyebrow="Everyday car care"
+        title={<>What needs<br className="hidden sm:block" /> doing?</>}
+        aside="Pick what's going on. Every price is confirmed before we start."
+      />
 
-      <ul className="grid gap-4 sm:grid-cols-2 lg:gap-5 xl:grid-cols-4">
-        {careCategories.map((category) => (
-          <li
-            key={category.slug}
-            className={cn(cardClass.cream, cardInteractive, "flex flex-col overflow-hidden hover:border-ink/40 hover:shadow-[0_16px_36px_-20px_rgba(26,20,24,0.45)]")}
-          >
-            <Link href={`/${category.slug}`} className="group flex flex-1 items-center gap-4 p-5 sm:flex-col sm:items-stretch sm:gap-3 sm:p-6">
-              <span className="flex items-start justify-between">
-                <span className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-plum/[0.08] text-plum transition-colors duration-200 group-hover:bg-plum group-hover:text-white">
-                  <CareIcon slug={category.slug} className="h-7 w-7" />
+      <ul className="-mx-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-6 pb-2 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:px-0 sm:pb-0 lg:gap-5 xl:grid-cols-4 [&::-webkit-scrollbar]:hidden">
+        {careCategories.map((category) => {
+          const key = category.slug as CarePhotoKey;
+          const photo = photos[key];
+          const copy = tileCopy[key];
+          return (
+            <li key={category.slug} className="w-[78%] shrink-0 snap-start sm:w-auto">
+              <Link
+                href={`/${category.slug}`}
+                className="group relative block aspect-[4/5] overflow-hidden rounded-xl bg-dark outline-offset-4 sm:aspect-[4/5.2]"
+              >
+                <Img
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  sizes="(min-width: 1280px) 22vw, (min-width: 640px) 45vw, 78vw"
+                  style={{ objectPosition: copy.focus }}
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                />
+                <span aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_top,rgba(21,11,18,0.94)_0%,rgba(21,11,18,0.55)_40%,rgba(21,11,18,0)_66%)]" />
+                {copy.tag && (
+                  <span className="absolute left-4 top-4 rounded-sm bg-plate px-2 py-0.5 text-[11px] font-bold uppercase tracking-[0.14em] text-ink">{copy.tag}</span>
+                )}
+                <span className="absolute inset-x-5 bottom-5 flex flex-col text-white">
+                  <span className="font-accent text-[17px] italic leading-snug text-white/90">{copy.line}</span>
+                  <span className="mt-1.5 font-display text-[clamp(2rem,3vw,2.6rem)] uppercase leading-none tracking-[0.01em]">{category.name}</span>
+                  <span className="mt-3 flex items-center justify-between gap-3">
+                    <span className="text-[17px] font-bold text-plate">{category.cardPrice}</span>
+                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-plate text-ink transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none">
+                      <ArrowRight className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                  </span>
                 </span>
-                <ArrowRight className="hidden h-5 w-5 text-ink-soft transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none sm:block" aria-hidden="true" />
-              </span>
-              <span className="flex min-w-0 flex-1 flex-col gap-0.5 sm:gap-3">
-                <span className="text-[20px] font-semibold tracking-[-0.01em] sm:mt-2 sm:text-[22px]">{category.name}</span>
-                <span className="hidden text-[15px] leading-relaxed text-ink-soft sm:block">{category.cardSummary}</span>
-                <span className="flex flex-col gap-0.5 sm:mt-auto sm:pt-3">
-                  <span className="text-[15px] font-bold sm:text-[16px]">{category.cardPrice}</span>
-                  <span className="hidden text-[13px] text-ink-soft sm:block">{category.cardPriceNote}</span>
-                </span>
-              </span>
-              <ArrowRight className="h-5 w-5 shrink-0 text-ink-soft sm:hidden" aria-hidden="true" />
-            </Link>
-            <EnquiryButton
-              plain
-              choice={category.primaryJobId}
-              aria-label={`Request a booking: ${category.name.toLowerCase()}`}
-              className="inline-flex min-h-[48px] items-center justify-center gap-2 border-t border-line text-[15px] font-semibold text-plum transition-colors hover:bg-plum hover:text-white sm:min-h-[52px]"
-            >
-              Book {category.name.toLowerCase()}
-            </EnquiryButton>
-          </li>
-        ))}
+              </Link>
+            </li>
+          );
+        })}
       </ul>
 
       {/* Urgent help, and questions. Two different needs, two different routes. */}
       <div className="mt-4 grid gap-4 lg:mt-5 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-5">
-        <div className={cn(cardClass.cream, "flex flex-col gap-4 border-ink/80 p-6 sm:flex-row sm:items-center sm:justify-between")}>
+        <div className={cn(cardClass.plum, "flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between")}>
           <div>
-            <span className="inline-block rounded-sm bg-plate px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.16em]">Day or night</span>
+            <span className="inline-block rounded-sm bg-plate px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-ink">Day or night</span>
             <p className="mt-2 text-[21px] font-semibold leading-snug tracking-[-0.01em]">Dead battery? We&apos;ll come out.</p>
           </div>
           <div className="flex shrink-0 flex-col gap-2.5 sm:flex-row">
             <CallLink variant="primary" className="px-5">Call now</CallLink>
-            <EnquiryButton variant="secondary" choice="battery-replacement" timing="asap" className="px-5 text-ink">
+            <EnquiryButton variant="secondary" choice="battery-replacement" timing="asap" className="border-white/60 px-5 text-white">
               Book a battery
             </EnquiryButton>
           </div>
@@ -73,14 +89,14 @@ export function CareServices() {
           plain
           icon={false}
           message="Hi Revved, I'm not sure what's wrong with my car."
-          className={cn(cardClass.cream, cardInteractive, "group flex items-center gap-4 p-6 hover:border-ink/40")}
+          className={cn(cardClass.plum, cardInteractive, "group flex items-center gap-4 p-6 text-white hover:border-white/40")}
         >
-          <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#25D366]/15 text-[#128C4B]">
+          <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#25D366]/20 text-[#5BE38F]">
             <MessageCircle className="h-6 w-6" aria-hidden="true" />
           </span>
           <span className="flex-1">
             <span className="block text-[18px] font-semibold tracking-[-0.01em]">Not sure what&apos;s wrong?</span>
-            <span className="block text-[15px] text-ink-soft">Tell us on WhatsApp. We&apos;ll point you to the right job.</span>
+            <span className="block text-[15px] text-white/75">Tell us on WhatsApp. We&apos;ll point you to the right job.</span>
           </span>
           <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none" aria-hidden="true" />
         </WhatsAppLink>

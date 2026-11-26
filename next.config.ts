@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: {
+    // Real photography served from Unsplash's CDN (data/photos.ts)
+    remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com", pathname: "/**" }],
+  },
   async redirects() {
     return [
       // Offers live on one page and remaps on /performance; old links land on the right page.

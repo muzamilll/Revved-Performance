@@ -50,10 +50,10 @@ export function Eyebrow({ children, tone = "cream", className }: { children: Rea
   );
 }
 
-// Section heading: Inter. Anton is kept for the hero and the final call.
+// Section heading: Anton, uppercase, poster-sized (27 Nov: headings should make a statement).
 export function Heading({ children, className, as: Tag = "h2" }: { children: React.ReactNode; className?: string; as?: "h1" | "h2" | "h3" }) {
   return (
-    <Tag className={cn("text-[clamp(1.9rem,6.4vw,2.875rem)] font-medium leading-[1.08] tracking-[-0.02em] text-balance", className)}>
+    <Tag className={cn("font-display text-[clamp(2.6rem,10vw,5.25rem)] font-normal uppercase leading-[0.94] tracking-[0.005em] text-balance", className)}>
       {children}
     </Tag>
   );

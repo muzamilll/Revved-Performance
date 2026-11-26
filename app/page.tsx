@@ -5,6 +5,7 @@ import { services } from "../data/services";
 import { offers } from "../data/offers";
 import { faqs } from "../data/faqs";
 import { careCategories } from "../data/care";
+import { photos } from "../data/photos";
 import { absoluteUrl, areaServedLd, getSiteUrl } from "../lib/seo";
 import { getWhatsAppNumber } from "../lib/whatsapp";
 import { getOffersForDisplay } from "../lib/offers";
@@ -15,7 +16,7 @@ import { EnquiryButton } from "../components/enquiry/EnquiryButton";
 import { WhatsAppLink } from "../components/ui/actions";
 import { FaqSection, FinalCall, PromiseRow } from "../components/sections/shared";
 import { CareServices, OfferBand, RecentWork } from "../components/sections/home";
-import { AreasCovered, ChatStrip, IfCards } from "../components/sections/personality";
+import { AreasCovered, ChatStrip } from "../components/sections/personality";
 import { PerformanceSection } from "../components/sections/PerformanceSection";
 
 export const metadata: Metadata = {
@@ -94,19 +95,30 @@ export default function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
 
-      {/* Hero. The artwork's backdrop is the brand plum, so it sits in the page with no edge.
-          Phone: message first, artwork below it. Desktop: message left, artwork filling the right half. */}
+      {/* Hero. Real photo of a British street at dusk: full width at the top on phones,
+          filling the right of the screen on desktop. It fades into the plum, so there's no box. */}
       <section className="relative isolate overflow-hidden bg-plum text-white">
-        <Container>
-          <div className="grid lg:min-h-[min(calc(100svh-72px-6rem),760px)] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-6 xl:grid-cols-[minmax(0,7fr)_minmax(0,6fr)]">
-            <div className="relative z-10 pt-8 sm:pt-12 lg:py-16">
+        <div className="hero-art relative h-[min(62svh,30rem)] w-full sm:h-[34rem] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[60%]">
+          <Img
+            src={photos.street.src}
+            alt={photos.street.alt}
+            fill
+            preload
+            sizes="(min-width: 1024px) 60vw, 100vw"
+            className="hero-photo-mask object-cover object-[50%_88%] lg:object-[45%_80%]"
+          />
+        </div>
+
+        <Container className="relative z-10">
+          <div className="-mt-24 sm:-mt-28 lg:mt-0 lg:flex lg:min-h-[min(calc(100svh-72px-5rem),780px)] lg:items-center">
+            <div className="pb-2 lg:max-w-[38rem] lg:py-16 xl:max-w-[42rem]">
               <p className="hero-rise flex flex-wrap items-center gap-x-3.5 gap-y-2" style={{ "--i": 0 } as React.CSSProperties}>
                 <span className="rounded-sm bg-plate px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-ink">{site.hoursDisplay}</span>
-                <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/75">{site.serviceAreaSummary}</span>
+                <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/80">{site.serviceAreaSummary}</span>
               </p>
 
               <h1 className="mt-5 flex flex-col gap-1.5 lg:gap-2">
-                <span className="hero-rise whitespace-nowrap font-display text-[clamp(2.25rem,calc((100vw-3rem)/6.75),6rem)] lg:text-[clamp(4.5rem,7.4vw,6.75rem)] uppercase leading-[0.96] tracking-[0.005em]" style={{ "--i": 1 } as React.CSSProperties}>
+                <span className="hero-rise whitespace-nowrap font-display text-[clamp(2.25rem,calc((100vw-3rem)/6.75),6rem)] lg:text-[clamp(4.5rem,7.4vw,7rem)] uppercase leading-[0.96] tracking-[0.005em]" style={{ "--i": 1 } as React.CSSProperties}>
                   We come to you.
                 </span>
                 <span className="hero-rise font-accent text-[clamp(1.55rem,7.2vw,2.75rem)] italic leading-[1.1] text-white" style={{ "--i": 2 } as React.CSSProperties}>
@@ -114,7 +126,7 @@ export default function Home() {
                 </span>
               </h1>
 
-              <p className="hero-rise mt-5 max-w-[32rem] text-[17px] leading-relaxed text-white/80 lg:text-[18px]" style={{ "--i": 3 } as React.CSSProperties}>
+              <p className="hero-rise mt-5 max-w-[32rem] text-[17px] leading-relaxed text-white/85 lg:text-[18px]" style={{ "--i": 3 } as React.CSSProperties}>
                 Batteries, servicing, brakes and diagnostics at your home or work. ECU remapping too.
               </p>
 
@@ -132,19 +144,6 @@ export default function Home() {
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </a>
             </div>
-
-            {/* The rolled-road artwork */}
-            <div className="hero-art relative -mx-6 -mt-[18vw] sm:mx-auto sm:-mt-24 sm:w-[30rem] md:-mx-8 md:ml-auto md:mr-[-2rem] lg:m-0 lg:-mr-12 lg:h-full lg:w-auto lg:self-end">
-              <Img
-                src="/images/hero-road.webp"
-                alt="A road rolled up like a carpet in front of a brick house, ending at the driveway where a silver hatchback is parked"
-                width={991}
-                height={1334}
-                preload
-                sizes="(min-width: 1024px) 50vw, (min-width: 640px) 480px, 100vw"
-                className="hero-art-mask pointer-events-none h-auto w-full lg:ml-auto lg:max-h-[min(calc(100svh-72px-6rem),760px)] lg:w-auto lg:object-contain lg:object-bottom"
-              />
-            </div>
           </div>
         </Container>
 
@@ -152,8 +151,6 @@ export default function Home() {
           <PromiseRow items={trustLine} className="mt-0 lg:mt-0" />
         </Container>
       </section>
-
-      <IfCards />
 
       <CareServices />
 
