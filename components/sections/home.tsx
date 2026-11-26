@@ -45,7 +45,7 @@ export function CareServices() {
               >
                 <Photo
                   photo={photo}
-                  sizes="(min-width: 1280px) 24vw, (min-width: 640px) 46vw, 80vw"
+                  sizes="(min-width: 1280px) 48vw, (min-width: 640px) 92vw, 160vw"
                   className="transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                 />
                 <span aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_top,rgba(21,11,18,0.94)_0%,rgba(21,11,18,0.55)_40%,rgba(21,11,18,0)_66%)]" />

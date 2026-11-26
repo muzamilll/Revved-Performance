@@ -4,7 +4,9 @@ import { cn } from "../../lib/utils";
 
 // A real photo from data/photos.ts, filling its box. Unsplash resizes it to each screen's
 // width (one compression, sharp on retina phones). Use inside a positioned box with a set size.
-const WIDTHS = [480, 720, 960, 1280, 1600, 2000];
+// "sizes" must describe the width the photo is DRAWN at, not the box: a landscape photo in a
+// portrait box is cropped, so it's drawn about twice the box's width.
+const WIDTHS = [640, 960, 1280, 1600, 2000, 2600, 3200];
 
 export function Photo({
   photo,

@@ -18,7 +18,7 @@ export function HeaderImage({ name, alt }: { name: string; alt: string }) {
   if (photo) {
     return (
       <div className="hero-art relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-dark lg:aspect-[4/4.6]">
-        <Photo photo={photo} priority sizes="(min-width: 1280px) 32rem, (min-width: 1024px) 28rem, 100vw" />
+        <Photo photo={photo} priority sizes="(min-width: 1280px) 56rem, (min-width: 1024px) 50rem, 190vw" />
       </div>
     );
   }
