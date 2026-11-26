@@ -184,14 +184,14 @@ html.no-loader #boot-loader { display: none; }
    Phones: fades out at the bottom (and slightly at the top, under the header).
    Desktop: fades out on its left side and at the bottom. */
 .hero-photo-mask {
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 10%, #000 52%, transparent 100%);
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 10%, #000 52%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 6%, #000 84%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 6%, #000 84%, transparent 100%);
 }
 @media (min-width: 1024px) {
   .hero-photo-mask {
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 40%), linear-gradient(to top, transparent 0%, #000 24%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 38%), linear-gradient(to top, transparent 0%, #000 9%);
     -webkit-mask-composite: source-in;
-    mask-image: linear-gradient(to right, transparent 0%, #000 40%), linear-gradient(to top, transparent 0%, #000 24%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 38%), linear-gradient(to top, transparent 0%, #000 9%);
     mask-composite: intersect;
   }
 }

@@ -98,19 +98,19 @@ export default function Home() {
       {/* Hero. Real photo of a British street at dusk: full width at the top on phones,
           filling the right of the screen on desktop. It fades into the plum, so there's no box. */}
       <section className="relative isolate overflow-hidden bg-plum text-white">
-        <div className="hero-art relative h-[min(62svh,30rem)] w-full sm:h-[34rem] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[60%]">
+        <div className="hero-art relative h-[min(48svh,26rem)] w-full sm:h-[32rem] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[60%]">
           <Img
             src={photos.street.src}
             alt={photos.street.alt}
             fill
             preload
             sizes="(min-width: 1024px) 60vw, 100vw"
-            className="hero-photo-mask object-cover object-[50%_88%] lg:object-[45%_80%]"
+            className="hero-photo-mask object-cover object-[50%_100%]"
           />
         </div>
 
         <Container className="relative z-10">
-          <div className="-mt-24 sm:-mt-28 lg:mt-0 lg:flex lg:min-h-[min(calc(100svh-72px-5rem),780px)] lg:items-center">
+          <div className="-mt-6 sm:-mt-10 lg:mt-0 lg:flex lg:min-h-[min(calc(100svh-72px-5rem),780px)] lg:items-center">
             <div className="pb-2 lg:max-w-[38rem] lg:py-16 xl:max-w-[42rem]">
               <p className="hero-rise flex flex-wrap items-center gap-x-3.5 gap-y-2" style={{ "--i": 0 } as React.CSSProperties}>
                 <span className="rounded-sm bg-plate px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-ink">{site.hoursDisplay}</span>
