@@ -95,11 +95,19 @@ export function IfCards() {
 }
 
 /* ---------- WhatsApp chat strip ("How it works") ---------- */
-const chat: { from: "customer" | "revved"; text: string }[] = [
-  { from: "customer", text: "Car won't start, I'm in Romford" },
-  { from: "revved", text: "No problem. Send your reg and we'll confirm the price." },
-  { from: "revved", text: "On our way." },
-  { from: "revved", text: "All done. New battery fitted, 3-year warranty." },
+// A realistic battery job, start to finish: reg, price and a time first, then the visit.
+// The price is for one car; prices depend on the car and are always confirmed first.
+type ChatLine = { from: "customer" | "revved"; text: string; time: string } | { divider: string };
+const chat: ChatLine[] = [
+  { from: "customer", text: "Hi, my car won't start. I'm in Romford.", time: "16:02" },
+  { from: "revved", text: "Sorry to hear that. Can you send us your reg?", time: "16:03" },
+  { from: "customer", text: "AB12 CDE", time: "16:03" },
+  { from: "revved", text: "Thanks. A new battery for your car is £139 fitted, with a 3-year warranty. We can be with you between 6 and 7pm. Shall we book it?", time: "16:05" },
+  { from: "customer", text: "Yes please", time: "16:06" },
+  { from: "revved", text: "Booked. We'll message you when we're on our way.", time: "16:06" },
+  { divider: "Later" },
+  { from: "revved", text: "On our way, about 20 minutes.", time: "18:12" },
+  { from: "revved", text: "All done. New battery fitted and tested, 3-year warranty.", time: "18:58" },
 ];
 
 const steps = [
@@ -138,23 +146,29 @@ export function ChatStrip() {
                 <span className="text-[12px] text-white/70">WhatsApp</span>
               </span>
             </div>
-            <ul className="flex min-h-[19rem] flex-col gap-2.5 px-3 py-4" aria-label="Example conversation">
-              {chat.map((m, i) => (
-                <li
-                  key={i}
-                  data-chat-msg=""
-                  className={cn(
-                    "max-w-[85%] rounded-2xl px-3.5 py-2.5 text-[15px] leading-snug shadow-[0_1px_1px_rgba(0,0,0,0.08)]",
-                    m.from === "customer" ? "self-end rounded-br-md bg-plum text-white" : "self-start rounded-bl-md bg-white text-ink"
-                  )}
-                >
-                  <span className="sr-only">{m.from === "customer" ? "Customer: " : "Revved: "}</span>
-                  {m.text}
-                </li>
-              ))}
+            <ul className="flex flex-col gap-2 px-3 py-4" aria-label="A battery job on WhatsApp, from first message to done">
+              {chat.map((m, i) =>
+                "divider" in m ? (
+                  <li key={i} data-chat-msg="" className="my-1 self-center rounded-full bg-black/[0.06] px-3 py-1 text-[12px] font-semibold text-ink-soft">
+                    {m.divider}
+                  </li>
+                ) : (
+                  <li
+                    key={i}
+                    data-chat-msg=""
+                    className={cn(
+                      "max-w-[85%] rounded-2xl px-3.5 pb-1.5 pt-2 text-[14.5px] leading-snug shadow-[0_1px_1px_rgba(0,0,0,0.08)]",
+                      m.from === "customer" ? "self-end rounded-br-md bg-plum text-white" : "self-start rounded-bl-md bg-white text-ink"
+                    )}
+                  >
+                    <span className="sr-only">{m.from === "customer" ? "Customer: " : "Revved: "}</span>
+                    {m.text}
+                    <span className={cn("ml-2 inline-block translate-y-0.5 text-[11px]", m.from === "customer" ? "text-white/65" : "text-ink-soft")}>{m.time}</span>
+                  </li>
+                )
+              )}
             </ul>
           </div>
-          <figcaption className="mt-3 text-center text-[13px] text-ink-soft">Example conversation</figcaption>
           <HandNote className="absolute -left-4 -top-12 hidden sm:block lg:-left-28 lg:top-24" arrow="down-right">
             yes, on your driveway
           </HandNote>

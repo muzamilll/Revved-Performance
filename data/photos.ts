@@ -5,7 +5,8 @@
 // Performance keeps its own header until Rayyan's photo of the Alientech tool on a car arrives.
 
 export type Photo = {
-  id: string;        // Unsplash image id (images.unsplash.com/<id>)
+  id?: string;       // Unsplash image id (images.unsplash.com/<id>)
+  src?: string;      // or a local file in /public
   ratio: number;     // width / height of the original
   alt: string;
   focus?: string;    // object-position when cropped, e.g. "60% 50%"
@@ -31,7 +32,7 @@ export const photos = {
     id: "photo-1760317890322-364a810cd4da",
     ratio: 3 / 2,
     alt: "A drilled brake disc and caliper on a car's front hub",
-    focus: "50% 50%",
+    focus: "24% 50%",
     page: "https://unsplash.com/photos/EpT-ZetoKm8",
   },
   diagnostics: {
@@ -41,10 +42,18 @@ export const photos = {
     focus: "28% 50%",
     page: "https://unsplash.com/photos/TnEe6BdBC2M",
   },
+  // Until Rayyan's photo of the Alientech tool on a car: the R8 from the original site
+  performance: {
+    src: "/images/hero-r8.webp",
+    ratio: 2500 / 1669,
+    alt: "A grey Audi R8 with a Revved number plate on a road at sunset",
+    focus: "42% 60%",
+    page: "",
+  },
 } satisfies Record<string, Photo>;
 
 export type PhotoKey = keyof typeof photos;
-export type CarePhotoKey = PhotoKey;
+export type CarePhotoKey = Exclude<PhotoKey, "performance">;
 
 export function getPhoto(name: string): Photo | undefined {
   return (photos as Record<string, Photo>)[name];

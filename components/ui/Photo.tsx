@@ -19,11 +19,12 @@ export function Photo({
   priority?: boolean;
   className?: string;
 }) {
+  const id = photo.id;
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={unsplashUrl(photo.id, 1280)}
-      srcSet={WIDTHS.map((w) => `${unsplashUrl(photo.id, w)} ${w}w`).join(", ")}
+      src={id ? unsplashUrl(id, 1280) : photo.src}
+      srcSet={id ? WIDTHS.map((w) => `${unsplashUrl(id, w)} ${w}w`).join(", ") : undefined}
       sizes={sizes}
       alt={photo.alt}
       loading={priority ? "eager" : "lazy"}

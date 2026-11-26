@@ -179,3 +179,16 @@ html.no-loader #boot-loader { display: none; }
 @media (prefers-reduced-motion: reduce) {
   #boot-loader { display: none; }
 }
+
+/* Recent work: one strip that keeps sliding (the list is rendered twice, so -50% loops it).
+   Pauses under the pointer or keyboard focus. Reduced motion: no movement, scroll by hand. */
+.work-track {
+  animation: work-slide 70s linear infinite;
+}
+.work-marquee:hover .work-track,
+.work-marquee:focus-within .work-track { animation-play-state: paused; }
+@keyframes work-slide { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .work-track { animation: none; }
+  .work-marquee { overflow-x: auto; }
+}

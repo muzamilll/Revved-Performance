@@ -78,7 +78,7 @@ export function MotionProvider() {
             scale: 1,
             duration: 0.35,
             ease: "back.out(1.6)",
-            stagger: mobile ? 0.45 : 0.6,
+            stagger: mobile ? 0.4 : 0.5,
             scrollTrigger: { trigger: phone, start: "top 75%", once: true },
           });
         });
