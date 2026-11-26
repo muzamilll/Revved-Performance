@@ -108,8 +108,8 @@ export function Header() {
             <span className="hidden xl:inline">WhatsApp</span>
           </WhatsAppLink>
           <EnquiryButton className="ml-1 min-h-[44px] px-4 text-[14px] whitespace-nowrap xl:px-5">
-            <span className="xl:hidden">Book</span>
-            <span className="hidden xl:inline">Request a booking</span>
+            <span className="xl:hidden">Quote</span>
+            <span className="hidden xl:inline">Get a quote</span>
           </EnquiryButton>
         </div>
 
@@ -194,7 +194,7 @@ export function Header() {
           <div className="grid shrink-0 grid-cols-[1fr_1fr_1.5fr] gap-2 border-t border-white/15 px-6 pt-3 pb-[max(env(safe-area-inset-bottom),0.75rem)] md:px-8">
             <CallLink className="min-h-[48px] px-2 text-white" onClick={() => closeMenu(false)}>Call</CallLink>
             <WhatsAppLink className="min-h-[48px] px-2 text-white" onClick={() => closeMenu(false)}>WhatsApp</WhatsAppLink>
-            <EnquiryButton className="min-h-[48px] px-3" onClickCapture={() => closeMenu(false)}>Book</EnquiryButton>
+            <EnquiryButton className="min-h-[48px] px-3" onClickCapture={() => closeMenu(false)}>Get a quote</EnquiryButton>
           </div>
         </div>
       )}

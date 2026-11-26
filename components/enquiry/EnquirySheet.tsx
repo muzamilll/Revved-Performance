@@ -206,7 +206,7 @@ export function EnquirySheet({ choices, visible, step, setStep, values, setValue
           <div className="min-w-0 flex-1 px-1">
             <p className="text-[12px] font-bold uppercase tracking-[0.14em] text-plum">Step {step} of 2</p>
             <h2 id={`${id}-title`} ref={headingRef} tabIndex={-1} className="truncate text-[19px] font-semibold tracking-[-0.01em] outline-none">
-              {step === 1 ? "Request a booking" : "Check and send"}
+              {step === 1 ? "Get a quote" : "Check and send"}
             </h2>
           </div>
           <button

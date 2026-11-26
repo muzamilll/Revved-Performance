@@ -78,27 +78,8 @@
   }
 }
 
-/* Hero entrance (GSAP, components/motion/MotionProvider.tsx). With JavaScript on, hero
-   elements start hidden and GSAP brings them in once the loader has lifted. If GSAP hasn't
-   started after 2.5s for any reason, CSS shows them anyway, so nothing is ever left hidden.
-   Without JavaScript, or with reduced motion, they are simply visible. */
-@media (prefers-reduced-motion: no-preference) {
-  html.js .hero-rise {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-
-  html.js .hero-art {
-    opacity: 0;
-    transform: translateY(18px) scale(1.015);
-  }
-
-  html.js:not(.motion-ready) .hero-rise,
-  html.js:not(.motion-ready) .hero-art {
-    animation: hero-show 0.4s ease-out 2.5s forwards;
-  }
-}
-
+/* Hero and header images are visible from the first paint (27 Nov: no delayed reveals on
+   main content). Only small things move: the chat, the coverage ring, the work strip. */
 @keyframes hero-show {
   to { opacity: 1; transform: none; }
 }

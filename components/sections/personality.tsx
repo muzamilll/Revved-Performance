@@ -95,19 +95,18 @@ export function IfCards() {
 }
 
 /* ---------- WhatsApp chat strip ("How it works") ---------- */
-// A realistic battery job, start to finish: reg, price and a time first, then the visit.
-// The price is for one car; prices depend on the car and are always confirmed first.
-type ChatLine = { from: "customer" | "revved"; text: string; time: string } | { divider: string };
+// One battery job, start to finish, inside the 90-minute promise. Illustrative: the price is
+// for one car; every price is confirmed before the customer agrees.
+type ChatLine = { from: "customer" | "revved"; text: string; time: string };
 const chat: ChatLine[] = [
-  { from: "customer", text: "Hi, my car won't start. I'm in Romford.", time: "16:02" },
-  { from: "revved", text: "Sorry to hear that. Can you send us your reg?", time: "16:03" },
-  { from: "customer", text: "AB12 CDE", time: "16:03" },
-  { from: "revved", text: "Thanks. A new battery for your car is £139 fitted, with a 3-year warranty. We can be with you between 6 and 7pm. Shall we book it?", time: "16:05" },
-  { from: "customer", text: "Yes please", time: "16:06" },
-  { from: "revved", text: "Booked. We'll message you when we're on our way.", time: "16:06" },
-  { divider: "Later" },
-  { from: "revved", text: "On our way, about 20 minutes.", time: "18:12" },
-  { from: "revved", text: "All done. New battery fitted and tested, 3-year warranty.", time: "18:58" },
+  { from: "customer", text: "My car won't start. It's parked at work in Romford.", time: "16:02" },
+  { from: "revved", text: "No problem, we come to your workplace. What's the reg?", time: "16:03" },
+  { from: "customer", text: "AB12 CDE. How much?", time: "16:04" },
+  { from: "revved", text: "£139 supplied and fitted, with a 3-year battery warranty. That's the full price, nothing added after.", time: "16:05" },
+  { from: "customer", text: "Can you do it while I'm working?", time: "16:05" },
+  { from: "revved", text: "Yes. Leave the keys at reception and we'll message you when we're on our way.", time: "16:06" },
+  { from: "revved", text: "On our way, about 25 minutes.", time: "16:40" },
+  { from: "revved", text: "All done ✅ New battery fitted and tested. Keys are back at reception.", time: "17:20" },
 ];
 
 const steps = [
@@ -121,7 +120,7 @@ export function ChatStrip() {
     <Band id="how-it-works" className="border-t border-line">
       <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:gap-20">
         <div>
-          <BandHeader eyebrow="How it works" title="Get started in a minute." />
+          <BandHeader eyebrow="How it works" title="Sorted on WhatsApp." />
           <ol className="flex flex-col gap-6">
             {steps.map((s, i) => (
               <li key={s.title} className="flex gap-4">
@@ -137,7 +136,7 @@ export function ChatStrip() {
         </div>
 
         {/* The phone: HTML, not a screenshot. Messages appear one by one as it scrolls in. */}
-        <figure className="relative mx-auto w-full max-w-[22rem]">
+        <figure className="relative mx-auto w-full max-w-[19.5rem]">
           <div data-chat="" className="overflow-hidden rounded-[2.25rem] border-[6px] border-ink bg-[#EFE9E4] shadow-[0_30px_60px_-30px_rgba(26,20,24,0.6)]">
             <div className="flex items-center gap-3 bg-plum px-4 pb-3 pt-4 text-white">
               <span aria-hidden="true" className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/15 font-display text-[15px]">R</span>
@@ -146,29 +145,24 @@ export function ChatStrip() {
                 <span className="text-[12px] text-white/70">WhatsApp</span>
               </span>
             </div>
-            <ul className="flex flex-col gap-2 px-3 py-4" aria-label="A battery job on WhatsApp, from first message to done">
-              {chat.map((m, i) =>
-                "divider" in m ? (
-                  <li key={i} data-chat-msg="" className="my-1 self-center rounded-full bg-black/[0.06] px-3 py-1 text-[12px] font-semibold text-ink-soft">
-                    {m.divider}
-                  </li>
-                ) : (
-                  <li
-                    key={i}
-                    data-chat-msg=""
-                    className={cn(
-                      "max-w-[85%] rounded-2xl px-3.5 pb-1.5 pt-2 text-[14.5px] leading-snug shadow-[0_1px_1px_rgba(0,0,0,0.08)]",
-                      m.from === "customer" ? "self-end rounded-br-md bg-plum text-white" : "self-start rounded-bl-md bg-white text-ink"
-                    )}
-                  >
-                    <span className="sr-only">{m.from === "customer" ? "Customer: " : "Revved: "}</span>
-                    {m.text}
-                    <span className={cn("ml-2 inline-block translate-y-0.5 text-[11px]", m.from === "customer" ? "text-white/65" : "text-ink-soft")}>{m.time}</span>
-                  </li>
-                )
-              )}
+            <ul className="flex flex-col gap-1.5 px-2.5 py-3" aria-label="An example battery job on WhatsApp, from first message to done">
+              {chat.map((m, i) => (
+                <li
+                  key={i}
+                  data-chat-msg=""
+                  className={cn(
+                    "max-w-[86%] rounded-2xl px-3 pb-1 pt-1.5 text-[13.5px] leading-snug shadow-[0_1px_1px_rgba(0,0,0,0.08)]",
+                    m.from === "customer" ? "self-end rounded-br-md bg-plum text-white" : "self-start rounded-bl-md bg-white text-ink"
+                  )}
+                >
+                  <span className="sr-only">{m.from === "customer" ? "Customer: " : "Revved: "}</span>
+                  {m.text}
+                  <span className={cn("ml-1.5 inline-block translate-y-0.5 text-[10.5px]", m.from === "customer" ? "text-white/65" : "text-ink-soft")}>{m.time}</span>
+                </li>
+              ))}
             </ul>
           </div>
+          <figcaption className="mt-2.5 text-center text-[12px] text-ink-soft">Illustrative example. Prices vary by vehicle.</figcaption>
           <HandNote className="absolute -left-4 -top-12 hidden sm:block lg:-left-28 lg:top-24" arrow="down-right">
             yes, on your driveway
           </HandNote>

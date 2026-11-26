@@ -26,7 +26,7 @@ export function EnquiryButton({ choice, timing, variant = "primary", plain, clas
       className={plain ? cn("cursor-pointer", className) : buttonStyles(variant, cn("cursor-pointer", className))}
       {...props}
     >
-      {children ?? "Request a booking"}
+      {children ?? "Get a quote"}
     </button>
   );
 }

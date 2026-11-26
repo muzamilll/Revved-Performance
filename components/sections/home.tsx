@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { EnquiryButton } from "../enquiry/EnquiryButton";
 import { CallLink, WhatsAppLink } from "../ui/actions";
-import { Img } from "../ui/Img";
 import { Band, BandHeader, cardClass, cardInteractive } from "./Band";
 import { careCategories } from "../../data/care";
 import { photos, CarePhotoKey, Photo as PhotoData } from "../../data/photos";
@@ -73,13 +72,12 @@ export function CareServices() {
                 sizes={t.wide ? "(min-width: 1280px) 40vw, (min-width: 640px) 100vw, 160vw" : "(min-width: 1280px) 40vw, (min-width: 640px) 92vw, 160vw"}
                 className="transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
               />
-              <span aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_top,rgba(21,11,18,0.94)_0%,rgba(21,11,18,0.55)_40%,rgba(21,11,18,0)_66%)]" />
+              <span aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_top,rgba(21,11,18,0.9)_0%,rgba(21,11,18,0.35)_30%,rgba(21,11,18,0)_50%)]" />
               {t.tag && (
                 <span className="absolute left-4 top-4 rounded-sm bg-plate px-2 py-0.5 text-[11px] font-bold uppercase tracking-[0.14em] text-ink">{t.tag}</span>
               )}
               <span className="absolute inset-x-5 bottom-5 flex flex-col text-white">
-                <span className="font-accent text-[17px] italic leading-snug text-white/90">{t.line}</span>
-                <span className="mt-1.5 font-display text-[clamp(2rem,2.6vw,2.5rem)] uppercase leading-none tracking-[0.01em]">{t.name}</span>
+                <span className="font-display text-[clamp(2rem,2.6vw,2.5rem)] uppercase leading-none tracking-[0.01em]">{t.name}</span>
                 <span className="mt-3 flex items-center justify-between gap-3">
                   <span className="text-[16px] font-bold text-plate">{t.price}</span>
                   <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-plate text-ink transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none">

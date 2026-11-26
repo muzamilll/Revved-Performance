@@ -96,7 +96,7 @@ export default function Home() {
       {/* Hero: type only, on plum. The real photos start right below it, in the car care tiles,
           so they're on the first screen. Headline across the full width; actions beside the intro. */}
       <section className="relative isolate overflow-hidden bg-plum text-white">
-        <Container className="pt-10 pb-8 sm:pt-14 lg:pt-16 lg:pb-10">
+        <Container className="pt-8 pb-6 sm:pt-12 lg:pt-14 lg:pb-8">
           <p className="hero-rise flex flex-wrap items-center gap-x-3.5 gap-y-2" style={{ "--i": 0 } as React.CSSProperties}>
             <span className="rounded-sm bg-plate px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-ink">{site.hoursDisplay}</span>
             <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/80">{site.serviceAreaSummary}</span>
@@ -130,19 +130,19 @@ export default function Home() {
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </a>
 
-          <PromiseRow items={trustLine} className="mt-6 lg:mt-8" />
+          <PromiseRow items={trustLine} className="mt-5 lg:mt-7" />
         </Container>
       </section>
 
       <CareServices />
+
+      <RecentWork />
 
       <ChatStrip />
 
       {featuredOffer && <OfferBand offer={featuredOffer} />}
 
       <PerformanceSection />
-
-      <RecentWork />
 
       <AreasCovered />
 

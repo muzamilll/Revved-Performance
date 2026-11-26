@@ -17,7 +17,7 @@ export function BottomBar() {
       <div className="mx-auto grid max-w-xl grid-cols-[1fr_1.15fr_1.5fr] gap-2 px-3 pt-2.5 pb-[max(env(safe-area-inset-bottom),0.625rem)] min-[380px]:px-4">
         <CallLink className="min-h-[48px] gap-1.5 px-2 text-[15px] text-white">Call</CallLink>
         <WhatsAppLink className="min-h-[48px] gap-1.5 px-2 text-[15px] text-white">WhatsApp</WhatsAppLink>
-        <EnquiryButton className="min-h-[48px] px-2 text-[15px]">Book</EnquiryButton>
+        <EnquiryButton className="min-h-[48px] px-2 text-[15px]">Get a quote</EnquiryButton>
       </div>
     </div>
   );
