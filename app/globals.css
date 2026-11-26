@@ -179,19 +179,3 @@ html.no-loader #boot-loader { display: none; }
 @media (prefers-reduced-motion: reduce) {
   #boot-loader { display: none; }
 }
-
-/* Home hero photo: fades into the plum so it sits in the page with no edge.
-   Phones: fades out at the bottom (and slightly at the top, under the header).
-   Desktop: fades out on its left side and at the bottom. */
-.hero-photo-mask {
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 6%, #000 84%, transparent 100%);
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 6%, #000 84%, transparent 100%);
-}
-@media (min-width: 1024px) {
-  .hero-photo-mask {
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 38%), linear-gradient(to top, transparent 0%, #000 9%);
-    -webkit-mask-composite: source-in;
-    mask-image: linear-gradient(to right, transparent 0%, #000 38%), linear-gradient(to top, transparent 0%, #000 9%);
-    mask-composite: intersect;
-  }
-}

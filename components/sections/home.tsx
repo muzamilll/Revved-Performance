@@ -6,6 +6,7 @@ import { Img } from "../ui/Img";
 import { Band, BandHeader, cardClass, cardInteractive } from "./Band";
 import { careCategories } from "../../data/care";
 import { photos, CarePhotoKey } from "../../data/photos";
+import { Photo } from "../ui/Photo";
 import { workPhotos, workReviews } from "../../data/work";
 import { formatOfferPrice } from "../../lib/offers";
 import { isPreviewBuild } from "../../lib/env";
@@ -14,11 +15,11 @@ import { cn } from "../../lib/utils";
 
 // Car care: the four categories as photo tiles (real photography, data/photos.ts).
 // Each tile leads with the situation ("If..."), then the service and its "from" price.
-const tileCopy: Record<CarePhotoKey, { line: string; tag?: string; focus?: string }> = {
-  batteries: { line: "If your car won't start", tag: "24/7", focus: "60% 50%" },
-  servicing: { line: "If it's due a service", focus: "62% 50%" },
-  brakes: { line: "If it squeals when you stop", focus: "50% 50%" },
-  diagnostics: { line: "If a warning light comes on", focus: "28% 50%" },
+const tileCopy: Record<CarePhotoKey, { line: string; tag?: string }> = {
+  batteries: { line: "If your car won't start", tag: "24/7" },
+  servicing: { line: "If it's due a service" },
+  brakes: { line: "If it squeals when you stop" },
+  diagnostics: { line: "If a warning light comes on" },
 };
 
 export function CareServices() {
@@ -42,13 +43,10 @@ export function CareServices() {
                 href={`/${category.slug}`}
                 className="group relative block aspect-[4/5] overflow-hidden rounded-xl bg-dark outline-offset-4 sm:aspect-[4/5.2]"
               >
-                <Img
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  sizes="(min-width: 1280px) 22vw, (min-width: 640px) 45vw, 78vw"
-                  style={{ objectPosition: copy.focus }}
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                <Photo
+                  photo={photo}
+                  sizes="(min-width: 1280px) 24vw, (min-width: 640px) 46vw, 80vw"
+                  className="transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                 />
                 <span aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_top,rgba(21,11,18,0.94)_0%,rgba(21,11,18,0.55)_40%,rgba(21,11,18,0)_66%)]" />
                 {copy.tag && (

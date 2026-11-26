@@ -1,55 +1,55 @@
-// Real photography from Unsplash (free licence: unsplash.com/license), served from Unsplash's
-// image CDN. Chosen 27 Nov: UK-relevant cars, hands only or no people, nothing staged.
-// Performance keeps its own artwork until Rayyan's photo of the Alientech tool on a car arrives.
+// Real photography from Unsplash (free licence: unsplash.com/license), served straight from
+// Unsplash's image CDN at the size each screen needs (components/ui/Photo.tsx), compressed once.
+// Chosen 27 Nov: UK-relevant cars, hands only or no people, nothing staged.
+// Each photo is the home tile and the header of its category page.
+// Performance keeps its own header until Rayyan's photo of the Alientech tool on a car arrives.
 
 export type Photo = {
-  src: string;
-  width: number;
-  height: number;
+  id: string;        // Unsplash image id (images.unsplash.com/<id>)
+  ratio: number;     // width / height of the original
   alt: string;
-  page: string; // the photo's Unsplash page (for credit and swapping)
+  focus?: string;    // object-position when cropped, e.g. "60% 50%"
+  page: string;      // the photo's Unsplash page (credit, and for swapping later)
 };
 
-const u = (id: string, params = "") => `https://images.unsplash.com/${id}?auto=format&q=75${params}`;
-
 export const photos = {
-  // VW Passat on a UK terraced street at dusk. Cropped from the top so the number plate
-  // (a real registration) is cut off; the bottom edge fades into the page.
-  street: {
-    src: u("photo-1604775567353-be0ff5c0fedc", "&fit=crop&crop=top&w=1600&h=1896"),
-    width: 1600,
-    height: 1896,
-    alt: "A dark estate car on a British street of terraced houses at dusk",
-    page: "https://unsplash.com/photos/jgBCqs3hF3w",
-  },
   batteries: {
-    src: u("photo-1597766321604-9de3ff9e93e2", "&w=1600"),
-    width: 1600,
-    height: 1067,
+    id: "photo-1597766321604-9de3ff9e93e2",
+    ratio: 3 / 2,
     alt: "Hands holding jump-lead clamps over an open engine bay",
+    focus: "60% 50%",
     page: "https://unsplash.com/photos/Pnhzg9cKsS4",
   },
   servicing: {
-    src: u("photo-1795575634279-76c17817e96d", "&w=1600"),
-    width: 1600,
-    height: 1067,
+    id: "photo-1795575634279-76c17817e96d",
+    ratio: 3 / 2,
     alt: "A gloved hand checking the oil dipstick in an engine bay",
+    focus: "62% 50%",
     page: "https://unsplash.com/photos/xqDaPKynMJs",
   },
   brakes: {
-    src: u("photo-1760317890322-364a810cd4da", "&w=1600"),
-    width: 1600,
-    height: 1067,
+    id: "photo-1760317890322-364a810cd4da",
+    ratio: 3 / 2,
     alt: "A drilled brake disc and caliper on a car's front hub",
+    focus: "50% 50%",
     page: "https://unsplash.com/photos/EpT-ZetoKm8",
   },
   diagnostics: {
-    src: u("photo-1606166245039-ffeba59d83a4", "&w=1600"),
-    width: 1600,
-    height: 1172,
+    id: "photo-1606166245039-ffeba59d83a4",
+    ratio: 1600 / 1172,
     alt: "An engine warning light glowing on a car's dashboard",
+    focus: "28% 50%",
     page: "https://unsplash.com/photos/TnEe6BdBC2M",
   },
 } satisfies Record<string, Photo>;
 
-export type CarePhotoKey = "batteries" | "servicing" | "brakes" | "diagnostics";
+export type PhotoKey = keyof typeof photos;
+export type CarePhotoKey = PhotoKey;
+
+export function getPhoto(name: string): Photo | undefined {
+  return (photos as Record<string, Photo>)[name];
+}
+
+export function unsplashUrl(id: string, width: number, quality = 80) {
+  return `https://images.unsplash.com/${id}?auto=format&fit=max&w=${width}&q=${quality}`;
+}
