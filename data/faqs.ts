@@ -19,7 +19,7 @@ export const faqs: FAQ[] = [
     id: "when-to-pay",
     group: "booking",
     question: "When do I pay?",
-    answer: "On the day, when the job is done.",
+    answer: "Usually when the job is done. If parts need ordering for your car, we agree that with you on WhatsApp first, including any deposit.",
   },
   {
     id: "talk-to-someone",

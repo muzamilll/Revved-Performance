@@ -1,3 +1,4 @@
+import { WorkStrip } from "./WorkStrip";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { CallLink, WhatsAppLink } from "../ui/actions";
@@ -142,14 +143,11 @@ export function RecentWork() {
       <div className="mx-auto w-full max-w-[1440px] px-6 md:px-8 lg:px-12">
         <BandHeader eyebrow="Recent work" title="Done at the door." aside={sample ? "Sample photos and reviews, shown on previews only. The real ones replace them." : undefined} />
       </div>
-      {/* One strip that keeps sliding; it pauses under the pointer or keyboard focus.
-          With reduced motion it stops and scrolls by hand instead. */}
-      <div className="work-marquee group relative overflow-hidden">
-        <ul className="work-track flex w-max items-stretch">
-          {items.map((item, i) => card(item, `a${i}`))}
-          {items.map((item, i) => card(item, `b${i}`, true))}
-        </ul>
-      </div>
+      {/* Drifts slowly, and can be swiped, dragged or stepped with the arrows. */}
+      <WorkStrip label="Recent work">
+        {items.map((item, i) => card(item, `a${i}`))}
+        {items.map((item, i) => card(item, `b${i}`, true))}
+      </WorkStrip>
     </Band>
   );
 }

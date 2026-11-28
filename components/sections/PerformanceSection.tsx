@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { BandHeader } from "./Band";
-import { BundleCard, RealFigures } from "./BundleOffer";
+import { BundleCard, GainsByReg } from "./BundleOffer";
 import { addOnsSummary, performancePrices, performanceTrustLine } from "../../data/performance";
 import { Offer } from "../../types";
 
 // Home page Performance: the one dark section. The bundle is the headline (a receipt with the
-// saving worked out), real figures from real jobs beside it, then every remap price on one line.
+// saving worked out), the send-your-reg step beside it, then every remap price on one line.
 export function PerformanceSection({ offer }: { offer?: Offer }) {
   return (
     <section id="performance" className="relative isolate overflow-hidden bg-dark py-16 text-cream lg:py-24">
@@ -35,7 +35,7 @@ export function PerformanceSection({ offer }: { offer?: Offer }) {
 
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:items-start lg:gap-16">
           {offer ? <BundleCard offer={offer} /> : null}
-          <RealFigures />
+          <GainsByReg />
         </div>
 
         {/* Every remap price, on one quiet line */}

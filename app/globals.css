@@ -161,18 +161,32 @@ html.no-loader #boot-loader { display: none; }
   #boot-loader { display: none; }
 }
 
-/* Recent work: one strip that keeps sliding (the list is rendered twice, so -50% loops it).
-   Pauses under the pointer or keyboard focus. Reduced motion: no movement, scroll by hand. */
-.work-track {
-  animation: work-slide 70s linear infinite;
-}
-.work-marquee:hover .work-track,
-.work-marquee:focus-within .work-track { animation-play-state: paused; }
-@keyframes work-slide { to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) {
-  .work-track { animation: none; }
-  .work-marquee { overflow-x: auto; }
-}
+/* Horizontal scrollers that are swiped or dragged rather than scrolled with a bar */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
 
 /* One treatment for every service photo, so stock from different photographers reads as one set */
 .photo-grade { filter: saturate(0.78) contrast(1.07) brightness(0.93); }
+
+/* Home opening scene (components/sections/HeroScene.tsx) */
+.hero-scene { container-type: inline-size; }
+.hs-bub { position: absolute; font-size: clamp(12px, 2.55cqi, 15px); line-height: 1.35; font-weight: 600; padding: .62em .9em; border-radius: 14px; opacity: 0; transform: translateY(6px); transition: opacity .4s ease, transform .5s cubic-bezier(.2,.8,.2,1); white-space: nowrap; }
+.hs-bub.is-on { opacity: 1; transform: none; }
+.hs-bub small { display: block; font-size: .68em; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; opacity: .55; margin-bottom: 1px; }
+.hs-ask { right: 4%; top: 4%; background: #fff; color: var(--color-ink); box-shadow: 0 10px 24px -14px rgba(0,0,0,.45); }
+.hs-ask::after { content: ""; position: absolute; left: 24%; bottom: -6px; width: 12px; height: 12px; background: #fff; transform: rotate(45deg); border-radius: 2px; }
+.hs-ok { left: 50%; top: 70%; translate: -50% 0; background: var(--color-plum); color: #fff; display: flex; align-items: center; gap: .5em; }
+.hs-ok svg { width: 1.1em; height: 1.1em; }
+.hs-way { left: 0; top: 0; background: var(--color-ink); color: #fff; font-size: clamp(10px, 2cqi, 12.5px); font-weight: 700; padding: .4em .75em; border-radius: 999px; transition: opacity .3s; }
+.hs-stamp { position: absolute; right: 5%; top: 5%; background: var(--color-plate); color: var(--color-ink); border-radius: 8px; padding: .5em .95em .55em; box-shadow: 0 14px 26px -14px rgba(0,0,0,.5); opacity: 0; transform: rotate(-4deg) scale(.92); transition: opacity .35s ease, transform .45s cubic-bezier(.2,1.25,.4,1); }
+.hs-stamp.is-on { opacity: 1; transform: rotate(-4deg) scale(1); }
+.hs-stamp b { display: block; font-family: var(--font-display); font-weight: 400; font-size: clamp(24px, 6cqi, 38px); line-height: 1; letter-spacing: .02em; }
+.hs-stamp span { display: block; font-size: clamp(11px, 2.2cqi, 13.5px); font-weight: 700; margin-top: .25em; }
+@container (max-width: 520px) {
+  .hs-ask { white-space: normal; width: 46%; right: 3%; top: 3%; }
+  .hs-ask::after { left: 22%; }
+  .hs-stamp { right: 3%; top: 3%; padding: .4em .7em .45em; }
+  .hs-stamp b { font-size: 24px; }
+  .hs-stamp span { font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) { .hs-bub, .hs-stamp { transition: none; } }

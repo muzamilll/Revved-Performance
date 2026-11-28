@@ -7,9 +7,9 @@ import { CareCategory } from "../types";
 // Still to come from Rayyan: battery prices by type, the 90-minute postcodes,
 // the parts and labour warranty, and the street parking answer. Nothing here claims them.
 
-const PAY_ON_THE_DAY = {
+const WHEN_TO_PAY = {
   question: "When do I pay?",
-  answer: "On the day, when the job is done.",
+  answer: "Usually when the job is done. If parts need ordering for your car, we agree that with you on WhatsApp first, including any deposit.",
 };
 
 const WHERE_IS_IT_DONE = {
@@ -99,7 +99,7 @@ export const careCategories: CareCategory[] = [
         question: "Can you come out at night?",
         answer: "Yes. Battery call-outs run day and night. Send your postcode and we'll tell you how soon we can be there.",
       },
-      PAY_ON_THE_DAY,
+      WHEN_TO_PAY,
     ],
     seoTitle: "Mobile Car Battery Replacement, East London & Essex",
     seoDescription: "Car battery fitting at your home or work across East London & Essex, from £99 with a 3-year warranty. Battery call-outs day and night.",
@@ -160,7 +160,7 @@ export const careCategories: CareCategory[] = [
         answer: "A major service includes everything in a minor service and adds the engine air filter, cabin pollen filter, spark plugs and a washer fluid top-up. If you're not sure, tell us when the car was last serviced in your request.",
       },
       WHERE_IS_IT_DONE,
-      PAY_ON_THE_DAY,
+      WHEN_TO_PAY,
     ],
     seoTitle: "Mobile Car Servicing and DPF Cleaning, East London & Essex",
     seoDescription: "Minor and major car servicing from £50 and DPF cleaning at your home or work across East London & Essex. Price agreed before we start.",
@@ -197,7 +197,7 @@ export const careCategories: CareCategory[] = [
         answer: "Add what you've noticed to the notes, such as a noise, a warning light or a change in the pedal. It helps us confirm the right work for your car.",
       },
       WHERE_IS_IT_DONE,
-      PAY_ON_THE_DAY,
+      WHEN_TO_PAY,
     ],
     seoTitle: "Mobile Brake Pad Replacement, East London & Essex",
     seoDescription: "Brake pads replaced at your home or work across East London & Essex, from £100. Price agreed before we start.",
@@ -252,7 +252,7 @@ export const careCategories: CareCategory[] = [
         question: "Is the pre-MOT check an MOT?",
         answer: "No. It's a diagnostic check before your MOT. The MOT itself must be done at an approved test centre.",
       },
-      PAY_ON_THE_DAY,
+      WHEN_TO_PAY,
     ],
     seoTitle: "Mobile Car Diagnostics, East London & Essex",
     seoDescription: "Mobile car diagnostics at your home or work across East London & Essex. Full health check £75, pre-purchase inspection £99, pre-MOT check £65.",
@@ -275,6 +275,6 @@ export const howItWorks: { title: string; text: string }[] = [
   },
   {
     title: "We come to you",
-    text: "At your home or work, 7am to midnight. You pay on the day, when the job is done.",
+    text: "At your home or work, 7am to midnight. The price, any deposit and the time are agreed with you on WhatsApp.",
   },
 ];

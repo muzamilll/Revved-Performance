@@ -454,7 +454,7 @@ export function EnquirySheet({ choices, visible, step, setStep, values, setValue
               </div>
 
               <p className="text-[15px] leading-relaxed text-ink-soft">
-                WhatsApp opens with this written out. Press Send and we&apos;ll reply with the price for your car and a time. You pay on the day, when the job is done.
+                WhatsApp opens with this written out. Press Send and we&apos;ll reply with the price for your car and a time. If parts need ordering, we&apos;ll agree that with you first.
               </p>
 
               <a

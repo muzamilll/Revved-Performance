@@ -112,7 +112,7 @@ const chat: ChatLine[] = [
 const steps = [
   { title: "Tell us the job", text: "Book on the site or message us. It takes about a minute." },
   { title: "We confirm on WhatsApp", text: "The price for your car and a time that suits you." },
-  { title: "We come to you", text: "Home or work, 7am to midnight. You pay when the job is done." },
+  { title: "We come to you", text: "Home or work, 7am to midnight. Price, any deposit and time agreed on WhatsApp first." },
 ];
 
 export function ChatStrip() {

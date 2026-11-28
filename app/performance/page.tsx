@@ -12,7 +12,7 @@ import { TrackView } from "../../components/analytics/TrackView";
 import { PageHero, HeroPriceBox } from "../../components/sections/PageHero";
 import { BandHeader } from "../../components/sections/Band";
 import { JobRow } from "../../components/sections/JobRow";
-import { BundleCard, RealFigures } from "../../components/sections/BundleOffer";
+import { BundleCard, GainsByReg } from "../../components/sections/BundleOffer";
 import { FaqSection, FinalCall } from "../../components/sections/shared";
 
 export const metadata: Metadata = {
@@ -75,11 +75,11 @@ export default function PerformancePage() {
         </div>
       </section>
 
-      {/* The bundle as a receipt, and real figures from real jobs */}
+      {/* The bundle as a receipt, and the send-your-reg step */}
       <section className="bg-dark pb-16 text-cream lg:pb-24">
         <div className="mx-auto grid w-full max-w-[1440px] gap-12 px-6 md:px-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:items-start lg:gap-16 lg:px-12">
           {bundle ? <BundleCard offer={bundle} /> : null}
-          <RealFigures />
+          <GainsByReg />
         </div>
       </section>
 

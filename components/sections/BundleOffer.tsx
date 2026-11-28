@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { EnquiryButton } from "../enquiry/EnquiryButton";
 import { Offer } from "../../types";
 import { formatOfferPrice } from "../../lib/offers";
-import { remapResults } from "../../data/results";
+import { WhatsAppLink } from "../ui/actions";
 import { cn } from "../../lib/utils";
 
 // The ECU + TCU bundle, set out like a receipt: what each part costs on its own, the total
@@ -57,38 +57,23 @@ export function BundleCard({ offer, className }: { offer: Offer; className?: str
   );
 }
 
-// Real cars, real figures: before and after from Revved jobs, with the gain drawn as a bar.
-export function RealFigures({ className }: { className?: string }) {
-  const max = Math.max(...remapResults.map((r) => r.bhp[1]));
+// Beside the bundle: no figures to read, one easy next step. The customer sends their reg and
+// gets the estimated gains for their own car on WhatsApp.
+export function GainsByReg({ className }: { className?: string }) {
   return (
-    <div className={cn("flex flex-col", className)}>
-      <p className="text-[12px] font-bold uppercase tracking-[0.18em] text-white/70">Real cars, real figures</p>
-      <ul className="mt-4 flex flex-col divide-y divide-white/10 border-y border-white/10">
-        {remapResults.map((r) => {
-          const gain = r.bhp[1] - r.bhp[0];
-          return (
-            <li key={r.car} className="py-5">
-              <div className="flex items-baseline justify-between gap-4">
-                <p className="min-w-0">
-                  <span className="block text-[18px] font-semibold text-white">{r.car}</span>
-                  <span className="block text-[13px] text-white/60">{r.detail} · {r.stage}</span>
-                </p>
-                <p className="shrink-0 font-display text-[38px] leading-none text-plate tabular-nums">+{gain}<span className="ml-1 font-sans text-[14px] font-bold text-white/80">bhp</span></p>
-              </div>
-              {/* stock to Stage 1, to scale */}
-              <div className="mt-3 flex h-2.5 w-full overflow-hidden rounded-full bg-white/10" aria-hidden="true">
-                <span className="h-full bg-white/45" style={{ width: `${(r.bhp[0] / max) * 100}%` }} />
-                <span className="h-full bg-plate" style={{ width: `${(gain / max) * 100}%` }} />
-              </div>
-              <p className="mt-2 flex justify-between text-[13px] tabular-nums text-white/70">
-                <span>{r.bhp[0]} → <b className="font-semibold text-white">{r.bhp[1]} bhp</b></span>
-                <span>{r.nm[0]} → <b className="font-semibold text-white">{r.nm[1]} Nm</b></span>
-              </p>
-            </li>
-          );
-        })}
-      </ul>
-      <p className="mt-3 text-[13px] leading-relaxed text-white/60">Figures from the Top Gear Tuning file for each car. Send your reg for yours.</p>
+    <div className={cn("rounded-2xl border border-white/12 p-6 sm:p-8", className)}>
+      <p className="text-[12px] font-bold uppercase tracking-[0.18em] text-plate">Your car</p>
+      <h3 className="mt-2 font-display text-[clamp(2rem,4.5vw,2.75rem)] uppercase leading-[0.95] text-cream">What would yours gain?</h3>
+      <p className="mt-3 max-w-md text-[16px] leading-relaxed text-white/75">
+        Send your reg for your car&apos;s estimated gains. We&apos;ll reply on WhatsApp with the figures and the price, before anything is booked.
+      </p>
+      <WhatsAppLink
+        message="Hi Revved, what would my car gain from a remap? My reg is: "
+        variant="secondary"
+        className="mt-6 min-h-[56px] px-7 text-[16px] text-cream"
+      >
+        Send your reg
+      </WhatsAppLink>
     </div>
   );
 }
