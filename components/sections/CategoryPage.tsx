@@ -8,6 +8,7 @@ import { FaqSection, FinalCall, HowItWorks } from "./shared";
 import { Band, BandHeader, cardClass, cardInteractive } from "./Band";
 import { PageHero, HeroPriceBox } from "./PageHero";
 import { JobRow } from "./JobRow";
+import { ServiceCompare } from "./ServiceCompare";
 import { cn } from "../../lib/utils";
 import { careCategories } from "../../data/care";
 import { site } from "../../data/site";
@@ -81,6 +82,17 @@ export function CategoryPage({ category }: { category: CareCategory }) {
         promises={category.trustLine}
       />
 
+      {category.slug === "servicing" ? (
+        <Band>
+          <BandHeader eyebrow="Servicing" title="Minor or major?" aside="Both done where the car is parked. Here's exactly what each one includes." />
+          <ServiceCompare />
+          <ul className="mt-12 border-b border-line">
+            {category.jobs.filter((j) => j.id === "dpf-service").map((job) => (
+              <JobRow key={job.id} id={job.id} anchor={job.id} name={job.name} price={job.price} description={job.description} includes={job.includes} />
+            ))}
+          </ul>
+        </Band>
+      ) : (
       <Band>
         <div className="grid gap-8 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)] lg:gap-14">
           <div>
@@ -94,6 +106,8 @@ export function CategoryPage({ category }: { category: CareCategory }) {
           </ul>
         </div>
       </Band>
+
+      )}
 
       <HowItWorks />
 

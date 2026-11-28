@@ -50,10 +50,18 @@ export const photos = {
     focus: "42% 60%",
     page: "",
   },
+  // PROPOSAL: Alientech tool on a Land Cruiser (only if this is one of Rayyan's jobs)
+  tool: {
+    src: "/images/work/alientech-land-cruiser.webp",
+    ratio: 960 / 884,
+    alt: "An Alientech remapping tool connected to a car, with the laptop on the seat",
+    focus: "62% 45%",
+    page: "",
+  },
 } satisfies Record<string, Photo>;
 
 export type PhotoKey = keyof typeof photos;
-export type CarePhotoKey = Exclude<PhotoKey, "performance">;
+export type CarePhotoKey = Exclude<PhotoKey, "performance" | "tool">;
 
 export function getPhoto(name: string): Photo | undefined {
   return (photos as Record<string, Photo>)[name];

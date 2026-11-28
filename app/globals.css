@@ -173,3 +173,6 @@ html.no-loader #boot-loader { display: none; }
   .work-track { animation: none; }
   .work-marquee { overflow-x: auto; }
 }
+
+/* One treatment for every service photo, so stock from different photographers reads as one set */
+.photo-grade { filter: saturate(0.78) contrast(1.07) brightness(0.93); }

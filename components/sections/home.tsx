@@ -5,7 +5,6 @@ import { Band, BandHeader } from "./Band";
 import { careCategories } from "../../data/care";
 import { photos, CarePhotoKey, Photo as PhotoData } from "../../data/photos";
 import { Photo } from "../ui/Photo";
-import { performancePrices } from "../../data/performance";
 import { site } from "../../data/site";
 import { workItems, sampleWorkItems, WorkItem } from "../../data/work";
 import { isPreviewBuild } from "../../lib/env";
@@ -32,43 +31,34 @@ const tiles = [
       ...tileCopy[key],
     };
   }),
-  {
-    href: "/performance",
-    name: "Performance",
-    price: `Stage 1 ${performancePrices[0]?.price.toLowerCase() ?? ""}`.trim(),
-    photo: photos.performance as PhotoData,
-    line: "If you want more power",
-    tag: undefined as string | undefined,
-    wide: true,
-  },
 ];
 
 export function CareServices() {
   return (
     <Band id="services">
       <BandHeader
-        eyebrow="Car care and performance"
+        eyebrow="Car care"
         title={<>What needs<br className="hidden sm:block" /> doing?</>}
         aside="Pick what's going on. Every price is confirmed before we start."
       />
 
       <ul
         aria-label="Services"
-        className="-mx-6 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-px-6 px-6 pb-2 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:px-0 sm:pb-0 lg:gap-5 xl:grid-cols-5 [&::-webkit-scrollbar]:hidden"
+        className="-mx-6 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-px-6 px-6 pb-2 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:px-0 sm:pb-0 lg:gap-5 lg:grid-cols-4 [&::-webkit-scrollbar]:hidden"
       >
         {tiles.map((t) => (
-          <li key={t.href} className={cn("w-[78%] shrink-0 snap-start sm:w-auto", t.wide && "sm:col-span-2 xl:col-span-1")}>
+          <li key={t.href} className={cn("w-[78%] shrink-0 snap-start sm:w-auto")}>
             <Link
               href={t.href}
               className={cn(
                 "group relative block aspect-[4/5] overflow-hidden rounded-xl bg-dark outline-offset-4",
-                t.wide ? "sm:aspect-[16/8] xl:aspect-[4/5.4]" : "sm:aspect-[4/5] xl:aspect-[4/5.4]"
+                "sm:aspect-[4/5]"
               )}
             >
               <Photo
                 photo={t.photo}
                 sizes={t.wide ? "(min-width: 1280px) 40vw, (min-width: 640px) 100vw, 160vw" : "(min-width: 1280px) 40vw, (min-width: 640px) 92vw, 160vw"}
-                className="transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                className="photo-grade transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
               />
               <span aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_top,rgba(21,11,18,0.9)_0%,rgba(21,11,18,0.35)_30%,rgba(21,11,18,0)_50%)]" />
               {t.tag && (
