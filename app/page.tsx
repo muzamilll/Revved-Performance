@@ -13,7 +13,7 @@ import { Container } from "../components/layout/layout-primitives";
 import { EnquiryButton } from "../components/enquiry/EnquiryButton";
 import { WhatsAppLink } from "../components/ui/actions";
 import { FaqSection, FinalCall, PromiseRow } from "../components/sections/shared";
-import { CareServices, OfferBand, RecentWork } from "../components/sections/home";
+import { CareServices, RecentWork } from "../components/sections/home";
 import { AreasCovered, ChatStrip } from "../components/sections/personality";
 import { PerformanceSection } from "../components/sections/PerformanceSection";
 
@@ -136,13 +136,11 @@ export default function Home() {
 
       <CareServices />
 
-      <RecentWork />
-
       <ChatStrip />
 
-      {featuredOffer && <OfferBand offer={featuredOffer} />}
+      <RecentWork />
 
-      <PerformanceSection />
+      <PerformanceSection offer={featuredOffer} />
 
       <AreasCovered />
 

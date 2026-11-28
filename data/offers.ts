@@ -64,8 +64,15 @@ export const offers: Offer[] = [
     seoDescription: "Stage 1 engine remap plus DSG / gearbox remap in one visit for £329. Mobile across East London & Essex.",
     whatsappMessage: "Hi Revved, I'm interested in the ECU + TCU Stage 1 bundle.",
     eligibility: "For cars with a DSG or automatic gearbox we can remap. Your registration tells us if yours qualifies.",
-    // No "booked separately" price or saving until Rayyan decides the bundle (brief, 24 Nov):
-    // at current prices Stage 1 OBD (£179) plus a gearbox remap (£150) is also £329.
+    // 28 Nov: Stage 1 OBD back to £250, so booked separately the two cost £400
+    saving: {
+      headline: "Save £71",
+      parts: [
+        { label: "Stage 1 engine remap", price: "£250" },
+        { label: "Gearbox (TCU) remap", price: "£150" }
+      ],
+      separately: "£400"
+    },
     note: "Send your reg and we'll send you the expected gains for your car."
   }
 ];

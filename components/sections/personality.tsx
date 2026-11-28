@@ -59,7 +59,7 @@ const ifCards = [
   },
   {
     title: "If you want more power",
-    line: "A Stage 1 file written for your engine, from £179.",
+    line: "A Stage 1 file written for your engine, from £250.",
     href: "/performance",
     Icon: Gauge,
   },

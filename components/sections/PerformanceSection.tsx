@@ -1,23 +1,19 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { EnquiryButton } from "../enquiry/EnquiryButton";
-import { BandHeader, cardClass, cardInteractive } from "./Band";
-import { addOnsSummary, performancePrices, performanceTrust } from "../../data/performance";
-import { cn } from "../../lib/utils";
+import { BandHeader } from "./Band";
+import { BundleCard, RealFigures } from "./BundleOffer";
+import { addOnsSummary, performancePrices, performanceTrustLine } from "../../data/performance";
+import { Offer } from "../../types";
 
-// Home page Performance section. Same structure, cards and buttons as the rest of the page;
-// it moves from brand plum (the offer above it) into deep plum.
-export function PerformanceSection() {
+// Home page Performance: the one dark section. The bundle is the headline (a receipt with the
+// saving worked out), real figures from real jobs beside it, then every remap price on one line.
+export function PerformanceSection({ offer }: { offer?: Offer }) {
   return (
-    <section
-      id="performance"
-      className="relative isolate overflow-hidden bg-dark py-16 text-cream lg:py-24"
-      style={{ backgroundImage: "linear-gradient(to bottom, #693C56 0, #150B12 22rem)" }}
-    >
-      {/* Oversized outlined word, behind the heading. Static: no scroll effects. */}
+    <section id="performance" className="relative isolate overflow-hidden bg-dark py-16 text-cream lg:py-24">
+      {/* Oversized outlined word behind the heading. Static. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-2 top-6 -z-10 select-none whitespace-nowrap font-display text-[clamp(4.5rem,19vw,17rem)] uppercase leading-none text-transparent [-webkit-text-stroke:1.5px_rgba(255,213,0,0.14)] lg:top-10"
+        className="pointer-events-none absolute -left-2 top-6 -z-10 select-none whitespace-nowrap font-display text-[clamp(4.5rem,19vw,17rem)] uppercase leading-none text-transparent [-webkit-text-stroke:1.5px_rgba(255,213,0,0.12)] lg:top-10"
       >
         Performance
       </div>
@@ -25,44 +21,35 @@ export function PerformanceSection() {
       <div className="mx-auto w-full max-w-[1440px] px-6 md:px-8 lg:px-12">
         <BandHeader
           tone="dark"
-          className="pt-[clamp(3rem,12vw,9rem)]"
+          className="pt-[clamp(2.5rem,10vw,7rem)]"
           eyebrow="Performance"
           title="More from your car."
-          aside="ECU remapping at your door, by an authorised agent of Top Gear Tuning."
+          aside="ECU and gearbox remapping at your door, by an authorised agent of Top Gear Tuning."
         />
 
-        <ul className="grid gap-4 lg:grid-cols-3 lg:gap-5">
-          {performanceTrust.map((item) => (
-            <li key={item.title} className={cn(cardClass.dark, "p-6")}>
-              <h3 className="text-[17px] font-semibold text-white">{item.title}</h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-white/75">{item.text}</p>
-            </li>
+        <ul className="-mt-2 mb-10 flex flex-wrap gap-x-7 gap-y-2 text-[13px] font-bold uppercase tracking-[0.14em] text-white/85 lg:mb-12">
+          {performanceTrustLine.map((t) => (
+            <li key={t} className="flex items-center gap-2.5"><span className="h-1.5 w-1.5 rounded-full bg-plate" aria-hidden="true" />{t}</li>
           ))}
         </ul>
 
-        <ul className="mt-4 grid grid-cols-2 gap-4 lg:mt-5 lg:grid-cols-4 lg:gap-5">
-          {performancePrices.map((item) => (
-            <li key={item.slug}>
-              <Link
-                href={`/performance#${item.slug}`}
-                className={cn(cardClass.dark, cardInteractive, "group flex h-full flex-col gap-1 p-5 hover:border-white/30")}
-              >
-                <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/70">{item.label}</span>
-                <span className="mt-1 text-[24px] font-bold leading-tight tracking-[-0.01em] text-plate lg:text-[28px]">{item.price}</span>
-                <span className="text-[13px] leading-snug text-white/70">{item.note}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:items-start lg:gap-16">
+          {offer ? <BundleCard offer={offer} /> : null}
+          <RealFigures />
+        </div>
 
-        <p className="mt-5 max-w-3xl text-[14px] leading-relaxed text-white/70">{addOnsSummary}</p>
-
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-          <EnquiryButton choice="stage-1-remap" className="min-h-[56px] px-7 text-[16px]" />
-          <Link
-            href="/performance"
-            className="inline-flex min-h-[48px] items-center justify-center gap-2 px-3 text-[15px] font-semibold text-white underline-offset-4 hover:text-plate hover:underline"
-          >
+        {/* Every remap price, on one quiet line */}
+        <div className="mt-12 border-t border-white/10 pt-6 lg:mt-14">
+          <dl className="flex flex-wrap gap-x-10 gap-y-4">
+            {performancePrices.map((p) => (
+              <div key={p.slug}>
+                <dt className="text-[12px] font-bold uppercase tracking-[0.14em] text-white/60">{p.label}</dt>
+                <dd className="mt-0.5 text-[20px] font-bold text-white">{p.price}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="mt-4 text-[14px] leading-relaxed text-white/65">{addOnsSummary}</p>
+          <Link href="/performance" className="mt-3 inline-flex min-h-[44px] items-center gap-2 text-[15px] font-semibold text-plate underline-offset-4 hover:underline">
             See all remaps and prices <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </div>
@@ -70,4 +57,3 @@ export function PerformanceSection() {
     </section>
   );
 }
-

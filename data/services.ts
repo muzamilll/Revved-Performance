@@ -8,7 +8,7 @@ export const services: Service[] = [
     category: "ecu-remapping",
     status: "active",
     indexable: true,
-    price: { amount: 179, from: true },
+    price: { amount: 250, from: true },
     launchPrice: null,
     priceOptions: undefined,
     shortDescription: "More power and sharper response, tuned through your car's diagnostic (OBD) port. No parts removed.",

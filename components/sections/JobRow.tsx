@@ -1,6 +1,6 @@
 import * as React from "react";
 import Link from "next/link";
-import { Check, ChevronDown } from "lucide-react";
+import { ArrowRight, Check, ChevronDown } from "lucide-react";
 import { EnquiryButton } from "../enquiry/EnquiryButton";
 import { cn } from "../../lib/utils";
 
@@ -72,12 +72,15 @@ export function JobRow({
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3 sm:flex-col sm:flex-nowrap sm:items-end">
         <p className="rounded-sm bg-plate px-2.5 py-1 text-[18px] font-bold leading-tight tracking-[-0.01em] text-ink whitespace-nowrap">{price}</p>
         <EnquiryButton
-          variant="secondary"
+          plain
           choice={id}
-          aria-label={`Request a booking: ${name}`}
-          className={cn("min-h-[48px] px-5", dark ? "text-white" : "text-plum hover:bg-plum/10")}
+          aria-label={`Get a quote: ${name}`}
+          className={cn(
+            "inline-flex min-h-[44px] items-center gap-1.5 text-[15px] font-semibold underline-offset-4 hover:underline",
+            dark ? "text-white" : "text-plum"
+          )}
         >
-          Book this
+          Get a quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </EnquiryButton>
       </div>
     </li>

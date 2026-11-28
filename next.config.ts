@@ -14,8 +14,14 @@ const nextConfig: NextConfig = {
       // The old services pages: each service now has one home
       { source: "/services", destination: "/performance", permanent: false },
       { source: "/services/pre-purchase-inspection", destination: "/diagnostics/pre-purchase-inspection", permanent: false },
-      { source: "/services/pre-mot-check", destination: "/diagnostics/pre-mot-check", permanent: false },
-      { source: "/services/vehicle-diagnostics", destination: "/diagnostics/vehicle-diagnostics", permanent: false },
+      { source: "/services/pre-mot-check", destination: "/diagnostics#pre-mot-check", permanent: false },
+      { source: "/services/vehicle-diagnostics", destination: "/diagnostics#vehicle-diagnostics", permanent: false },
+      // 28 Nov: car care jobs live on their category page (no separate job pages), except the
+      // pre-purchase inspection, which keeps its own page (different buyer, different search).
+      { source: "/batteries/:job", destination: "/batteries#:job", permanent: false },
+      { source: "/servicing/:job", destination: "/servicing#:job", permanent: false },
+      { source: "/brakes/:job", destination: "/brakes#:job", permanent: false },
+      { source: "/diagnostics/:job((?!pre-purchase-inspection$).*)", destination: "/diagnostics#:job", permanent: false },
       { source: "/services/:slug", destination: "/performance/:slug", permanent: false },
     ];
   },

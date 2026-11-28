@@ -89,7 +89,7 @@ export function CategoryPage({ category }: { category: CareCategory }) {
           </div>
           <ul className="border-b border-line">
             {category.jobs.map((job) => (
-              <JobRow key={job.id} id={job.id} name={job.name} price={job.price} description={job.description} includes={job.includes} href={`/${category.slug}/${job.id}`} />
+              <JobRow key={job.id} id={job.id} anchor={job.id} name={job.name} price={job.price} description={job.description} includes={job.includes} href={job.id === "pre-purchase-inspection" ? `/${category.slug}/${job.id}` : undefined} />
             ))}
           </ul>
         </div>

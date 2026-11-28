@@ -27,7 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // One page per job
   for (const category of careCategories) {
-    for (const job of category.jobs) {
+    for (const job of category.jobs.filter((j) => j.id === "pre-purchase-inspection")) {
       routes.push({ url: absoluteUrl(`/${category.slug}/${job.id}`), lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 });
     }
   }

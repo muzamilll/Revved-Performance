@@ -6,7 +6,8 @@ import { ServicePage } from "../../../components/sections/ServicePage";
 const category = getCareCategory("diagnostics")!;
 
 export function generateStaticParams() {
-  return category.jobs.map((job) => ({ job: job.id }));
+  // Only the pre-purchase inspection keeps its own page; other jobs live on /diagnostics
+  return [{ job: "pre-purchase-inspection" }];
 }
 
 export const dynamicParams = false;
@@ -33,7 +34,7 @@ export default async function Page({ params }: { params: Promise<{ job: string }
       parent={{ label: category.name, href: "/diagnostics" }}
       priceNote={job.basis.startsWith(job.price) ? job.basis.slice(job.price.length).replace(/^\.\s*/, "") || undefined : job.basis}
       faqs={category.faqs}
-      siblings={category.jobs.filter((j) => j.id !== job.id).map((j) => ({ ...j, href: `/diagnostics/${j.id}` }))}
+      siblings={category.jobs.filter((j) => j.id !== job.id).map((j) => ({ ...j, href: `/diagnostics#${j.id}` }))}
       path={`/diagnostics/${job.id}`}
       trustLine={category.trustLine}
     />

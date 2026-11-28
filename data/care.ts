@@ -20,7 +20,7 @@ const WHERE_IS_IT_DONE = {
 export const careCategories: CareCategory[] = [
   {
     slug: "batteries",
-    trustLine: ["24/7 call-outs", "3-year battery warranty", "Fitted at your door"],
+    trustLine: ["Usually with you within 90 minutes", "3-year battery warranty", "Day or night"],
     name: "Batteries",
     cardSummary: "Fitting, testing and help when your car won't start.",
     cardPrice: "Fitting from £99",
@@ -106,7 +106,7 @@ export const careCategories: CareCategory[] = [
   },
   {
     slug: "servicing",
-    trustLine: ["Done on your driveway", "Service light reset included", "Price confirmed before we start"],
+    trustLine: ["Done while you work", "Price confirmed before we start", "Service light reset included"],
     name: "Servicing",
     cardSummary: "Minor and major servicing and DPF cleaning at your home or work.",
     cardPrice: "From £50",
@@ -167,7 +167,7 @@ export const careCategories: CareCategory[] = [
   },
   {
     slug: "brakes",
-    trustLine: ["Fitted where the car is parked", "Safety check after every job", "Price confirmed before we start"],
+    trustLine: ["Fixed where it's parked", "Safety check after every job", "Price confirmed before we start"],
     name: "Brakes",
     cardSummary: "Brake pad replacement at your location.",
     cardPrice: "From £100",
@@ -204,7 +204,7 @@ export const careCategories: CareCategory[] = [
   },
   {
     slug: "diagnostics",
-    trustLine: ["Warning lights read where the car is", "Pre-purchase checks at the seller's", "Explained in plain English"],
+    trustLine: ["Explained in plain English", "Nothing fixed without your OK", "Pre-purchase checks at the seller's"],
     name: "Diagnostics",
     cardSummary: "Health checks, warning lights and checks before you buy or MOT.",
     cardPrice: "Checks from £65",
